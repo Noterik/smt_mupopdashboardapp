@@ -1,0 +1,13 @@
+#imageremote {
+	position: absolute;
+	background-color : #cccccc;
+	width: 100%;
+	height: 100%;
+}
+
+#imageremote_trackarea {
+	position: absolute;
+	background-color: #cccccc;
+	width: 100%;
+	height: 100%;
+}

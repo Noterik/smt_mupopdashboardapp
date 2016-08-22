@@ -1,0 +1,3 @@
+<video id="{{videoselector}}" class="video" controls>
+  <source src="{{sourceMP4}}" type="video/mp4">
+</video>

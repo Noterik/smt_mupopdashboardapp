@@ -1,0 +1,4 @@
+I am the dashboard for location {{location}}
+<div id="dashboard_button1" class="button">dior</div>
+<div id="dashboard_button2" class="button">fiat500</div>
+<div id="dashboard_button3" class="button">bosch</div>

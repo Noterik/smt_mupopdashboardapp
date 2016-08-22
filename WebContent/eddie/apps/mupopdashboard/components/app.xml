@@ -1,0 +1,74 @@
+<app>
+	<view id="#screen">
+		<template>screen.mst</template>
+		<controller id="ScreenController">
+		</controller>
+	</view>
+	
+	<view id="#dashboard">
+		<template>dashboard/dashboard.mst</template>
+		<controller id="DashboardController">
+		</controller>
+	</view>
+	
+	<view id="#scene">
+		<template>scene/scene.mst</template>
+		<controller id="SceneController">
+		</controller>
+	</view>
+	
+	<view id="#mobile">
+		<template>mobile/mobile.mst</template>
+		<controller id="MobileController">
+		</controller>
+	</view>
+	
+	<view id="#image_type">
+		<template>image/image.mst</template>
+		<controller id="ImageController">
+		</controller>
+	</view>
+	
+	<view id="#audioimage_type">
+		<template>audioimage/audioimage.mst</template>
+		<controller id="AudioImageController">
+		</controller>
+	</view>
+	
+	<view id="#fullscreenad_type">
+		<template>fullscreenad/fullscreenad.mst</template>
+		<controller id="FullScreenAdController">
+		</controller>
+	</view>
+	
+	<view id="#light_type">
+		<template>light/light.mst</template>
+		<controller id="LightController">
+		</controller>
+	</view>
+	
+	<view id="#video_type">
+		<template>video/video.mst</template>
+		<controller id="VideoController">
+		</controller>
+	</view>
+	
+	<view id="#videoremote">
+		<template>mobile/videoremote/videoremote.mst</template>
+		<controller id="VideoRemoteController">
+		</controller>
+	</view>
+	
+	<view id="#imageremote">
+		<template>mobile/imageremote/imageremote.mst</template>
+		<controller id="ImageRemoteController">
+		</controller>
+	</view>
+	
+	<view id="#audioimageremote">
+		<template>mobile/audioimageremote/audioimageremote.mst</template>
+		<controller id="AudioImageRemoteController">
+		</controller>
+	</view>
+	
+</app>

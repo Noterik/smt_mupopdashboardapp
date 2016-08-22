@@ -1,0 +1,6 @@
+<img id="audioimage_image" src="{{url}}" />
+<div id="audioimage_holder"></div>
+	<div id="audioimage_spot"></div>
+</div>
+<audio id="audioimage_audio" controls autoplay>
+</audio>
