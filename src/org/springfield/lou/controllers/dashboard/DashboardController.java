@@ -11,6 +11,9 @@ import org.springfield.fs.FSListManager;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.controllers.Html5Controller;
+import org.springfield.lou.controllers.room.RoomController;
+import org.springfield.lou.controllers.roominfo.RoomInfoController;
+import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 
 public class DashboardController extends Html5Controller {
@@ -23,26 +26,41 @@ public class DashboardController extends Html5Controller {
 		System.out.println("dashboard controller attached called");
 		selector = sel;
 		screen.loadStyleSheet("dashboard/dashboard.css");
-		JSONObject data = new JSONObject();
-		data.put("location",model.getProperty("/screen/location"));
- 		screen.get(selector).parsehtml(data);
-		screen.get("#dashboard_button1").on("mouseup","setButton1",this);
-		screen.get("#dashboard_button2").on("mouseup","setButton2",this);
-		screen.get("#dashboard_button3").on("mouseup","setButton3",this);
+		if (model.getProperty("/screen/username")==null) {
+			JSONObject data = new JSONObject();
+			screen.get(selector).parsehtml(data);
+			model.onPropertyUpdate("/screen/username","onLogin",this);
+		} else {
+			fillPage();
+		}
 	}
 	
-	public void setButton1(Screen s,JSONObject data) {
-		model.setProperty("/domain/mecanex/app/sceneplayer/location/"+model.getProperty("/screen/location")+"/scene","blue");
-
+	public void onLogin(ModelEvent e) {
+		FsNode node = e.getTargetFsNode();
+		fillPage();
 	}
 	
-	public void setButton2(Screen s,JSONObject data) {
-		model.setProperty("/domain/mecanex/app/sceneplayer/location/"+model.getProperty("/screen/location")+"/scene","fiat500");
+	private void fillPage() {
+		FSList list = FSListManager.get("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition",false);
+		List<FsNode> nodes = list.getNodes();
+		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name,location,timeframe");
+		System.out.println("USERNAME="+model.getProperty("/screen/username"));
+		data.put("username",model.getProperty("/screen/username"));
+		screen.get(selector).parsehtml(data);
+ 		screen.get(".selectablerow").on("mouseup","onShow", this);
 	}
 	
-	public void setButton3(Screen s,JSONObject data) {
-		model.setProperty("/domain/mecanex/app/sceneplayer/location/"+model.getProperty("/screen/location")+"/scene","bosch");
-	}
-
+    public void onShow(Screen s,JSONObject data) {
+    	String id = (String)data.get("id");
+    	System.out.println("SELECTED ROW="+id);
+    	model.setProperty("/screen/exhibitionid", id);
+    	s.get(selector).remove();
+    	if (id.equals("newexhibition")) {
+    		s.get("#content").append("div","roominfo",new RoomInfoController());
+    	} else {
+       		s.get("#content").append("div","room",new RoomController());
+    	}
+    }
+	
  	 
 }

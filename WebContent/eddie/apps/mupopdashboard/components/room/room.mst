@@ -1,0 +1,22 @@
+<div id="room_toparea">
+	<div id="room_title">room : {{room}} ( exhibition : '{{exhibition}}' - {{location}} - {{timeframe}} )</div>
+	<div id="room_layout">
+		{{#roomshape_l}}
+			<div id="roomshape_l_part1" />
+			<div id="roomshape_l_part2" />
+		{{/roomshape_l}}
+	</div>
+</div>
+<div id="room_bottomarea" />
+<div id="room_rightarea" />
+
+
+<div id="room_station1" class="room_station">
+	<div class="room_stationdot"/>
+	<div class="room_stationid">1</div>
+	<div class="room_stationname">Going down</div>
+</div>
+
+</div>
+
+

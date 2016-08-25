@@ -18,6 +18,7 @@ import org.springfield.fs.FsNode;
 import org.springfield.lou.application.*;
 import org.springfield.lou.controllers.*;
 import org.springfield.lou.controllers.dashboard.DashboardController;
+import org.springfield.lou.controllers.dashboard.login.LoginController;
 import org.springfield.lou.homer.LazyHomer;
 import org.springfield.lou.screen.*;
 import org.springfield.lou.servlet.LouServlet;
@@ -33,7 +34,8 @@ public class MupopdashboardApplication extends Html5Application {
     public void onNewScreen(Screen s) {
     		s.setLanguageCode("en");
 			s.get("#screen").attach(new ScreenController());
-			s.get("#screen").append("div","dashboard",new DashboardController());
+			s.get("#content").append("div","dashboard",new DashboardController());
+			s.get("#screen").append("div","login",new LoginController());
      }
     
     

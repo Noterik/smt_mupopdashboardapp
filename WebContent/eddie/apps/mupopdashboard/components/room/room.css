@@ -1,0 +1,105 @@
+#room_toparea {
+	position:absolute;
+	padding: 5px;
+  	border: solid 1px silver;
+  	color:#ffffff;
+  	background-color:#336;
+  	font-size:13pt;
+  	top: 15%;
+	left: 10%;
+	height: 60%;
+	width: 60%;
+}
+
+#room_bottomarea {
+	position:absolute;
+	padding: 5px;
+  	border: solid 1px silver;
+  	color:#ffffff;
+  	background-color:#336;
+  	font-size:13pt;
+  	top : 80%;
+	left: 10%;
+	height: 15%;
+	width: 80%;
+}
+
+#room_rightarea {
+	position:absolute;
+	padding: 5px;
+  	border: solid 1px silver;
+  	color:#ffffff;
+  	background-color:#336;
+  	font-size:13pt;
+  	top : 25%;
+	left: 75%;
+	height: 40%;
+	width: 15%;
+}
+
+#room_title {
+	position:absolute;
+  	color:#ffffff;
+  	font-size:13pt;
+  	top: 10px;
+	left: 15%;
+}
+
+.room_station {
+	position: absolute;
+	top: 85%;
+	left: 15%;
+	width: 5%;
+	height: 10%;
+	z-index: 1000;
+}
+
+.room_stationid {
+	position: absolute;
+	top: 25%;
+	left: 40%;
+	z-index: 1001;
+}
+
+.room_stationname {
+	position: absolute;
+	color:#bbbbbb;
+	bottom: 5%;
+	left: 5%;
+	width: 90%;
+	z-index: 1001;
+}
+
+.room_stationdot {
+	position: absolute;
+	background-color: #aa0000;
+	opacity: 1;
+	top: 0%;
+	left: 0%;
+	border-radius: 50%;
+	width: 100%;
+	height: 50%;
+	z-index: 1000;
+}
+
+#roomshape_l_part1 {
+	position:absolute;
+  	color:#000000;
+  	background-color: #ffffff;
+  	font-size:13pt;
+  	top: 10%;
+	left: 10%;
+	height: 80%;
+	width: 35%;
+}
+
+#roomshape_l_part2 {
+	position:absolute;
+  	color:#000000;
+  	background-color: #ffffff;
+  	font-size:13pt;
+  	bottom: 10%;
+	left: 10%;
+	height: 35%;
+	width: 80%;
+}

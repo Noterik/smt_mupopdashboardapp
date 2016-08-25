@@ -1,0 +1,7 @@
+<div id="loginfields">
+login name <input id="loginname" size="12" maxlength="12">
+password <input id="loginpassword" type="password" size="12" maxlength="64">
+</div>
+<div id="loginsubmitbutton">login</div>
+
+<div id="loginfeedback">{{feedback}}</div>

@@ -1,4 +1,19 @@
-I am the dashboard for location {{location}}
-<div id="dashboard_button1" class="button">dior</div>
-<div id="dashboard_button2" class="button">fiat500</div>
-<div id="dashboard_button3" class="button">bosch</div>
+<table id="dashboard_exhbitionlist">
+	{{^username}}
+	<tr>
+		<th id="feedback" colspan="4">MuPop Dashboard, please login before you can use it</th>
+	</tr>
+	{{/username}}
+	{{#username}}
+	<tr>
+		<th>Welcome {{username}} your exhibitions</th>
+	</tr>
+		{{#nodes}}
+		<tr>
+			<td id="{{id}}" class="selectablerow">'{{name}}' - {{location}} - {{timeframe}}</td> 		
+		</tr>
+		{{/nodes}}
+		<td id="newexhibition" class="selectablerow">+ add exhibition</td>
+	{{/username}}
+</table>
+

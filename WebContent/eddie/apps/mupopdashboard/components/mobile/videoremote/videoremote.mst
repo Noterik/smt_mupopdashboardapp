@@ -1,9 +1,0 @@
-<button id="videoremote_play">play</button>
-<button id="videoremote_pause">pause</button>
-<button id="videoremote_like">like</button>
-<button id="videoremote_dislike">dislike</button>
-<button id="videoremote_indifferent">indifferent</button>
-<div id="videoremote_time"></div>
-<div id="videoremote_title"></div>
-<div id="videoremote_image"></div>
-<div id="videoremote_description"></div>

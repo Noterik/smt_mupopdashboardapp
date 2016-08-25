@@ -1,0 +1,38 @@
+#login {
+	position:absolute;
+	padding: 5px;
+  	border: solid 1px silver;
+  	color:#ffffff;
+  	background-color:#336;
+  	font-size:13pt;
+	right:0px;
+	width: 500px;
+	height: 25px;
+	top: 0px;
+}
+
+#loginfields {
+	position:absolute;
+	padding: 5px;
+	left:10px;
+	width: 400px;
+	top: 0px;
+}
+
+#loginsubmitbutton {
+	position:absolute;
+  	color:#000000;
+  	border-radius: 3px;
+  	background-color:#eee;
+  	font-size:10pt;
+  	width: 100px;
+  	height: 20px;
+	right:10px;
+	top: 7px;
+	text-align: center;
+}
+
+#loginsubmitbutton:hover {
+	position:absolute;
+  	background-color:#777;
+}
