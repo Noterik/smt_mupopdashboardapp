@@ -27,7 +27,6 @@ public class RoomInfoController extends Html5Controller {
 	
 	public void attach(String sel) {
 		selector = sel;
-		screen.loadStyleSheet("roominfo/roominfo.css");
 		fillPage();
 	}
 	
@@ -42,7 +41,7 @@ public class RoomInfoController extends Html5Controller {
 		} else {
 			data.put("exhibition","exhibition");
 		}
-		screen.get(selector).parsehtml(data);
+		screen.get(selector).render(data);
  		screen.get("#roominfo_createbutton").on("mouseup",fields,"onCreateButton", this);
 	}
 	

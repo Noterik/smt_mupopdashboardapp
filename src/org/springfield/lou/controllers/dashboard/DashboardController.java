@@ -23,12 +23,10 @@ public class DashboardController extends Html5Controller {
 	}
 	
 	public void attach(String sel) {
-		System.out.println("dashboard controller attached called");
 		selector = sel;
-		screen.loadStyleSheet("dashboard/dashboard.css");
 		if (model.getProperty("/screen/username")==null) {
 			JSONObject data = new JSONObject();
-			screen.get(selector).parsehtml(data);
+			screen.get(selector).render(data);
 			model.onPropertyUpdate("/screen/username","onLogin",this);
 		} else {
 			fillPage();
@@ -44,15 +42,13 @@ public class DashboardController extends Html5Controller {
 		FSList list = FSListManager.get("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition",false);
 		List<FsNode> nodes = list.getNodes();
 		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name,location,timeframe");
-		System.out.println("USERNAME="+model.getProperty("/screen/username"));
 		data.put("username",model.getProperty("/screen/username"));
-		screen.get(selector).parsehtml(data);
+		screen.get(selector).render(data);
  		screen.get(".selectablerow").on("mouseup","onShow", this);
 	}
 	
     public void onShow(Screen s,JSONObject data) {
     	String id = (String)data.get("id");
-    	System.out.println("SELECTED ROW="+id);
     	model.setProperty("/screen/exhibitionid", id);
     	s.get(selector).remove();
     	if (id.equals("newexhibition")) {

@@ -19,10 +19,9 @@ public class LoginController extends Html5Controller {
 	
 	public void attach(String s) {
 		selector = s;
-		screen.loadStyleSheet("login/login.css");
     	JSONObject data = new JSONObject();	
     	data.put("feedback", "");
-    	screen.get(selector).parsehtml(data);
+    	screen.get(selector).render(data);
     	screen.get("#loginsubmitbutton").on("mouseup","loginname,loginpassword","checkName",this);
   	}
 	

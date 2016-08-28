@@ -7,24 +7,28 @@
 	
 	<view id="#dashboard">
 		<template>dashboard/dashboard.mst</template>
+		<style>dashboard/dashboard.css</style>
 		<controller id="DashboardController">
 		</controller>
 	</view>
 	
 	<view id="#room">
 		<template>room/room.mst</template>
+		<style>room/room.css</style>
 		<controller id="RoomController">
 		</controller>
 	</view>
 	
 	<view id="#roominfo">
 		<template>roominfo/roominfo.mst</template>
+		<style>roominfo/roominfo.css</style>
 		<controller id="RoomInfoController">
 		</controller>
 	</view>
 	
 	<view id="#login">
 		<template>login/login.mst</template>
+		<style>login/login.css</style>
 		<controller id="LoginController">
 		</controller>
 	</view>

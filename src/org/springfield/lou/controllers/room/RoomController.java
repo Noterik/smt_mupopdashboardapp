@@ -23,7 +23,6 @@ public class RoomController extends Html5Controller {
 	
 	public void attach(String sel) {
 		selector = sel;
-		screen.loadStyleSheet("room/room.css");
 		fillPage();
 	}
 	
@@ -32,22 +31,32 @@ public class RoomController extends Html5Controller {
 		JSONObject data = new JSONObject();
 		String username = model.getProperty("/screen/username");
 		String exhibitionid = model.getProperty("/screen/exhibitionid");
+		String roomid = model.getProperty("/screen/roomid");
 		
 		data.put("username",username);
 		data.put("exhibitionid",exhibitionid);
 		
 		FsNode exhibitionnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+exhibitionid);
-		if (exhibitionnode!=null) {
+		if (exhibitionnode!=null) {	
 			data.put("exhibition",exhibitionnode.getProperty("name"));
 			data.put("location",exhibitionnode.getProperty("location"));
 			data.put("timeframe",exhibitionnode.getProperty("timeframe"));
+			if (roomid==null) getAndsetFirstRoom("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+exhibitionid+"/room");
 			data.put("room", "zolder");
 		} else {
 			// should be some error here, since this can't happen really
 		}
 		data.put(getRoomShape(),"true");
-		screen.get(selector).parsehtml(data);
+		screen.get(selector).render(data);
 		screen.get("#room_station1").draggable();
+	}
+	
+	private FsNode getAndsetFirstRoom(String path) {
+		FSList rooms = FSListManager.get(path,false);
+		if (rooms!=null && rooms.size()>0) {
+			return rooms.getNodes().get(0);
+		}
+		return null;
 	}
 	
 	

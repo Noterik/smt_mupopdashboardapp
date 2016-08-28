@@ -56,17 +56,18 @@
 
 .room_stationid {
 	position: absolute;
-	top: 25%;
+	top: 15%;
 	left: 40%;
 	z-index: 1001;
 }
 
 .room_stationname {
+  	font-size:8pt;
 	position: absolute;
 	color:#bbbbbb;
-	bottom: 5%;
+	bottom: 30%;
 	left: 5%;
-	width: 90%;
+	width: 100%;
 	z-index: 1001;
 }
 
