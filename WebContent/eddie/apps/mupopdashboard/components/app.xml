@@ -19,6 +19,13 @@
 		</controller>
 	</view>
 	
+	<view id="#roomselector">
+		<template>roomselector/roomselector.mst</template>
+		<style>roomselector/roomselector.css</style>
+		<controller id="RoomSelectorController">
+		</controller>
+	</view>
+	
 	<view id="#roominfo">
 		<template>roominfo/roominfo.mst</template>
 		<style>roominfo/roominfo.css</style>

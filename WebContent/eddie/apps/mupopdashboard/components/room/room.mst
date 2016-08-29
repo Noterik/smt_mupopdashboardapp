@@ -5,17 +5,37 @@
 			<div id="roomshape_l_part1" />
 			<div id="roomshape_l_part2" />
 		{{/roomshape_l}}
+		{{#roomshape_square}}
+			<div id="roomshape_square" />
+		{{/roomshape_square}}
 	</div>
 </div>
 <div id="room_bottomarea" />
-<div id="room_rightarea" />
-
-
-<div id="room_station1" class="room_station">
-	<div class="room_stationdot"/>
-	<div class="room_stationid">1</div>
-	<div class="room_stationname">Going down</div>
+<div id="room_rightarea">
+	<button id="room_exhibitionsettingsbutton">Exhibition settings</button>
+	<button id="room_roomselectorbutton">Room : {{room}}</button>
+	<button id="room_roomsettingsbutton">Room settings</button>
+	<button id="room_addstationbutton">Add station</button>
 </div>
+
+{{#stations}}
+	{{#nodes}}
+		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
+			<div class="room_stationdot"/>
+			<div class="room_stationid">{{id}}</div>
+			<div class="room_stationname">{{name}}</div>
+		</div>
+	{{/nodes}}
+{{/stations}}
+{{#offline}}
+	{{#nodes}}
+		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
+			<div class="room_stationdot"/>
+			<div class="room_stationid">{{id}}</div>
+			<div class="room_stationname">{{name}}</div>
+		</div>
+	{{/nodes}}
+{{/offline}}
 
 </div>
 

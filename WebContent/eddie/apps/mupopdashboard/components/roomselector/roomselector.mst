@@ -1,0 +1,13 @@
+<div id="roomselector_blacklayer" />
+<div id="roomselector_formarea">
+
+	<select id="roomselector_selector">
+		 <option value="{{roomid}}">{{roomname}}
+		 {{#nodes}}
+			<option value="{{id}}">{{name}}
+		{{/nodes}}
+	</select>
+	<button id="roomselector_createnew">new room</button>
+	<button id="roomselector_cancel">cancel</button>
+</div>
+

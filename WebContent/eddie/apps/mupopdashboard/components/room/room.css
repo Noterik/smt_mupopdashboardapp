@@ -83,6 +83,46 @@
 	z-index: 1000;
 }
 
+#room_exhibitionsettingsbutton {
+	position: absolute;
+	top: 50px;
+	left: 10%;
+	width: 80%;
+}
+
+#room_roomselectorbutton {
+	position: absolute;
+	top: 80px;
+	left: 10%;
+	width: 80%;
+}
+
+#room_roomsettingsbutton {
+	position: absolute;
+	top: 110px;
+	left: 10%;
+	width: 80%;
+}
+
+#room_addstationbutton {
+	position: absolute;
+	top: 140px;
+	left: 10%;
+	width: 80%;
+}
+
+#roomshape_square {
+	position:absolute;
+  	color:#000000;
+  	background-color: #ffffff;
+  	font-size:13pt;
+  	top: 10%;
+	left: 10%;
+	height: 80%;
+	width: 80%;
+}
+
+
 #roomshape_l_part1 {
 	position:absolute;
   	color:#000000;
