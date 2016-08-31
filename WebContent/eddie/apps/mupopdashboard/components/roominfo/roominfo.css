@@ -120,9 +120,15 @@
 	bottom: 35px;
 }
 
+#roominfo_cancelbutton {
+	position:absolute;
+	left: 30%;
+	bottom: 10px;
+}
+
 #roominfo_createbutton {
 	position:absolute;
-	left: 300px;
+	right: 30%;
 	bottom: 10px;
 }
 

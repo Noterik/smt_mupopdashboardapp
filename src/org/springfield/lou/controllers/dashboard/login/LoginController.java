@@ -39,6 +39,8 @@ public class LoginController extends Html5Controller {
 					screen.onNewUser(name);
 					screen.get(selector).html("Logged in as : "+name);
 					screen.get(selector).css("width","170px");
+					screen.get("#mupoplogo").show();
+				
 			} else {
 				screen.get("#feedback").html("wrong account or password");
 			}

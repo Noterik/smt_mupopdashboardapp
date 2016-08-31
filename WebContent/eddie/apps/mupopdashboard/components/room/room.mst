@@ -1,3 +1,5 @@
+<div id="breadcrumbpath_index" class="breadcrumbpathsubmit">exhibitions</div>
+
 <div id="room_toparea">
 	<div id="room_title">room : {{room}} ( exhibition : '{{exhibition}}' - {{location}} - {{timeframe}} )</div>
 	<div id="room_layout">
@@ -22,7 +24,7 @@
 	{{#nodes}}
 		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
 			<div class="room_stationdot"/>
-			<div class="room_stationid">{{id}}</div>
+			<div class="room_stationid">{{labelid}}</div>
 			<div class="room_stationname">{{name}}</div>
 		</div>
 	{{/nodes}}
@@ -31,7 +33,7 @@
 	{{#nodes}}
 		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
 			<div class="room_stationdot"/>
-			<div class="room_stationid">{{id}}</div>
+			<div class="room_stationid">{{labelid}}</div>
 			<div class="room_stationname">{{name}}</div>
 		</div>
 	{{/nodes}}

@@ -19,6 +19,13 @@
 		</controller>
 	</view>
 	
+	<view id="#station">
+		<template>station/station.mst</template>
+		<style>station/station.css</style>
+		<controller id="StationController">
+		</controller>
+	</view>
+	
 	<view id="#roomselector">
 		<template>roomselector/roomselector.mst</template>
 		<style>roomselector/roomselector.css</style>

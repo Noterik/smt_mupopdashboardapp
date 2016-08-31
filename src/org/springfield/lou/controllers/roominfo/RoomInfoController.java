@@ -43,7 +43,13 @@ public class RoomInfoController extends Html5Controller {
 		}
 		screen.get(selector).render(data);
  		screen.get("#roominfo_createbutton").on("mouseup",fields,"onCreateButton", this);
+ 		screen.get("#roominfo_cancelbutton").on("mouseup",fields,"onCancelButton", this);
 	}
+	
+    public void onCancelButton(Screen s,JSONObject data) {
+		screen.get(selector).remove();
+		screen.get("#content").append("div","dashboard",new DashboardController());
+    }
 	
     public void onCreateButton(Screen s,JSONObject data) {
 		if (exhibitionid.equals("newexhibition")) {
@@ -63,6 +69,7 @@ public class RoomInfoController extends Html5Controller {
 				// lets insert the room node
 	    		FsNode roomnode = new FsNode("room",""+new Date().getTime());
 	    		roomnode.setProperty("name",(String)data.get("roominfo_room"));
+	    		roomnode.setProperty("shape","roomshape_l");
 	    		insertresult = Fs.insertNode(roomnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition/"+newid);
 				if (insertresult) {
 					screen.get(selector).remove();

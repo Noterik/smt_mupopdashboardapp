@@ -17,9 +17,11 @@
 	<div id="roominfo_feedback"></div>
 	
 	{{#newexhibition}}
+	<button id="roominfo_cancelbutton">cancel</button>
 	<button id="roominfo_createbutton">create exhibition</button>
 	{{/newexhibition}}
 	{{^newexhibition}}
+	<button id="roominfo_cancelbutton">cancel</button>
 	<button id="roominfo_createbutton">add room</button>
 	{{/newexhibition}}
 </div>

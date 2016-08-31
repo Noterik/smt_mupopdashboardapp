@@ -1,0 +1,27 @@
+<div id="station_blacklayer" />
+<div id="station_formarea">
+
+
+	<div id="station_label">Station id</div>
+	<input id="station_labelid" size="6" value="{{stationlabel}}" />
+	<div id="station_labelname">Name</div>
+	<input id="station_name" size="20" />
+	
+	<div id="station_appnamelabel">App</div>
+	<select id="station_app">
+		 {{#nodes}}
+		 	<option value="{{name}}">{{labelname}}
+		{{/nodes}}
+	</select>
+
+	{{#newstation}}
+		<button id="station_save">new station</button>
+		<button id="station_cancel">cancel create</button>
+	{{/newstation}}
+	
+	{{^newstation}}
+		<button id="station_save">save changes</button>
+		<button id="station_cancel">cancel changes</button>
+	{{/newstation}}
+</div>
+

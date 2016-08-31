@@ -14,6 +14,7 @@ import org.springfield.fs.FsNode;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.roomselector.RoomSelectorController;
+import org.springfield.lou.controllers.station.StationController;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 
@@ -24,6 +25,7 @@ public class RoomController extends Html5Controller {
 	
 	public void attach(String sel) {
 		selector = sel;
+		model.setProperty("/screen/roomid","");
 		fillPage();
 	}
 	
@@ -43,8 +45,9 @@ public class RoomController extends Html5Controller {
 			data.put("timeframe",exhibitionnode.getProperty("timeframe"));
 			String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+exhibitionid+"/room";
 			FsNode roomnode = null;
-			if (roomid==null) {
+			if (roomid==null || roomid.equals("")) {
 				roomnode = getAndsetFirstRoom(roompath);
+				model.setProperty("/screen/roomid",roomnode.getId());
 			} else {
 				roomnode = model.getNode(roompath+"/"+roomid);
 			}
@@ -61,15 +64,18 @@ public class RoomController extends Html5Controller {
 		screen.get(selector).render(data);
 		screen.get(".room_station").draggable();
 		screen.get(".room_station").on("dragstop","onStationMove", this); 
+		screen.get(".room_station").on("dblclick","onStationSelect", this); 
+		screen.get(".breadcrumbpathsubmit").on("mouseup","onBreadCrumbSubmit", this); 
  		screen.get("#room_roomselectorbutton").on("mouseup","onRoomSelectorButton", this);
+ 		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this);
 		model.onPropertyUpdate("/screen/roomid","onRoomChange",this);
 	}
 	
 	private JSONObject addStations(String path,String roomid) {
 		FSList stations = FSListManager.get(path,false);
 		if (stations!=null && stations.size()>0) {
-			List<FsNode> nodes = stations.getNodesFiltered(roomid); // kind of tricky since it uses global matching
-			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,name,x,y,room,url");
+			List<FsNode> nodes = stations.getNodesFiltered("room",roomid); // kind of tricky since it uses global matching
+			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url");
 		} else {
 			return new JSONObject();
 		}	
@@ -78,8 +84,8 @@ public class RoomController extends Html5Controller {
 	private JSONObject addOfflineStations(String path) {
 		FSList stations = FSListManager.get(path,false);
 		if (stations!=null && stations.size()>0) {
-			List<FsNode> nodes = stations.getNodesFiltered("offline"); // kind of tricky since it uses global matching
-			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,name,x,y,room,url");
+			List<FsNode> nodes = stations.getNodesFiltered("room","offline"); 
+			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url");
 		} else {
 			return new JSONObject();
 		}	
@@ -97,6 +103,16 @@ public class RoomController extends Html5Controller {
     	screen.get(selector).append("div","roomselector",new RoomSelectorController());
     }
     
+    public void onStationSelect(Screen s,JSONObject data) {
+    	model.setProperty("/screen/newstation", "false");
+    	screen.get(selector).append("div","station",new StationController()); 	
+    }
+    
+    public void onAddStationButton(Screen s,JSONObject data) {
+    	model.setProperty("/screen/newstation", "true");
+    	screen.get(selector).append("div","station",new StationController()); 	
+    }
+    
     public void onStationMove(Screen s,JSONObject data) {
     	String stationid = ((String)data.get("id")).substring(12);
     	double xp = (Double)data.get("screenXp");
@@ -106,7 +122,12 @@ public class RoomController extends Html5Controller {
     	model.setProperty(stationpath+"/x", ""+xp);
     	model.setProperty(stationpath+"/y", ""+yp);
     	if (yp<80) {
-        	model.setProperty(stationpath+"/room",model.getProperty("/screen/roomid"));
+    		String roomid=model.getProperty("/screen/roomid");
+    		if (roomid!=null) {
+    			model.setProperty(stationpath+"/room",roomid);
+    		} else {
+    			System.out.println("RoomController roomid is not set should not be possible");
+    		}
     	} else {
         	model.setProperty(stationpath+"/room","offline");
     	}
@@ -115,5 +136,10 @@ public class RoomController extends Html5Controller {
 	public void onRoomChange(ModelEvent e) {
 		fillPage();
 	}
+	
+    public void onBreadCrumbSubmit(Screen s,JSONObject data) {
+    	screen.get(selector).remove();
+		screen.get("#content").append("div","dashboard",new DashboardController());
+    }
  	 
 }
