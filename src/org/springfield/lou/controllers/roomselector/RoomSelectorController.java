@@ -44,6 +44,7 @@ public class RoomSelectorController extends Html5Controller {
     }
     
     public void onSelectChange(Screen s,JSONObject data) {
+		System.out.println("SET ROOM CHANGE EVENT="+(String)data.get("value"));
     	model.setProperty("/screen/roomid",(String)data.get("value"));
     	screen.get(selector).remove();
     }

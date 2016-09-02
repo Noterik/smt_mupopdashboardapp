@@ -9,6 +9,7 @@
 		<template>dashboard/dashboard.mst</template>
 		<style>dashboard/dashboard.css</style>
 		<controller id="DashboardController">
+				<javascript>dashboard/dashboard.js</javascript>
 		</controller>
 	</view>
 	

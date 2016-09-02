@@ -134,6 +134,7 @@ public class RoomController extends Html5Controller {
     }
     
 	public void onRoomChange(ModelEvent e) {
+		System.out.println("ROOM CHANGE EVENT="+e+" C="+this);
 		fillPage();
 	}
 	
