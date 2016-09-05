@@ -31,11 +31,23 @@ public class DashboardController extends Html5Controller {
 		} else {
 			fillPage();
 		}
+		model.onPropertyUpdate("/app/remotepointer/position","onPosTest",this);
+		model.onPathUpdate("/app/remotepointer/","onPos2Test",this);
+		model.setProperty("/app/remotepointer/position","false");
+	}
+	
+	public void onPosTest(ModelEvent e) {
+		System.out.println("POSTEST E="+e);
+	}
+	
+	public void onPos2Test(ModelEvent e) {
+		System.out.println("POSTEST2 E="+e);
 	}
 	
 	public void onLogin(ModelEvent e) {
 		FsNode node = e.getTargetFsNode();
 		fillPage();
+		model.setProperty("/app/remotepointer/position","true");
 	}
 	
 	private void fillPage() {

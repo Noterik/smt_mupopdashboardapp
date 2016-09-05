@@ -84,19 +84,19 @@ public class StationController extends Html5Controller {
      */
     private JSONObject getAppList(String currentapp) {
 		FSList list =new FSList();
-		FsNode node = new FsNode();
+		FsNode node = new FsNode("apps","1");
 		node.setProperty("name",currentapp.toLowerCase());
 		node.setProperty("labelname",currentapp);
 		list.addNode(node);
-		node = new FsNode();
+		node = new FsNode("apps","2");
 		node.setProperty("name","none");
 		node.setProperty("labelname","None");
 		list.addNode(node);
-		node = new FsNode();
+		node = new FsNode("apps","3");
 		node.setProperty("name","photoexplore");
 		node.setProperty("labelname","PhotoExplore");
 		list.addNode(node);
-		node = new FsNode();
+		node = new FsNode("apps","4");
 		node.setProperty("name","photoinfospots");
 		node.setProperty("labelname","PhotoInfoSpots");
 		list.addNode(node);
