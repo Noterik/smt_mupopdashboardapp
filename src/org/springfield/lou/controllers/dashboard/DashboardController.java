@@ -38,6 +38,8 @@ public class DashboardController extends Html5Controller {
 	
 	public void onPosTest(ModelEvent e) {
 		System.out.println("POSTEST E="+e);
+		System.out.println("N="+model.getProperty("/app/remotepointer/position"));
+		System.out.println("XPATH="+model.getProperty("//app[@id='remotepointer']/position"));
 	}
 	
 	public void onPos2Test(ModelEvent e) {

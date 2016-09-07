@@ -5,7 +5,7 @@
 	<div id="station_label">Station id</div>
 	<input id="station_labelid" size="6" value="{{stationlabel}}" />
 	<div id="station_labelname">Name</div>
-	<input id="station_name" size="20" />
+	<input id="station_name" size="20" value="{{stationname}}" />
 	
 	<div id="station_appnamelabel">App</div>
 	<select id="station_app">
@@ -13,6 +13,10 @@
 		 	<option value="{{name}}">{{labelname}}
 		{{/nodes}}
 	</select>
+	
+	<div id="station_appspace">
+
+	</div>
 
 	{{#newstation}}
 		<button id="station_save">new station</button>

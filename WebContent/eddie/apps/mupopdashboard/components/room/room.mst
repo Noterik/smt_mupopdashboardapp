@@ -23,18 +23,18 @@
 {{#stations}}
 	{{#nodes}}
 		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
-			<div class="room_stationdot"/>
-			<div class="room_stationid">{{labelid}}</div>
-			<div class="room_stationname">{{name}}</div>
+			<div id="room_station{{id}}" class="room_stationdot"/>
+			<div id="room_station{{id}}" class="room_stationid">{{labelid}}</div>
+			<div id="room_station{{id}}" class="room_stationname">{{name}}</div>
 		</div>
 	{{/nodes}}
 {{/stations}}
 {{#offline}}
 	{{#nodes}}
 		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
-			<div class="room_stationdot"/>
-			<div class="room_stationid">{{labelid}}</div>
-			<div class="room_stationname">{{name}}</div>
+			<div id="room_station{{id}}" class="room_stationdot"/>
+			<div id="room_station{{id}}" class="room_stationid">{{labelid}}</div>
+			<div id="room_station{{id}}" class="room_stationname">{{name}}</div>
 		</div>
 	{{/nodes}}
 {{/offline}}

@@ -66,16 +66,26 @@
 	right:15%;
 }
 
+#station_appspace {
+	position: absolute;
+	border: solid 1px silver;
+	top:20%;
+	left:5%;
+	right:5%;
+	bottom:10%;
+	
+}
+
 #station_save {
 	position: absolute;
-	bottom:10%;
+	bottom:5%;
 	right:10%;
 	width:35%;
 }
 
 #station_cancel {
 	position: absolute;
-	bottom:10%;
+	bottom:5%;
 	left:10%;
 	width:35%;
 }

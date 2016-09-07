@@ -1,0 +1,24 @@
+<table id="appeditor_photoexploretable">
+	<tr>
+		{{#contenttab}}<th id="content" class="appmenu">content</th>{{/contenttab}}
+		{{^contenttab}}<td id="content" class="appmenu">content</td>{{/contenttab}}
+		
+		{{#waitscreentab}}<th id="waitscreen" class="appmenu">waitscreen</th>{{/waitscreentab}}
+		{{^waitscreentab}}<td id="waitscreen" class="appmenu">waitscreen</td>{{/waitscreentab}}
+		
+		{{#introtab}}<th id="intro" class="appmenu">introtab</th>{{/introtab}}
+		{{^introtab}}<td id="intro" class="appmenu">introtab</td>{{/introtab}}
+		
+		{{#modetab}}<th id="mode" class="appmenu">modetab</th>{{/modetab}}
+		{{^modetab}}<td id="mode" class="appmenu">modetab</td>{{/modetab}}
+		{{#contenttab}}
+			Content Tab
+		{{/contenttab}}	
+
+	</tr>
+</table>
+
+{{#contenttab}}
+<input id="appeditor_content_url" value="{{appeditor_content_url}}" size="20" />
+
+{{/contenttab}}	

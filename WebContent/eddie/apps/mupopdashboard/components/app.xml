@@ -48,4 +48,19 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_photoinfospots">
+		<template>appeditor_photoinfospots/appeditor_photoinfospots.mst</template>
+		<style>appeditor_photoinfospots/appeditor_photoinfospots.css</style>
+		<controller id="PhotoInfoSpotsController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_photoexplore">
+		<template>appeditor_photoexplore/appeditor_photoexplore.mst</template>
+		<style>appeditor_photoexplore/appeditor_photoexplore.css</style>
+		<controller id="PhotoExploreController">
+		</controller>
+	</view>
+
+	
 </app>

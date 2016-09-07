@@ -104,6 +104,9 @@ public class RoomController extends Html5Controller {
     }
     
     public void onStationSelect(Screen s,JSONObject data) {
+    	String stationid = ((String)data.get("id")).substring(12);
+    	
+    	model.setProperty("/screen/stationid",stationid);
     	model.setProperty("/screen/newstation", "false");
     	screen.get(selector).append("div","station",new StationController()); 	
     }
