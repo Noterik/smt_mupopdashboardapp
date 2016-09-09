@@ -53,7 +53,7 @@ public class DashboardController extends Html5Controller {
 		exhibitionidpath="/screen['vars']/exhibitionid"; // path in screen to share between controllers
 		
 		username = model.getProperty(usernamepath); // get the username from the screen space
-		exhibitionlistpath= "/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition"; // define the path to the list based on username/domain
+		exhibitionlistpath= "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition"; // define the path to the list based on username/domain
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class DashboardController extends Html5Controller {
 	 * fill our space on our screen
 	 */
 	private void fillPage() {
-		FSList list = FSListManager.get(exhibitionlistpath,false); // get list of users exhibitions (OLD FORMAT)
+		FSList list = model.getList(exhibitionlistpath); // get list of users exhibitions
 		List<FsNode> nodes = list.getNodes(); // gets its nodes in order of creation
 		
 		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name,location,timeframe"); // convert it to json list with wanted fields
