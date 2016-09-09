@@ -1,5 +1,6 @@
 /* 
-*SceneApplication.java
+* MuPoP dashboard where users can create quick popup museum exhibitions. Work in combination with
+* the MuPoP mobile app and the MuPoP station app.
 * 
 * Copyright (c) 2016 Noterik B.V.
 
@@ -25,17 +26,23 @@ import org.springfield.lou.servlet.LouServlet;
 
 public class MupopdashboardApplication extends Html5Application {
 	
-	
+	/**
+	 * The mst app is started by a auto trigger of a first screen coming in
+	 * @param id
+	 */
  	public MupopdashboardApplication(String id) {
 		super(id); 
 		this.setSessionRecovery(true);
 	}
  	
+ 	/**
+ 	 * new screen attached to the application
+ 	 */
     public void onNewScreen(Screen s) {
-    		s.setLanguageCode("en");
-			s.get("#screen").attach(new ScreenController());
-			s.get("#content").append("div","dashboard",new DashboardController());
-			s.get("#screen").append("div","login",new LoginController());
+    		s.setLanguageCode("en"); // set detault langauge to English
+			s.get("#screen").attach(new ScreenController()); // add the main ScreenController (mostly for eddie)
+			s.get("#content").append("div","dashboard",new DashboardController()); // Start our main Controller
+			s.get("#screen").append("div","login",new LoginController()); // Also allow a user to log in
      }
     
     
