@@ -23,91 +23,122 @@ public class StationController extends Html5Controller {
 	
 	String fields = "station_labelid,station_name,station_app";
 	String currentapp = "none"; // we assume a empty at the start
+	String username;
+	String usernamepath;
+	String exhibitionidpath;
+	String exhibitionid;
+	String exhibitionnodepath;
+	String roomidpath;
+	String roomnamepath;
+	String roomid;
+	String roompath;
+	String stationidpath;
+	String stationid;
 
-
+	/**
+	 * Station controller where the station and its app get edited
+	 */
 	public StationController() {
 	}
 	
+	/**
+	 * fill our space on our screen
+	 */
 	public void attach(String sel) {
-		selector = sel;
-
-		fillPage();
+		selector = sel; // save for later use
+		getVars(); // read all the needed vars
+		fillPage(); // fill the screen
 	}
 	
+	/**
+	 * Load all the vars we plan to use if we can already
+	 */
+	private void getVars() {
+		usernamepath = "/screen['profile']/username"; // path in screen to share between controllers
+		exhibitionidpath="/screen['vars']/exhibitionid"; // path in screen to share between controllers
+		roomidpath="/screen['vars']/roomid"; // path in screen to share between controllers
+		stationidpath="/screen['vars']/stationid"; // path in screen to share between controllers
+		
+		username = model.getProperty(usernamepath); // get the username from the screen space
+		exhibitionid = model.getProperty(exhibitionidpath); // get the exhibitionid from the screen space
+		roomid = model.getProperty(roomidpath); // get the roomid from the screen space
+		stationid = model.getProperty(stationidpath); // get the stationid from the screen space
+	}
+	
+	/**
+	 * fill our space on our screen
+	 */
 	private void fillPage() {
-		if (model.getProperty("/screen/newstation").equals("true")) {
-			currentapp = "none";
-			JSONObject data = getAppList(currentapp);
-			data.put("newstation","true");
+		if (model.getProperty("/screen['vars']/newstation").equals("true")) { // is it a new or old station
+			currentapp = "none"; // its new so no app is selected
+			JSONObject data = getAppList(currentapp);  // read the available aps to json
+			data.put("newstation","true"); // set a variable to
 			data.put("stationlabel",getNewStationName()); // generate a id best we can 
-			screen.get(selector).render(data);
+			screen.get(selector).render(data); // send data to client mustache render
 		} else {
-    		FsNode stationnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/station/"+model.getProperty("/screen/stationid"));
-    		if (stationnode!=null) {
-    			currentapp = stationnode.getProperty("app");
-    			JSONObject data = getAppList(currentapp);
-    			data.put("stationname",stationnode.getProperty("name")); 
-    			data.put("stationlabel",stationnode.getProperty("labelid")); 
+    		FsNode stationnode = model.getNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
+    		if (stationnode!=null) { // did we find the old station node ?
+    			currentapp = stationnode.getProperty("app"); // yes 
+    			JSONObject data = getAppList(currentapp); // read the available aps to json 
+    			data.put("stationname",stationnode.getProperty("name")); // load the name to json
+    			data.put("stationlabel",stationnode.getProperty("labelid")); // load the labelid
     			
-    			screen.get(selector).render(data);
-    			if (currentapp.equals("photoexplore")) {
+    			screen.get(selector).render(data); // send the data to client mustache render
+    			if (currentapp.equals("photoexplore")) { // check for the 2 apps en jump if needed
     				screen.get("#station_appspace").append("div","appeditor_photoexplore",new PhotoExploreEditController());
     			} else if (currentapp.equals("photoinfospots")) {
     				screen.get("#station_appspace").append("div","appeditor_photoinfospots",new PhotoInfoSpotsEditController());
     			}
     		}
 		}
-		screen.get("#station_formarea").draggable();
-		screen.get("#station_cancel").on("mouseup","onCancel", this);
- 		screen.get("#station_save").on("mouseup",fields,"onSave", this);
- 		//screen.get("#station_app").on("change",fields,"onAppChange", this);
+		screen.get("#station_formarea").draggable(); // make the window draggable for fun (its a overlay)
+		screen.get("#station_cancel").on("mouseup","onCancel", this); // watch if user wants to cancel
+ 		screen.get("#station_save").on("mouseup",fields,"onSave", this); // watch if user wants to save
 	}
 	
-    public void onAppChange(Screen s,JSONObject data) {
-    	System.out.println("APP CHANGE !!! = "+data.toJSONString());
-    }
-	
+	/**
+	 * user hit cancel signal
+	 * @param s
+     * @param data
+	 */
     public void onCancel(Screen s,JSONObject data) {
-		model.notify("/screen/appcancel", new FsNode("data","1"));
-    	screen.get(selector).remove();
+		model.notify("/screen['appcancel']", new FsNode("data","1")); // signal the app controller if active
+    	screen.get(selector).remove(); // remove us from the screen
     }
     
+    /**
+     * user hit save
+     * @param s
+     * @param data
+     */
     public void onSave(Screen s,JSONObject data) {
-		String username = model.getProperty("/screen['profile']/username");
-		String exhibitionid = model.getProperty("/screen['vars']/exhibitionid");
-		
-    	if (model.getProperty("/screen/newstation").equals("true")) {
-			String newid = ""+new Date().getTime();
-    		FsNode stationnode = new FsNode("station",newid);
-    		stationnode.setProperty("labelid",(String)data.get("station_labelid"));
-    		stationnode.setProperty("name",(String)data.get("station_name"));
-    		stationnode.setProperty("room","offline");
-    		stationnode.setProperty("app",(String)data.get("station_app"));
+    	if (model.getProperty("/screen['vars']/newstation").equals("true")) { // check if its a new or old station
+			String newid = ""+new Date().getTime(); // its new lets create it 
+    		FsNode stationnode = new FsNode("station",newid); // so new node with new id
+    		stationnode.setProperty("labelid",(String)data.get("station_labelid")); // set the station label
+    		stationnode.setProperty("name",(String)data.get("station_name")); // set the station name
+    		stationnode.setProperty("room","offline"); // since its new its starts in offline mode
+    		stationnode.setProperty("app",(String)data.get("station_app")); // set the app defined
     		stationnode.setProperty("x","40"); // kinda weird they always popup in same location
     		stationnode.setProperty("y","85");  // kinda weird they always popup in same location
     		
-    		boolean insertresult = Fs.insertNode(stationnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition/"+exhibitionid);
-			if (insertresult) {
-				System.out.println("INSERT STATION DONE");
-			}
-    		model.notify("/screen/appsave", new FsNode("data","1"));
+    		// save the node (will still change)
+    		model.putNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']",stationnode);
+    		model.notify("/screen['appsave']", new FsNode("data","1")); // notify the app controller to it can also save
     	} else {
-    		System.out.println("SAVING OLD STATION WANTED");
-    		FsNode stationnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/station/"+model.getProperty("/screen/stationid"));
-    		if (stationnode!=null) {
-        		stationnode.setProperty("labelid",(String)data.get("station_labelid"));
-        		stationnode.setProperty("name",(String)data.get("station_name"));
-        		stationnode.setProperty("app",(String)data.get("station_app"));	
-        		Fs.insertNode(stationnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid"));
+    		// get the node to be updated
+    		FsNode stationnode = model.getNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
+    		if (stationnode!=null) { 
+        		stationnode.setProperty("labelid",(String)data.get("station_labelid")); // set the station label
+        		stationnode.setProperty("name",(String)data.get("station_name"));  // set the station name
+        		stationnode.setProperty("app",(String)data.get("station_app"));	// set the app defined
+        		model.putNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']",stationnode);
         		
     		}
-    		model.notify("/screen/appsave", new FsNode("data","1"));
-
-    		//model.notify("/screen/appsave", key,value);
-    		//model.notify("/screen/appsave", PropertySet);
+    		model.notify("/screen['appsave']", new FsNode("data","1")); // notify the app controller to it can also save
     	}
-    	screen.get(selector).remove();
-    	model.setProperty("/screen/roomid",model.getProperty("/screen/roomid")); // dirty trick to get a reload
+    	screen.get(selector).remove(); // remove from screen
+    	model.setProperty(roomidpath,roomid); // dirty trick to get a reload
     }
     
     /*
@@ -136,7 +167,7 @@ public class StationController extends Html5Controller {
     
     private String getNewStationName() {
     	int result = 0;
-		String stationpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/station";
+		String stationpath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station";
 		FSList stations = FSListManager.get(stationpath,false);
 		if (stations!=null && stations.size()>0) {
 			for(Iterator<FsNode> iter = stations.getNodes().iterator() ; iter.hasNext(); ) {

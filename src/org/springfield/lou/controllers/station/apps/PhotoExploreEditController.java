@@ -19,8 +19,8 @@ public class PhotoExploreEditController extends Html5Controller{
 		selector = sel;
 		System.out.println("SELECTOR="+selector);
 		fillPage();
-		model.onNotify("/screen/appsave","onSaveWanted",this);
-		model.onNotify("/screen/appcancel","onCancelWanted",this);
+		model.onNotify("/screen['appsave']","onSaveWanted",this);
+		model.onNotify("/screen/['appcancel']","onCancelWanted",this);
 	}
 	
 	private void fillPage() {
@@ -46,7 +46,7 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	private JSONObject memoryToData(JSONObject data) {
-		FsNode node = model.getNode("/screen/data/form/1");
+		FsNode node = model.getNode("/screen['data']/form['1']");
 		if (node!=null) {
 			System.out.println("NODE="+node.asXML());
 			String[] checklist = valuelist.split(",");
@@ -60,11 +60,11 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	private void saveToMemory(JSONObject data) {
-		FsNode node = model.getNode("/screen/data/form/1");
+		FsNode node = model.getNode("/screen['data']/form['1']");
 		if (node==null) {
 			node = new FsNode("form","1");
 			System.out.println("SAVE NODE TO MEM");
-			model.putNode("/screen/data", node);
+			model.putNode("/screen['data']", node);
 		}
 		String[] checklist = valuelist.split(",");
 		for (int i=0;i<checklist.length;i++) {
@@ -86,7 +86,7 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	public void onSaveWanted(ModelEvent e) {
-		FsNode node = model.getNode("/screen/data/form/1");
+		FsNode node = model.getNode("/screen['data']/form['1']");
 		if (node!=null) {
 			System.out.println("SAVE WANTED ON FOLLOWING DATA="+node.asXML());
 		}
