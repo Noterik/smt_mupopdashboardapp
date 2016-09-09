@@ -42,7 +42,7 @@ public class StationController extends Html5Controller {
 			data.put("stationlabel",getNewStationName()); // generate a id best we can 
 			screen.get(selector).render(data);
 		} else {
-    		FsNode stationnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+model.getProperty("/screen/exhibitionid")+"/station/"+model.getProperty("/screen/stationid"));
+    		FsNode stationnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/station/"+model.getProperty("/screen/stationid"));
     		if (stationnode!=null) {
     			currentapp = stationnode.getProperty("app");
     			JSONObject data = getAppList(currentapp);
@@ -68,12 +68,13 @@ public class StationController extends Html5Controller {
     }
 	
     public void onCancel(Screen s,JSONObject data) {
+		model.notify("/screen/appcancel", new FsNode("data","1"));
     	screen.get(selector).remove();
     }
     
     public void onSave(Screen s,JSONObject data) {
-		String username = model.getProperty("/screen/username");
-		String exhibitionid = model.getProperty("/screen/exhibitionid");
+		String username = model.getProperty("/screen['profile']/username");
+		String exhibitionid = model.getProperty("/screen['vars']/exhibitionid");
 		
     	if (model.getProperty("/screen/newstation").equals("true")) {
 			String newid = ""+new Date().getTime();
@@ -89,17 +90,21 @@ public class StationController extends Html5Controller {
 			if (insertresult) {
 				System.out.println("INSERT STATION DONE");
 			}
+    		model.notify("/screen/appsave", new FsNode("data","1"));
     	} else {
     		System.out.println("SAVING OLD STATION WANTED");
-    		FsNode stationnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+model.getProperty("/screen/exhibitionid")+"/station/"+model.getProperty("/screen/stationid"));
+    		FsNode stationnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/station/"+model.getProperty("/screen/stationid"));
     		if (stationnode!=null) {
         		stationnode.setProperty("labelid",(String)data.get("station_labelid"));
         		stationnode.setProperty("name",(String)data.get("station_name"));
         		stationnode.setProperty("app",(String)data.get("station_app"));	
-        		Fs.insertNode(stationnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+model.getProperty("/screen/exhibitionid"));
+        		Fs.insertNode(stationnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid"));
         		
     		}
     		model.notify("/screen/appsave", new FsNode("data","1"));
+
+    		//model.notify("/screen/appsave", key,value);
+    		//model.notify("/screen/appsave", PropertySet);
     	}
     	screen.get(selector).remove();
     	model.setProperty("/screen/roomid",model.getProperty("/screen/roomid")); // dirty trick to get a reload
@@ -131,7 +136,7 @@ public class StationController extends Html5Controller {
     
     private String getNewStationName() {
     	int result = 0;
-		String stationpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+model.getProperty("/screen/exhibitionid")+"/station";
+		String stationpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/station";
 		FSList stations = FSListManager.get(stationpath,false);
 		if (stations!=null && stations.size()>0) {
 			for(Iterator<FsNode> iter = stations.getNodes().iterator() ; iter.hasNext(); ) {

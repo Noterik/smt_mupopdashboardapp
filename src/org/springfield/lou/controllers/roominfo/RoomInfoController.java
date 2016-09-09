@@ -33,9 +33,9 @@ public class RoomInfoController extends Html5Controller {
 	
 	private void fillPage() {
 		JSONObject data = new JSONObject();
-		username = model.getProperty("/screen/username");
+		username = model.getProperty("/screen['profile']/username");
 		data.put("username",username);
-		exhibitionid = model.getProperty("/screen/exhibitionid");
+		exhibitionid = model.getProperty("/screen['vars']/exhibitionid");
 		if (exhibitionid.equals("newexhibition")) {
 			data.put("newexhibition","true");
 		} else {

@@ -24,7 +24,7 @@ public class RoomSelectorController extends Html5Controller {
 	
 	public void attach(String sel) {
 		selector = sel;
-		String exhibitionpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+model.getProperty("/screen/exhibitionid")+"/room";
+		String exhibitionpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/room";
 		FSList list = FSListManager.get(exhibitionpath,false);
 		List<FsNode> nodes = list.getNodes();
 		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name");

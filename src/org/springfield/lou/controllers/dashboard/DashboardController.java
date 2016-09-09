@@ -18,57 +18,80 @@ import org.springfield.lou.screen.Screen;
 
 public class DashboardController extends Html5Controller {
 	
-
+	String username; // the real user name (daniel,pieter,rutger)
+	String usernamepath; // fs path to the name
+	String exhibitionlistpath; // fs path to the exhibitionlist
+	String exhibitionidpath; // fs path to the exhibitionid 
+	
+	/**
+	 * Dashboard of MuPoP, starting point for all the controllers in the backend
+	 */
 	public DashboardController() {
 	}
 	
+	/**
+	 * moment this controller gets attached to target screen on given id
+	 * 
+	 * @see org.springfield.lou.controllers.Html5Controller#attach(java.lang.String)
+	 */
 	public void attach(String sel) {
-		selector = sel;
-		if (model.getProperty("/screen/username")==null) {
-			JSONObject data = new JSONObject();
-			screen.get(selector).render(data);
-			model.onPropertyUpdate("/screen/username","onLogin",this);
+		selector = sel; // set the selector for later reuse
+		getVars(); // load all the vars we need
+		if (username==null) { // is the user logged in? 
+			screen.get(selector).render(); // nope lets render a empty screen
+			model.onPropertyUpdate(usernamepath,"onLogin",this); // wait for a login
 		} else {
-			fillPage();
+			fillPage(); // we have a user lets show his/hers exhibition list
 		}
-		model.onPropertyUpdate("/app/remotepointer/position","onPosTest",this);
-		model.onPathUpdate("/app/remotepointer/","onPos2Test",this);
-		model.setProperty("/app/remotepointer/position","false");
 	}
 	
-	public void onPosTest(ModelEvent e) {
-		System.out.println("POSTEST E="+e);
-		System.out.println("N="+model.getProperty("/app/remotepointer/position"));
-		System.out.println("XPATH="+model.getProperty("//app[@id='remotepointer']/position"));
+	/**
+	 * Load all the vars we plan to use if we can already
+	 */
+	private void getVars() {
+		usernamepath = "/screen['profile']/username"; // path in screen to share between controllers
+		exhibitionidpath="/screen['vars']/exhibitionid"; // path in screen to share between controllers
+		
+		username = model.getProperty(usernamepath); // get the username from the screen space
+		exhibitionlistpath= "/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition"; // define the path to the list based on username/domain
 	}
-	
-	public void onPos2Test(ModelEvent e) {
-		System.out.println("POSTEST2 E="+e);
-	}
-	
+
+	/**
+	 * Called if user logs in on this screen
+	 * 
+	 * @param e 
+	 */
 	public void onLogin(ModelEvent e) {
-		FsNode node = e.getTargetFsNode();
-		fillPage();
-		model.setProperty("/app/remotepointer/position","true");
+		getVars(); // they might have changed
+		fillPage(); // lets fill the screen again now we are logged in 
 	}
 	
+	/**
+	 * fill our space on our screen
+	 */
 	private void fillPage() {
-		FSList list = FSListManager.get("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition",false);
-		List<FsNode> nodes = list.getNodes();
-		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name,location,timeframe");
-		data.put("username",model.getProperty("/screen/username"));
-		screen.get(selector).render(data);
- 		screen.get(".selectablerow").on("mouseup","onShow", this);
+		FSList list = FSListManager.get(exhibitionlistpath,false); // get list of users exhibitions (OLD FORMAT)
+		List<FsNode> nodes = list.getNodes(); // gets its nodes in order of creation
+		
+		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name,location,timeframe"); // convert it to json list with wanted fields
+		data.put("username",username); // also add the user name so we can display it
+		screen.get(selector).render(data); // tell frontend to render it using mustache
+ 		screen.get(".selectablerow").on("mouseup","onShow", this); // wait for user to select one of the exhibitions from the list
 	}
 	
+	/**
+	 * onShow will be called when user selects exhibtion from the list
+	 * @param s
+	 * @param data
+	 */
     public void onShow(Screen s,JSONObject data) {
-    	String id = (String)data.get("id");
-    	model.setProperty("/screen/exhibitionid", id);
-    	s.get(selector).remove();
+    	String id = (String)data.get("id"); // lets get the id of the wanted exhibition
+    	model.setProperty(exhibitionidpath, id); // store it in the screen space so other controllers can use it
+    	s.get(selector).remove(); // clearly we don't need this controller anymore so lets remove ourselves from the screen
     	if (id.equals("newexhibition")) {
-    		s.get("#content").append("div","roominfo",new RoomInfoController());
+    		s.get("#content").append("div","roominfo",new RoomInfoController()); // if user wanted a new exhibition we open new room info screen for it
     	} else {
-       		s.get("#content").append("div","room",new RoomController());
+       		s.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it
     	}
     }
 	

@@ -17,8 +17,10 @@ public class PhotoExploreEditController extends Html5Controller{
 	
 	public void attach(String sel) {
 		selector = sel;
+		System.out.println("SELECTOR="+selector);
 		fillPage();
 		model.onNotify("/screen/appsave","onSaveWanted",this);
+		model.onNotify("/screen/appcancel","onCancelWanted",this);
 	}
 	
 	private void fillPage() {
@@ -78,11 +80,17 @@ public class PhotoExploreEditController extends Html5Controller{
 		}
 	}
 	
+	public void onCancelWanted(ModelEvent e) {
+		System.out.println("ON CANCEL CALLED!!"+ selector);
+		screen.get(selector).remove();
+	}
+	
 	public void onSaveWanted(ModelEvent e) {
 		FsNode node = model.getNode("/screen/data/form/1");
 		if (node!=null) {
 			System.out.println("SAVE WANTED ON FOLLOWING DATA="+node.asXML());
 		}
+		screen.get(selector).remove();
 	}
 	
 	

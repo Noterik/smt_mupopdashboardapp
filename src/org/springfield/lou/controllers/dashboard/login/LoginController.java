@@ -35,7 +35,7 @@ public class LoginController extends Html5Controller {
 		if (barney!=null) {
 			String ticket = barney.get("login("+s.getApplication().getDomain()+","+name+","+password+")", null, null);
 			if (!ticket.equals("-1")) {
-					model.setProperty("/screen/username", name);
+					model.setProperty("/screen['profile']/username", name);
 					screen.onNewUser(name);
 					screen.get(selector).html("Logged in as : "+name);
 					screen.get(selector).css("width","170px");

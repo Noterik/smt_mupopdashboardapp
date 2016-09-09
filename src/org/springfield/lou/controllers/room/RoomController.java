@@ -32,18 +32,18 @@ public class RoomController extends Html5Controller {
 	
 	private void fillPage() {
 		JSONObject data = new JSONObject();
-		String username = model.getProperty("/screen/username");
-		String exhibitionid = model.getProperty("/screen/exhibitionid");
+		String username = model.getProperty("/screen['profile']/username");
+		String exhibitionid = model.getProperty("/screen['vars']/exhibitionid");
 		String roomid = model.getProperty("/screen/roomid");
 		data.put("username",username);
 		data.put("exhibitionid",exhibitionid);
 		
-		FsNode exhibitionnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+exhibitionid);
+		FsNode exhibitionnode = model.getNode("/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+exhibitionid);
 		if (exhibitionnode!=null) {	
 			data.put("exhibition",exhibitionnode.getProperty("name"));
 			data.put("location",exhibitionnode.getProperty("location"));
 			data.put("timeframe",exhibitionnode.getProperty("timeframe"));
-			String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+exhibitionid+"/room";
+			String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+exhibitionid+"/room";
 			FsNode roomnode = null;
 			if (roomid==null || roomid.equals("")) {
 				roomnode = getAndsetFirstRoom(roompath);
@@ -54,7 +54,7 @@ public class RoomController extends Html5Controller {
 			data.put("room", roomnode.getProperty("name"));
 			data.put(roomnode.getProperty("shape"),"true");
 			model.setProperty("/screen/roomname",roomnode.getProperty("name"));
-			String stationpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+exhibitionid+"/station";
+			String stationpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+exhibitionid+"/station";
 			data.put("stations",addStations(stationpath,roomnode.getId()));
 			data.put("offline",addOfflineStations(stationpath));
 			
@@ -120,7 +120,7 @@ public class RoomController extends Html5Controller {
     	String stationid = ((String)data.get("id")).substring(12);
     	double xp = (Double)data.get("screenXp");
     	double yp = (Double)data.get("screenYp");
-		String stationpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen/username")+"/exhibition/"+model.getProperty("/screen/exhibitionid")+"/station/"+stationid;
+		String stationpath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("/screen['profile']/username")+"/exhibition/"+model.getProperty("/screen['vars']/exhibitionid")+"/station/"+stationid;
 
     	model.setProperty(stationpath+"/x", ""+xp);
     	model.setProperty(stationpath+"/y", ""+yp);
