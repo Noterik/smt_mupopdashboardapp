@@ -142,7 +142,7 @@ public class StationController extends Html5Controller {
     }
     
     /*
-     * temp list
+     * temp list might be programmable in the future for example per client
      */
     private JSONObject getAppList(String currentapp) {
 		FSList list =new FSList();
@@ -165,24 +165,30 @@ public class StationController extends Html5Controller {
 		return list.toJSONObject("en","name,labelname");
     }
     
+    /**
+     * get a new station name based on the idea if we can claim a number we will. In the future we might
+     * add multiple generators for different clients.
+     * 
+     * @return
+     */
     private String getNewStationName() {
     	int result = 0;
+    	// get the list from domain so see if we are on a number idea we can use.
 		String stationpath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station";
 		FSList stations = FSListManager.get(stationpath,false);
-		if (stations!=null && stations.size()>0) {
+		if (stations!=null && stations.size()>0) { // if we have stations already lets find the highest number
 			for(Iterator<FsNode> iter = stations.getNodes().iterator() ; iter.hasNext(); ) {
 				FsNode node = (FsNode)iter.next();	
 				try {
-					int newvalue = Integer.parseInt(node.getProperty("labelid"));
+					int newvalue = Integer.parseInt(node.getProperty("labelid")); // parse the number and store if valid
 					if (newvalue>result) {
-						result = newvalue;
+						result = newvalue; // valid number remember if its higher than the last one
 					}
-				} catch(Exception e) {
-					
+				} catch(Exception e) { // forget exceptions we assume many are not numbers
 				}
 			}
 		}
-		return ""+(result+1);
+		return ""+(result+1); // take the highest number add one so its new and return it 
     }
 
  	 
