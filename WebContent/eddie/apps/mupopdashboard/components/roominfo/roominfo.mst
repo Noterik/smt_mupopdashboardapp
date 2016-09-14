@@ -1,15 +1,19 @@
 <div id="roominfo_toparea">
 	{{^newexhibition}}
-	<div id="roominfo_exhibitiontitle">Adding a room to {{exhibition}}</div>
-	<div id="roominfo_exhibitionlabel">exhibition</div><div id="roominfo_exhibition">{{exhibition}}
+		<div id="roominfo_exhibitiontitle">Change room to {{exhibition}}</div>
+		<div id="roominfo_exhibitionlabel">exhibition</div><div id="roominfo_exhibition">{{exhibition}}</div>
+		<div id="roominfo_timeframelabel">timeframe</div><div id="roominfo_timeframe">{{timeframe}}</div>
+		<div id="roominfo_locationlabel">location</div><div id="roominfo_location">{{location}}</div>
 	{{/newexhibition}}
 	{{#newexhibition}}
-	<div id="roominfo_exhibitiontitle">Create exhibition</div>
-	<div id="roominfo_exhibitionlabel">exhibition</div><input id="roominfo_exhibition" size="25" />
+		<div id="roominfo_exhibitiontitle">Create exhibition</div>
+		<div id="roominfo_exhibitionlabel">exhibition</div><input id="roominfo_exhibition" size="25" />
+		<div id="roominfo_timeframelabel">timeframe</div><input id="roominfo_timeframe" size="25" />
+		<div id="roominfo_locationlabel">location</div><input id="roominfo_location" size="25" />
 	{{/newexhibition}}
-	<div id="roominfo_timeframelabel">timeframe</div><input id="roominfo_timeframe" size="25" />
-	<div id="roominfo_roomlabel">room</div><input id="roominfo_room" size="25" />
-	<div id="roominfo_locationlabel">location</div><input id="roominfo_location" size="25" />
+	
+	
+	<div id="roominfo_roomlabel">room</div><input id="roominfo_room" size="25" value="{{room}}" />
 	<div id="roominfo_buildinglabel">building**</div><input id="roominfo_building" size="25" />
 	
 	<div id="roominfo_descriptionlabel">description</div><textarea id="roominfo_description" cols="24" rows="4" />
@@ -22,8 +26,24 @@
 	{{/newexhibition}}
 	{{^newexhibition}}
 	<button id="roominfo_cancelbutton">cancel</button>
-	<button id="roominfo_createbutton">add room</button>
+		{{#addnewroom}}
+			<button id="roominfo_createbutton">add room</button>
+		{{/addnewroom}}
+		{{^addnewroom}}
+			<button id="roominfo_createbutton">update room</button>
+		{{/addnewroom}}
 	{{/newexhibition}}
 </div>
+<div id="roominfo_bottomarea">
+	<div id="roominfo_bottomarea_title">Room shape selector</div>
+	<div id="roominfo_selector_roomshape_square" class="roomshape_button">
+			<div id="roomshape_square" class="noevents" />
+	</div>
+		<div id="roominfo_selector_roomshape_l" class="roomshape_button">
+			<div id="roomshape_l_part1" class="noevents" />
+			<div id="roomshape_l_part2" class="noevents" />
+	</div>
+</div>
+
 
 

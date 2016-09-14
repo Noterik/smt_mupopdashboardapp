@@ -6,8 +6,9 @@
 		 {{#nodes}}
 			<option value="{{id}}">{{name}}
 		{{/nodes}}
+		<option value="addnewroom">*** add new room **
 	</select>
-	<button id="roomselector_createnew">new room</button>
+	<button id="roomselector_createnew">change room</button>
 	<button id="roomselector_cancel">cancel</button>
 </div>
 

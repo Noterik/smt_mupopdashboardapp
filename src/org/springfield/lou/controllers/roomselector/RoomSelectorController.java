@@ -25,6 +25,7 @@ public class RoomSelectorController extends Html5Controller {
 	String roomidpath;
 	String roomid;
 	String roomnamepath;
+	String oldroomidpath;
 	String roomname;
 
 	public RoomSelectorController() {
@@ -58,6 +59,7 @@ public class RoomSelectorController extends Html5Controller {
 		username = model.getProperty(usernamepath); // get the username from the screen space
 		exhibitionid = model.getProperty(exhibitionidpath); // get the username from the screen space
 		roomidpath="/screen['vars']/roomid"; // path in screen to share between controllers
+		oldroomidpath="/screen['vars']/oldroomid"; // path in screen to share between controllers
 		roomnamepath="/screen['vars']/roomname"; // path in screen to share between controllers
 		roomid = model.getProperty(roomidpath); // get the username from the screen space
 		roomname = model.getProperty(roomnamepath); // get the username from the screen space
@@ -69,8 +71,9 @@ public class RoomSelectorController extends Html5Controller {
     
     public void onSelectChange(Screen s,JSONObject data) {
 		System.out.println("SET ROOM CHANGE EVENT="+(String)data.get("value")+" ROOMIDPATH="+roomidpath);
-    	model.setProperty(roomidpath,(String)data.get("value"));
     	screen.get(selector).remove();
+    	model.setProperty(oldroomidpath,roomid);
+    	model.setProperty(roomidpath,(String)data.get("value"));
     }
 	
  	 

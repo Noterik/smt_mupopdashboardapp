@@ -11,9 +11,54 @@
 	width: 650px;
 }
 
+#roominfo_bottomarea {
+	position:absolute;
+	padding: 5px;
+  	border: solid 1px silver;
+  	color:#ffffff;
+  	background-color:#336;
+  	font-size:13pt;
+  	top: 400px;
+	left: 20%;
+	height: 300px;
+	width: 650px;
+}
+
+#roominfo_bottomarea_title {
+	position:absolute;
+	top: 10px;
+	left: 240px;
+}
+
+.roomshape_button:hover {
+  	border: solid 1px silver;
+  	background-color: #555555;
+}
+
+.noevents {
+  pointer-events: none;
+}
+
+
+#roominfo_selector_roomshape_square {
+	position:absolute;
+	top: 30px;
+	left: 30px;
+	width: 150px;
+	height: 150px;
+}
+
+#roominfo_selector_roomshape_l {
+	position:absolute;
+	top: 30px;
+	left: 180px;
+	width: 150px;
+	height: 150px;
+}
+
 #roominfo_exhibitiontitle {
 	position:absolute;
-	left: 270px;
+	left: 240px;
 	top: 10px;
 }
 

@@ -13,6 +13,7 @@ import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.dashboard.DashboardController;
+import org.springfield.lou.controllers.roominfo.RoomInfoController;
 import org.springfield.lou.controllers.roomselector.RoomSelectorController;
 import org.springfield.lou.controllers.station.StationController;
 import org.springfield.lou.model.ModelEvent;
@@ -27,17 +28,20 @@ public class RoomController extends Html5Controller {
 	String exhibitionnodepath;
 	String roomidpath;
 	String roomnamepath;
+	String roomname;
 	String roomid;
 	String roompath;
 	String stationpath;
 	String newstationpath;
 	String stationidpath;
+	FsNode roomnode; 
 	
 	/**
 	 * One of the core controllers shows the layout of a room with access to many
 	 * elements of the dashboard.
 	 */
 	public RoomController() {
+		roomid = "";
 	}
 	
 	/**
@@ -47,9 +51,9 @@ public class RoomController extends Html5Controller {
 	 */
 	public void attach(String sel) {
 		selector = sel; // set the id for later use.
+		//model.setProperty(roomidpath,""); // temp until default room works
 		getVars();
-		model.setProperty(roomidpath,""); // temp until default room works
-		roomid = "";
+		//roomid = "";
 		fillPage();
 	}
 	
@@ -68,10 +72,21 @@ public class RoomController extends Html5Controller {
 		username = model.getProperty(usernamepath); // get the username from the screen space
 		exhibitionid = model.getProperty(exhibitionidpath); // get the username from the screen space
 		roomid = model.getProperty(roomidpath); // get the username from the screen space
+		System.out.println("ROOMID="+roomid);
 		roompath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/room";
 		
 		exhibitionnodepath="/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']";
 		stationpath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station";
+		
+		if (roomid==null || roomid.equals("")) { 
+			roomnode = getAndsetFirstRoom(roompath); // if no room set already get the opening room
+			model.setProperty(roomidpath,roomnode.getId()); // set it in screen space for other controllers
+			roomid = roomnode.getId();
+		} else {
+			roomnode = model.getNode(roompath+"['"+roomid+"']"); // if we have one get the node for it
+		}
+		roomname = roomnode.getProperty("name"); // read and set the room name
+		model.setProperty(roomnamepath,roomname); // set it in screen space for other controllers
 
 	}
 	
@@ -88,16 +103,8 @@ public class RoomController extends Html5Controller {
 			data.put("exhibition",exhibitionnode.getProperty("name")); // ifso set name in json
 			data.put("location",exhibitionnode.getProperty("location")); // ifso set location in json
 			data.put("timeframe",exhibitionnode.getProperty("timeframe")); // ifso set timeframe in json
-			FsNode roomnode = null; 
-			if (roomid==null || roomid.equals("")) { 
-				roomnode = getAndsetFirstRoom(roompath); // if no room set already get the opening room
-				model.setProperty(roomidpath,roomnode.getId()); // set it in screen space for other controllers
-			} else {
-				roomnode = model.getNode(roompath+"['"+roomid+"']"); // if we have one get the node for it
-			}
 			data.put("room", roomnode.getProperty("name")); // now we have the roomnode set its name in json
 			data.put(roomnode.getProperty("shape"),"true"); // and tricky use the shape name to signal json selector
-			model.setProperty(roomnamepath,roomnode.getProperty("name")); // set it in screen space for other controllers
 
 			data.put("stations",addStations(stationpath,roomnode.getId())); // add all the active in room stations to json
 			data.put("offline",addOfflineStations(stationpath)); // add all the offline stations to json
@@ -110,7 +117,8 @@ public class RoomController extends Html5Controller {
 		screen.get(".room_station").on("dblclick","onStationSelect", this);  // if user want to edit station tell us 
 		screen.get(".breadcrumbpathsubmit").on("mouseup","onBreadCrumbSubmit", this);  // is user wants to go back tell us
  		screen.get("#room_roomselectorbutton").on("mouseup","onRoomSelectorButton", this); // if user wants to change room tell us
- 		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this); // if user wants to add a new room tell us
+ 		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this); // if user wants to add a new station tell us
+ 		screen.get("#room_roomsettingsbutton").on("mouseup","onRoomSettingsButton", this); // if user wants to edit the room tell us
 		model.onPropertyUpdate(roomidpath,"onRoomChange",this); // watch for room change events probably done my RoomSelectorController
 	}
 	
@@ -150,6 +158,17 @@ public class RoomController extends Html5Controller {
 		}
 		return null;
 	}
+	
+	/**
+	 * User wants to edit a room
+	 * @param s
+	 * @param data
+	 */
+    public void onRoomSettingsButton(Screen s,JSONObject data) {
+    	System.out.println("ROOM EDIT WANTED");
+    	s.get(selector).remove();
+		s.get("#content").append("div","roominfo",new RoomInfoController()); // if user wanted a new exhibition we open new room info screen for it
+    }
 	
 	/**
 	 * User wants to select a different room
@@ -192,7 +211,7 @@ public class RoomController extends Html5Controller {
     	double xp = (Double)data.get("screenXp"); // get the percentage x from the station
     	double yp = (Double)data.get("screenYp"); // get the percentage y from the station
 		String fullstationpath = stationpath+"['"+stationid+"']"; // create the full station id path
-
+		System.out.println("ROOM ID="+roomid);
     	model.setProperty(fullstationpath+"/x", ""+xp); // set the x property
     	model.setProperty(fullstationpath+"/y", ""+yp); // set the y property
     	if (yp<80) { // kinda hacked based on that the 'offline area' starts at 80% of the screen
@@ -207,8 +226,16 @@ public class RoomController extends Html5Controller {
      * @param e
      */
 	public void onRoomChange(ModelEvent e) {
-		getVars(); // might have changed
-		fillPage(); // fill the page again
+		String check = model.getProperty(roomidpath);
+		System.out.println("ROOM ID="+check);
+		if (check!=null && check.equals("addnewroom")) {
+	    	System.out.println("ROOM ADD WANTED");
+	    	screen.get(selector).remove();
+			screen.get("#content").append("div","roominfo",new RoomInfoController()); // if user wanted a new exhibition we open new room info screen for it
+		} else {
+			getVars();
+			fillPage(); // fill the page again
+		}
 	}
 	
 	/**

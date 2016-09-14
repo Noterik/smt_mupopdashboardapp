@@ -19,6 +19,6 @@
 </table>
 
 {{#contenttab}}
-<input id="appeditor_content_url" value="{{appeditor_content_url}}" size="20" />
+<div id="appeditor_content_url_label">zoom image</div><input id="appeditor_content_url" value="{{appeditor_content_url}}" size="80" />
 
 {{/contenttab}}	

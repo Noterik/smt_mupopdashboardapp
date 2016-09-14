@@ -175,7 +175,7 @@ public class StationController extends Html5Controller {
     	int result = 0;
     	// get the list from domain so see if we are on a number idea we can use.
 		String stationpath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station";
-		FSList stations = FSListManager.get(stationpath,false);
+		FSList stations = model.getList(stationpath);
 		if (stations!=null && stations.size()>0) { // if we have stations already lets find the highest number
 			for(Iterator<FsNode> iter = stations.getNodes().iterator() ; iter.hasNext(); ) {
 				FsNode node = (FsNode)iter.next();	

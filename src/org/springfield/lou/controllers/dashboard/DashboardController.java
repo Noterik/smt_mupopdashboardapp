@@ -22,6 +22,7 @@ public class DashboardController extends Html5Controller {
 	String usernamepath; // fs path to the name
 	String exhibitionlistpath; // fs path to the exhibitionlist
 	String exhibitionidpath; // fs path to the exhibitionid 
+	String roomidpath;
 	
 	/**
 	 * Dashboard of MuPoP, starting point for all the controllers in the backend
@@ -51,9 +52,12 @@ public class DashboardController extends Html5Controller {
 	private void getVars() {
 		usernamepath = "/screen['profile']/username"; // path in screen to share between controllers
 		exhibitionidpath="/screen['vars']/exhibitionid"; // path in screen to share between controllers
+		roomidpath = "/screen['vars']/roomid";
 		
 		username = model.getProperty(usernamepath); // get the username from the screen space
 		exhibitionlistpath= "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition"; // define the path to the list based on username/domain
+
+    	model.setProperty(roomidpath,"");
 	}
 
 	/**

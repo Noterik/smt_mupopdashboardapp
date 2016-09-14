@@ -123,4 +123,38 @@ td.on { background: #bbb;}
   color: #dddddd;
 }
 
+#roomshape_square {
+	position:absolute;
+  	color:#000000;
+  	background-color: #ffffff;
+  	font-size:13pt;
+  	top: 10%;
+	left: 10%;
+	height: 80%;
+	width: 80%;
+}
+
+
+#roomshape_l_part1 {
+	position:absolute;
+  	color:#000000;
+  	background-color: #ffffff;
+  	font-size:13pt;
+  	top: 10%;
+	left: 10%;
+	height: 80%;
+	width: 35%;
+}
+
+#roomshape_l_part2 {
+	position:absolute;
+  	color:#000000;
+  	background-color: #ffffff;
+  	font-size:13pt;
+  	bottom: 10%;
+	left: 10%;
+	height: 35%;
+	width: 80%;
+}
+
 
