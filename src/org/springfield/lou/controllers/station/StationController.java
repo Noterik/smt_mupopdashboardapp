@@ -63,6 +63,8 @@ public class StationController extends Html5Controller {
 		exhibitionid = model.getProperty(exhibitionidpath); // get the exhibitionid from the screen space
 		roomid = model.getProperty(roomidpath); // get the roomid from the screen space
 		stationid = model.getProperty(stationidpath); // get the stationid from the screen space
+		
+		model.setProperty("/screen['vars']/stationfullpath","/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
 	}
 	
 	/**

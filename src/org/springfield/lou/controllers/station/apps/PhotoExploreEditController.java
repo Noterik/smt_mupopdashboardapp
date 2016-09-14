@@ -1,7 +1,10 @@
 package org.springfield.lou.controllers.station.apps;
 
+import java.util.Iterator;
+
 import org.json.simple.JSONObject;
 import org.springfield.fs.FsNode;
+import org.springfield.fs.FsPropertySet;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
@@ -10,17 +13,26 @@ public class PhotoExploreEditController extends Html5Controller{
 	
 	private String tab="content";
 	private String valuelist="appeditor_content_url";
-
+	private String stationfullpath;
 	
 	public PhotoExploreEditController() {
+		
 	}
 	
 	public void attach(String sel) {
 		selector = sel;
 		System.out.println("SELECTOR="+selector);
+		getVars();
 		fillPage();
 		model.onNotify("/screen['appsave']","onSaveWanted",this);
 		model.onNotify("/screen/['appcancel']","onCancelWanted",this);
+	}
+	
+	private void getVars() {
+		stationfullpath=model.getProperty("/screen['vars']/stationfullpath");
+		System.out.println("PATH="+stationfullpath);
+		System.out.println("OLD VALUE="+model.getProperty(stationfullpath+"/url"));
+		model.setProperty("/screen['data']/form['1']/appeditor_content_url",model.getProperty(stationfullpath+"/url"));
 	}
 	
 	private void fillPage() {
@@ -89,6 +101,14 @@ public class PhotoExploreEditController extends Html5Controller{
 		FsNode node = model.getNode("/screen['data']/form['1']");
 		if (node!=null) {
 			System.out.println("SAVE WANTED ON FOLLOWING DATA="+node.asXML());
+			for(Iterator<String> iter = node.getKeys(); iter.hasNext();) {
+				String key = iter.next();
+				String value = node.getProperty(key);
+				if (key.equals("appeditor_content_url")) {
+					model.setProperty(stationfullpath+"/url", value);
+				}
+			}
+	
 		}
 		screen.get(selector).remove();
 	}
