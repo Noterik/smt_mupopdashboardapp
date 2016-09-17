@@ -28,20 +28,11 @@ public class LoginController extends Html5Controller {
 	 */
 	public void attach(String s) {
 		selector = s; // set our id for later use
-		getVars(); // load the vars we need
     	JSONObject data = new JSONObject(); 	
     	data.put("feedback", ""); // set feedback to empty there is no problem yet :)
     	screen.get(selector).render(data); // render the data using mustache
     	screen.get("#loginsubmitbutton").on("mouseup","loginname,loginpassword","checkName",this); // wait until user logs in
   	}
-	
-	/**
-	 * Load all the vars we plan to use if we can already
-	 */
-	private void getVars() {
-		usernamepath = "/screen['profile']/username";
-	}
-	
 	
 	/**
 	 * check if the user has logged in correctly if not provide feedback and try again
@@ -56,7 +47,7 @@ public class LoginController extends Html5Controller {
 		if (barney!=null) { 
 			String ticket = barney.get("login("+s.getApplication().getDomain()+","+name+","+password+")", null, null);
 			if (!ticket.equals("-1")) { // barney gave a valid ticket so lets login in the app
-					model.setProperty(usernamepath, name); // set user name in screen space for other controllers
+					model.setProperty("@username", name); // set user name in screen space for other controllers
 					screen.onNewUser(name); // signal new user to app (still needed?)
 					screen.get(selector).html("Logged in as : "+name); // set login name in frontend not very nice way
 					screen.get(selector).css("width","170px"); // should not be hardcoded will make it a class

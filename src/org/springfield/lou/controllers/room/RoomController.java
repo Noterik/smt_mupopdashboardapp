@@ -21,27 +21,15 @@ import org.springfield.lou.screen.Screen;
 
 public class RoomController extends Html5Controller {
 	
-	String username;
-	String usernamepath;
-	String exhibitionidpath;
-	String exhibitionid;
-	String exhibitionnodepath;
-	String roomidpath;
-	String roomnamepath;
-	String roomname;
-	String roomid;
-	String roompath;
-	String stationpath;
 	String newstationpath;
-	String stationidpath;
 	FsNode roomnode; 
+	
 	
 	/**
 	 * One of the core controllers shows the layout of a room with access to many
 	 * elements of the dashboard.
 	 */
 	public RoomController() {
-		roomid = "";
 	}
 	
 	/**
@@ -51,9 +39,7 @@ public class RoomController extends Html5Controller {
 	 */
 	public void attach(String sel) {
 		selector = sel; // set the id for later use.
-		//model.setProperty(roomidpath,""); // temp until default room works
 		getVars();
-		//roomid = "";
 		fillPage();
 	}
 	
@@ -61,36 +47,17 @@ public class RoomController extends Html5Controller {
 	 * Load all the vars we plan to use if we can already
 	 */
 	private void getVars() {
-		usernamepath = "/screen['profile']/username"; // path in screen to share between controllers
-		exhibitionidpath="/screen['vars']/exhibitionid"; // path in screen to share between controllers
-		roomidpath="/screen['vars']/roomid"; // path in screen to share between controllers
-		stationidpath="/screen['vars']/stationid"; // path in screen to share between controllers
-		roomnamepath="/screen['vars']/roomname"; // path in screen to share between controllers
-		
 		newstationpath = "/screen['vars']/newstation";
-		
-		username = model.getProperty(usernamepath); // get the username from the screen space
-		exhibitionid = model.getProperty(exhibitionidpath); // get the username from the screen space
-		roomid = model.getProperty(roomidpath); // get the username from the screen space
-		System.out.println("ROOMID="+roomid);
-		roompath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/room";
-		
-		exhibitionnodepath="/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']";
-
-		
-		
-		stationpath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station";
-		
+		String roomid = model.getProperty("@roomid");
 		if (roomid==null || roomid.equals("")) { 
-			roomnode = getAndsetFirstRoom(roompath); // if no room set already get the opening room
-			model.setProperty(roomidpath,roomnode.getId()); // set it in screen space for other controllers
-			roomid = roomnode.getId();
+			roomnode = getAndsetFirstRoom(); // if no room set already get the opening room
+			model.setProperty("@roomid",roomnode.getId()); // set it in screen space for other controllers
 		} else {
-			roomnode = model.getNode(roompath+"['"+roomid+"']"); // if we have one get the node for it
+			roomnode = model.getNode("@room"); // if we have one get the node for it
 		}
-		roomname = roomnode.getProperty("name"); // read and set the room name
-		model.setProperty(roomnamepath,roomname); // set it in screen space for other controllers
-
+		System.out.println("ROOMNODE="+roomnode.asXML());
+		String roomname = roomnode.getProperty("name"); // read and set the room name
+		model.setProperty("@roomname",roomname); // set it in screen space for other controllers
 	}
 	
 	/**
@@ -98,10 +65,10 @@ public class RoomController extends Html5Controller {
 	 */
 	private void fillPage() {
 		JSONObject data = new JSONObject(); // create json object for the clients render call
-		data.put("username",username); // add username so we can display it
-		data.put("exhibitionid",exhibitionid); // add exhibition idea for use in forms
+		data.put("username",model.getProperty("@username")); // add username so we can display it
+		data.put("exhibitionid",model.getProperty("@exhibitionid")); // add exhibition idea for use in forms
 		
-		FsNode exhibitionnode = model.getNode(exhibitionnodepath); // get the exhibition node
+		FsNode exhibitionnode = model.getNode("@exhibition"); // get the exhibition node
 		if (exhibitionnode!=null) {	// do we have a valid one
 			data.put("exhibition",exhibitionnode.getProperty("name")); // ifso set name in json
 			data.put("location",exhibitionnode.getProperty("location")); // ifso set location in json
@@ -109,8 +76,8 @@ public class RoomController extends Html5Controller {
 			data.put("room", roomnode.getProperty("name")); // now we have the roomnode set its name in json
 			data.put(roomnode.getProperty("shape"),"true"); // and tricky use the shape name to signal json selector
 
-			data.put("stations",addStations(stationpath,roomnode.getId())); // add all the active in room stations to json
-			data.put("offline",addOfflineStations(stationpath)); // add all the offline stations to json
+			data.put("stations",addStations(model.getProperty("@roomid"))); // add all the active in room stations to json
+			data.put("offline",addOfflineStations()); // add all the offline stations to json
 		} else {
 			// should be some error here, since this can't happen really
 		}
@@ -122,14 +89,14 @@ public class RoomController extends Html5Controller {
  		screen.get("#room_roomselectorbutton").on("mouseup","onRoomSelectorButton", this); // if user wants to change room tell us
  		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this); // if user wants to add a new station tell us
  		screen.get("#room_roomsettingsbutton").on("mouseup","onRoomSettingsButton", this); // if user wants to edit the room tell us
-		model.onPropertyUpdate(roomidpath,"onRoomChange",this); // watch for room change events probably done my RoomSelectorController
+		model.onPropertyUpdate("/screen['vars']/roomid","onRoomChange",this); // watch for room change events probably done my RoomSelectorController
 	}
 	
 	/**
 	 * add the active stations data to the json object for display
 	 */
-	private JSONObject addStations(String path,String roomid) {
-		FSList stations = model.getList(path); // get stations from domain space
+	private JSONObject addStations(String roomid) {
+		FSList stations = model.getList("@currentstations"); // get stations from domain space
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room",roomid); // filter out the ones based on room property
 			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url"); // convert it to json format
@@ -141,8 +108,8 @@ public class RoomController extends Html5Controller {
 	/**
 	 * add the offline stations data to the json object for display
 	 */
-	private JSONObject addOfflineStations(String path) {
-		FSList stations = model.getList(path);
+	private JSONObject addOfflineStations() {
+		FSList stations = model.getList("@currentstations");
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room","offline"); 
 			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url");
@@ -154,8 +121,8 @@ public class RoomController extends Html5Controller {
 	/**
 	 * tmp implemetation of showing the default first room (should recover the old from some personal memory)
 	 */
-	private FsNode getAndsetFirstRoom(String path) {
-		FSList rooms = model.getList(path);
+	private FsNode getAndsetFirstRoom() {
+		FSList rooms = model.getList("@rooms");
 		if (rooms!=null && rooms.size()>0) {
 			return rooms.getNodes().get(0);
 		}
@@ -189,7 +156,7 @@ public class RoomController extends Html5Controller {
      */
     public void onStationSelect(Screen s,JSONObject data) {
     	String stationid = ((String)data.get("id")).substring(12); // get the id by removing prefix
-    	model.setProperty(stationidpath,stationid); // set id screen space 
+    	model.setProperty("@stationid",stationid); // set id screen space 
     	model.setProperty(newstationpath, "false");
     	screen.get(selector).append("div","station",new StationController()); 	
     }
@@ -211,16 +178,17 @@ public class RoomController extends Html5Controller {
      */
     public void onStationMove(Screen s,JSONObject data) {
     	String stationid = ((String)data.get("id")).substring(12); // remove the prefix to get the id
+    	model.setProperty("@stationid", stationid);
+    	
     	double xp = (Double)data.get("screenXp"); // get the percentage x from the station
     	double yp = (Double)data.get("screenYp"); // get the percentage y from the station
-		String fullstationpath = stationpath+"['"+stationid+"']"; // create the full station id path
-		System.out.println("ROOM ID="+roomid);
-    	model.setProperty(fullstationpath+"/x", ""+xp); // set the x property
-    	model.setProperty(fullstationpath+"/y", ""+yp); // set the y property
+
+    	model.setProperty("@currentstationx",""+xp); // set the x property
+    	model.setProperty("@currentstationy",""+yp); // set the y property
     	if (yp<80) { // kinda hacked based on that the 'offline area' starts at 80% of the screen
-    		model.setProperty(fullstationpath+"/room",roomid); // set the room id to this room
+    		model.setProperty("@currentstationroom",model.getProperty("@roomid")); // set the room id to this room
     	} else {
-        	model.setProperty(fullstationpath+"/room","offline"); // set room id to offline to signal not in use
+        	model.setProperty("@currentstationroom","offline"); // set room id to offline to signal not in use
     	}
     }
     
@@ -229,7 +197,7 @@ public class RoomController extends Html5Controller {
      * @param e
      */
 	public void onRoomChange(ModelEvent e) {
-		String check = model.getProperty(roomidpath);
+		String check = model.getProperty("@roomid");
 		System.out.println("ROOM ID="+check);
 		if (check!=null && check.equals("addnewroom")) {
 	    	System.out.println("ROOM ADD WANTED");
