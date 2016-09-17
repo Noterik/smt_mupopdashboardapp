@@ -18,6 +18,7 @@
 	<button id="room_roomselectorbutton">Room : {{room}}</button>
 	<button id="room_roomsettingsbutton">Room settings</button>
 	<button id="room_addstationbutton">Add station</button>
+	
 </div>
 
 {{#stations}}

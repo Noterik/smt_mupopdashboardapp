@@ -78,7 +78,8 @@ public class StationController extends Html5Controller {
 			data.put("stationlabel",getNewStationName()); // generate a id best we can 
 			screen.get(selector).render(data); // send data to client mustache render
 		} else {
-    		FsNode stationnode = model.getNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
+			FsNode stationnode = model.getNode("@currentstation");
+    		//FsNode stationnode = model.getNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
     		if (stationnode!=null) { // did we find the old station node ?
     			currentapp = stationnode.getProperty("app"); // yes 
     			JSONObject data = getAppList(currentapp); // read the available aps to json 

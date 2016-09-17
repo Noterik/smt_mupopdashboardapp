@@ -76,6 +76,9 @@ public class RoomController extends Html5Controller {
 		roompath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/room";
 		
 		exhibitionnodepath="/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']";
+
+		
+		
 		stationpath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station";
 		
 		if (roomid==null || roomid.equals("")) { 
