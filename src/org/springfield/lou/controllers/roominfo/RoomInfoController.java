@@ -19,16 +19,8 @@ import org.springfield.lou.screen.Screen;
 
 public class RoomInfoController extends Html5Controller {
 	
-	String username;
-	String usernamepath;
-	String roomidpath;
 	String oldroomidpath;
 	String oldroomid;
-	String roomnodepath;
-	String roomid;
-	String exhibitionid;
-	String exhibitionidpath;
-	String exhibitionnodepath;
 	String fields = "roominfo_exhibition,roominfo_location,roominfo_room,roominfo_timeframe,roominfo_building,roominfo_description,roominfo_gpslan,roominfo_gpslat";
 	String currentshape = "roomshape_square";
 	
@@ -45,44 +37,33 @@ public class RoomInfoController extends Html5Controller {
 	 * Load all the vars we plan to use if we can already
 	 */
 	private void getVars() {
-		usernamepath = "/screen['profile']/username";
-		exhibitionidpath = "/screen['vars']/exhibitionid";
-		roomidpath="/screen['vars']/roomid"; // path in screen to share between controllers
 		oldroomidpath="/screen['vars']/oldroomid"; // path in screen to share between controllers
-				
-		username = model.getProperty(usernamepath);
-		roomid = model.getProperty(roomidpath);
 		oldroomid = model.getProperty(oldroomidpath);
 		System.out.println("OLD ROOM ID="+oldroomid);
-		exhibitionid = model.getProperty(exhibitionidpath);
-		exhibitionnodepath="/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']";
-		roomnodepath="/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/room['"+roomid+"']";
-
 	}
 	
 	private void fillPage() {
 		JSONObject data = new JSONObject();
-		//username = model.getProperty("/screen['profile']/username");
-		data.put("username",username);
-		//exhibitionid = model.getProperty("/screen['vars']/exhibitionid");
+		data.put("username",model.getProperty("@username"));
+		String exhibitionid = model.getProperty("@exhibitionid");
 		if (exhibitionid.equals("newexhibition")) {
 			data.put("newexhibition","true");	
 		} else {
 			data.put("exhibitionid",exhibitionid);
-			FsNode exhibitionnode = model.getNode(exhibitionnodepath); // get the exhibition node
+			FsNode exhibitionnode = model.getNode("@exhibition"); // get the exhibition node
 			if (exhibitionnode!=null) {	// do we have a valid one
 				data.put("exhibition",exhibitionnode.getProperty("name")); // ifso set name in json
 				data.put("location",exhibitionnode.getProperty("location")); // ifso set name in json
 				data.put("timeframe",exhibitionnode.getProperty("timeframe")); // ifso set name in json
 			}
-			FsNode roomnode = model.getNode(roomnodepath); // get the room node
+			FsNode roomnode = model.getNode("@room"); // get the room node
 			if (roomnode!=null) {	// do we have a valid one
 				data.put("room",roomnode.getProperty("name")); // ifso set name in json
 				currentshape = roomnode.getProperty("shape");
 				System.out.println("CUR="+currentshape);
 				data.put("shape",currentshape); // ifso set name in json
 			}
-			if (roomid.equals("addnewroom")) {
+			if (model.getProperty("@roomid").equals("addnewroom")) {
 				data.put("addnewroom","true");	
 			}
 		}
@@ -95,15 +76,13 @@ public class RoomInfoController extends Html5Controller {
 	
     public void onNewRoomShapeButton(Screen s,JSONObject data) {
     	currentshape = ((String)data.get("id")).substring(18);
-    	System.out.println("NEW SHAPE CALLED="+currentshape);
-		String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition/"+exhibitionid+"/room/"+roomid;
-		model.setProperty(roompath+"/shape",currentshape);
+		model.setProperty("@roomshape",currentshape);
 		fillPage();
     }
 	
     public void onCancelButton(Screen s,JSONObject data) {
-    	model.setProperty(roomidpath, oldroomid);
-		if (exhibitionid.equals("newexhibition")) {
+    	model.setProperty("@roomid", oldroomid);
+		if (model.getProperty("@exhibitionid").equals("newexhibition")) {
 			screen.get(selector).remove();
 			screen.get("#content").append("div","dashboard",new DashboardController());
 		} else {
@@ -113,7 +92,7 @@ public class RoomInfoController extends Html5Controller {
     }
 	
     public void onCreateButton(Screen s,JSONObject data) {
-		if (exhibitionid.equals("newexhibition")) {
+		if (model.getProperty("@exhibitionid").equals("newexhibition")) {
 			// check if the exhibition & room are valid if not report back
     		screen.get("#roominfo_feedback").html("");
 			boolean result = checkExhibition(data);
@@ -125,13 +104,13 @@ public class RoomInfoController extends Html5Controller {
     		exhibitionnode.setProperty("location",(String)data.get("roominfo_location"));
     		exhibitionnode.setProperty("timeframe",(String)data.get("roominfo_timeframe"));
     		
-    		boolean insertresult = Fs.insertNode(exhibitionnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+username);
+    		boolean insertresult = Fs.insertNode(exhibitionnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username"));
 			if (insertresult) {
 				// lets insert the room node
 	    		FsNode roomnode = new FsNode("room",""+new Date().getTime());
 	    		roomnode.setProperty("name",(String)data.get("roominfo_room"));
 	    		roomnode.setProperty("shape",currentshape);
-	    		insertresult = Fs.insertNode(roomnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition/"+newid);
+	    		insertresult = Fs.insertNode(roomnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+newid);
 				if (insertresult) {
 					screen.get(selector).remove();
 					screen.get("#content").append("div","dashboard",new DashboardController());
@@ -142,18 +121,17 @@ public class RoomInfoController extends Html5Controller {
 	    		screen.get("#roominfo_feedback").html("** could not insert exhibition **"); 
 			}
 		} else {
-			System.out.println("CREATE ROOM? ="+roomid);
-			if (roomid.equals("addnewroom")) {
-				FsNode exhibitionnode = model.getNode(exhibitionnodepath);
+			if (model.getProperty("@roomid").equals("addnewroom")) {
+				FsNode exhibitionnode = model.getNode("@exhibition");
 				if (exhibitionnode!=null) {
 					// lets insert the room node
 					String newid = ""+new Date().getTime();
 	    			FsNode roomnode = new FsNode("room",newid);
 	    			roomnode.setProperty("name",(String)data.get("roominfo_room"));
 	    			roomnode.setProperty("shape",currentshape);
-	    			boolean insertresult = Fs.insertNode(roomnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition/"+exhibitionid);
+	    			boolean insertresult = Fs.insertNode(roomnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+model.getProperty("@exhibitionid"));
 					if (insertresult) {
-						model.setProperty(roomidpath,newid);
+						model.setProperty("@roomid",newid);
 		       			screen.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it
 		       			screen.get(selector).remove();
 					} else {
@@ -162,9 +140,9 @@ public class RoomInfoController extends Html5Controller {
 				}
 			} else {
 				// just update the roomid fields
-				String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+username+"/exhibition/"+exhibitionid+"/room/"+roomid;
-				model.setProperty(roompath+"/name",(String)data.get("roominfo_room"));
-				model.setProperty(roompath+"/shape",currentshape);
+			//	String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+model.getProperty("@exhibitionid")+"/room/"+model.getProperty("@roomid");
+				model.setProperty("@roomname",(String)data.get("roominfo_room"));
+				model.setProperty("@roomshape",currentshape);
      			screen.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it
        			screen.get(selector).remove();
 			}

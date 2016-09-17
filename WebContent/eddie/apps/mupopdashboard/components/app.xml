@@ -12,6 +12,8 @@
 	    
 	  	<rooms>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room</rooms>
 	    <room>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room['@roomid']</room>
+	    <roomname>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room['@roomid']/name</roomname>
+	    <roomshape>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room['@roomid']/roomshape</roomshape>
 	    
 		<currentstations>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station</currentstations>
 		<currentstation>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']</currentstation>
