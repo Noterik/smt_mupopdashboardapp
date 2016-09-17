@@ -76,7 +76,7 @@ public class RoomInfoController extends Html5Controller {
 	
     public void onNewRoomShapeButton(Screen s,JSONObject data) {
     	currentshape = ((String)data.get("id")).substring(18);
-		model.setProperty("@roomshape",currentshape);
+		model.setProperty("@room/roomshape",currentshape);
 		fillPage();
     }
 	
@@ -141,8 +141,8 @@ public class RoomInfoController extends Html5Controller {
 			} else {
 				// just update the roomid fields
 			//	String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+model.getProperty("@exhibitionid")+"/room/"+model.getProperty("@roomid");
-				model.setProperty("@roomname",(String)data.get("roominfo_room"));
-				model.setProperty("@roomshape",currentshape);
+				model.setProperty("@room/name",(String)data.get("roominfo_room"));
+				model.setProperty("@room/roomshape",currentshape);
      			screen.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it
        			screen.get(selector).remove();
 			}

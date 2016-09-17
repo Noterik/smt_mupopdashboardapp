@@ -5,6 +5,7 @@
 		<exhibitionid>/screen['vars']/exhibitionid</exhibitionid>
 		<stationid>/screen['vars']/stationid</stationid>
 		<roomid>/screen['vars']/roomid</roomid>
+		<oldroomid>/screen['vars']/oldroomid</oldroomid>
 		<roomname>/screen['vars']/roomname</roomname>
 	
 	 	<exhibitions>/domain['mupop']/user['@username']/exhibition</exhibitions>
@@ -12,15 +13,9 @@
 	    
 	  	<rooms>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room</rooms>
 	    <room>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room['@roomid']</room>
-	    <roomname>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room['@roomid']/name</roomname>
-	    <roomshape>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room['@roomid']/roomshape</roomshape>
 	    
 		<currentstations>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station</currentstations>
 		<currentstation>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']</currentstation>
-
-		<currentstationx>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/x</currentstationx>
-		<currentstationy>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/y</currentstationy>
-		<currentstationroom>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/room</currentstationroom>
 	</model>
 	
 	<view id="#screen">

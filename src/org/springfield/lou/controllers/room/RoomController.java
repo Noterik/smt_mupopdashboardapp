@@ -55,7 +55,6 @@ public class RoomController extends Html5Controller {
 		} else {
 			roomnode = model.getNode("@room"); // if we have one get the node for it
 		}
-		System.out.println("ROOMNODE="+roomnode.asXML());
 		String roomname = roomnode.getProperty("name"); // read and set the room name
 		model.setProperty("@roomname",roomname); // set it in screen space for other controllers
 	}
@@ -183,12 +182,12 @@ public class RoomController extends Html5Controller {
     	double xp = (Double)data.get("screenXp"); // get the percentage x from the station
     	double yp = (Double)data.get("screenYp"); // get the percentage y from the station
 
-    	model.setProperty("@currentstationx",""+xp); // set the x property
-    	model.setProperty("@currentstationy",""+yp); // set the y property
+    	model.setProperty("@currentstation/x",""+xp); // set the x property
+    	model.setProperty("@currentstation/y",""+yp); // set the y property
     	if (yp<80) { // kinda hacked based on that the 'offline area' starts at 80% of the screen
-    		model.setProperty("@currentstationroom",model.getProperty("@roomid")); // set the room id to this room
+    		model.setProperty("@currentstation/room",model.getProperty("@roomid")); // set the room id to this room
     	} else {
-        	model.setProperty("@currentstationroom","offline"); // set room id to offline to signal not in use
+        	model.setProperty("@currentstation/room","offline"); // set room id to offline to signal not in use
     	}
     }
     
