@@ -18,9 +18,6 @@ import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 
 public class RoomInfoController extends Html5Controller {
-	
-	String oldroomidpath;
-	String oldroomid;
 	String fields = "roominfo_exhibition,roominfo_location,roominfo_room,roominfo_timeframe,roominfo_building,roominfo_description,roominfo_gpslan,roominfo_gpslat";
 	String currentshape = "roomshape_square";
 	
@@ -29,18 +26,9 @@ public class RoomInfoController extends Html5Controller {
 	
 	public void attach(String sel) {
 		selector = sel;
-		getVars();
 		fillPage();
 	}
 	
-	/**
-	 * Load all the vars we plan to use if we can already
-	 */
-	private void getVars() {
-		oldroomidpath="/screen['vars']/oldroomid"; // path in screen to share between controllers
-		oldroomid = model.getProperty(oldroomidpath);
-		System.out.println("OLD ROOM ID="+oldroomid);
-	}
 	
 	private void fillPage() {
 		JSONObject data = new JSONObject();
@@ -60,7 +48,6 @@ public class RoomInfoController extends Html5Controller {
 			if (roomnode!=null) {	// do we have a valid one
 				data.put("room",roomnode.getProperty("name")); // ifso set name in json
 				currentshape = roomnode.getProperty("shape");
-				System.out.println("CUR="+currentshape);
 				data.put("shape",currentshape); // ifso set name in json
 			}
 			if (model.getProperty("@roomid").equals("addnewroom")) {
@@ -76,12 +63,16 @@ public class RoomInfoController extends Html5Controller {
 	
     public void onNewRoomShapeButton(Screen s,JSONObject data) {
     	currentshape = ((String)data.get("id")).substring(18);
-		model.setProperty("@room/roomshape",currentshape);
+    	System.out.println("SET SHAPE="+currentshape);
+		model.setProperty("@room/shape",currentshape);
+    	System.out.println("SET SHAPE DONE="+currentshape);
+		System.out.println("R="+model.getProperty("@room/shape"));
 		fillPage();
     }
 	
     public void onCancelButton(Screen s,JSONObject data) {
-    	model.setProperty("@roomid", oldroomid);
+    	//System.out.println("ROOMUD="+model.getProperty("@oldroomid"));
+    	//model.setProperty("@roomid", model.getProperty("@oldroomid"));
 		if (model.getProperty("@exhibitionid").equals("newexhibition")) {
 			screen.get(selector).remove();
 			screen.get("#content").append("div","dashboard",new DashboardController());
@@ -142,7 +133,7 @@ public class RoomInfoController extends Html5Controller {
 				// just update the roomid fields
 			//	String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+model.getProperty("@exhibitionid")+"/room/"+model.getProperty("@roomid");
 				model.setProperty("@room/name",(String)data.get("roominfo_room"));
-				model.setProperty("@room/roomshape",currentshape);
+				model.setProperty("@room/shape",currentshape);
      			screen.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it
        			screen.get(selector).remove();
 			}

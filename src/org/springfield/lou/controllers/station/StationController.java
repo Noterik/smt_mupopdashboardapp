@@ -23,17 +23,6 @@ public class StationController extends Html5Controller {
 	
 	String fields = "station_labelid,station_name,station_app";
 	String currentapp = "none"; // we assume a empty at the start
-	String username;
-	String usernamepath;
-	String exhibitionidpath;
-	String exhibitionid;
-	String exhibitionnodepath;
-	String roomidpath;
-	String roomnamepath;
-	String roomid;
-	String roompath;
-	String stationidpath;
-	String stationid;
 
 	/**
 	 * Station controller where the station and its app get edited
@@ -46,26 +35,9 @@ public class StationController extends Html5Controller {
 	 */
 	public void attach(String sel) {
 		selector = sel; // save for later use
-		getVars(); // read all the needed vars
 		fillPage(); // fill the screen
 	}
 	
-	/**
-	 * Load all the vars we plan to use if we can already
-	 */
-	private void getVars() {
-		usernamepath = "/screen['profile']/username"; // path in screen to share between controllers
-		exhibitionidpath="/screen['vars']/exhibitionid"; // path in screen to share between controllers
-		roomidpath="/screen['vars']/roomid"; // path in screen to share between controllers
-		stationidpath="/screen['vars']/stationid"; // path in screen to share between controllers
-		
-		username = model.getProperty(usernamepath); // get the username from the screen space
-		exhibitionid = model.getProperty(exhibitionidpath); // get the exhibitionid from the screen space
-		roomid = model.getProperty(roomidpath); // get the roomid from the screen space
-		stationid = model.getProperty(stationidpath); // get the stationid from the screen space
-		
-		model.setProperty("/screen['vars']/stationfullpath","/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
-	}
 	
 	/**
 	 * fill our space on our screen
@@ -78,8 +50,7 @@ public class StationController extends Html5Controller {
 			data.put("stationlabel",getNewStationName()); // generate a id best we can 
 			screen.get(selector).render(data); // send data to client mustache render
 		} else {
-			FsNode stationnode = model.getNode("@currentstation");
-    		//FsNode stationnode = model.getNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
+			FsNode stationnode = model.getNode("@station");
     		if (stationnode!=null) { // did we find the old station node ?
     			currentapp = stationnode.getProperty("app"); // yes 
     			JSONObject data = getAppList(currentapp); // read the available aps to json 
@@ -116,32 +87,14 @@ public class StationController extends Html5Controller {
      */
     public void onSave(Screen s,JSONObject data) {
     	if (model.getProperty("/screen['vars']/newstation").equals("true")) { // check if its a new or old station
-			String newid = ""+new Date().getTime(); // its new lets create it 
-    		FsNode stationnode = new FsNode("station",newid); // so new node with new id
-    		stationnode.setProperty("labelid",(String)data.get("station_labelid")); // set the station label
-    		stationnode.setProperty("name",(String)data.get("station_name")); // set the station name
-    		stationnode.setProperty("room","offline"); // since its new its starts in offline mode
-    		stationnode.setProperty("app",(String)data.get("station_app")); // set the app defined
-    		stationnode.setProperty("x","40"); // kinda weird they always popup in same location
-    		stationnode.setProperty("y","85");  // kinda weird they always popup in same location
-    		
-    		// save the node (will still change)
-    		model.putNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']",stationnode);
+    		model.importNode("@stations",data,"newstation");
     		model.notify("/screen['appsave']", new FsNode("data","1")); // notify the app controller to it can also save
     	} else {
-    		// get the node to be updated
-    		FsNode stationnode = model.getNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station['"+stationid+"']");
-    		if (stationnode!=null) { 
-        		stationnode.setProperty("labelid",(String)data.get("station_labelid")); // set the station label
-        		stationnode.setProperty("name",(String)data.get("station_name"));  // set the station name
-        		stationnode.setProperty("app",(String)data.get("station_app"));	// set the app defined
-        		model.putNode("/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']",stationnode);
-        		
-    		}
+    		model.mergeNode("@station",data,"updatestation");
     		model.notify("/screen['appsave']", new FsNode("data","1")); // notify the app controller to it can also save
     	}
     	screen.get(selector).remove(); // remove from screen
-    	model.setProperty(roomidpath,roomid); // dirty trick to get a reload
+    	model.setProperty("@roomid",model.getProperty("@roomid")); // dirty trick to get a reload
     }
     
     /*
@@ -177,8 +130,7 @@ public class StationController extends Html5Controller {
     private String getNewStationName() {
     	int result = 0;
     	// get the list from domain so see if we are on a number idea we can use.
-		String stationpath = "/domain['"+screen.getApplication().getDomain()+"']/user['"+username+"']/exhibition['"+exhibitionid+"']/station";
-		FSList stations = model.getList(stationpath);
+		FSList stations = model.getList("@stations");
 		if (stations!=null && stations.size()>0) { // if we have stations already lets find the highest number
 			for(Iterator<FsNode> iter = stations.getNodes().iterator() ; iter.hasNext(); ) {
 				FsNode node = (FsNode)iter.next();	

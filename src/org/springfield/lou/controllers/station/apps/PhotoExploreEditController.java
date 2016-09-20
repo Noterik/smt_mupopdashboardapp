@@ -13,7 +13,6 @@ public class PhotoExploreEditController extends Html5Controller{
 	
 	private String tab="content";
 	private String valuelist="appeditor_content_url";
-	private String stationfullpath;
 	
 	public PhotoExploreEditController() {
 		
@@ -29,10 +28,7 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	private void getVars() {
-		stationfullpath=model.getProperty("/screen['vars']/stationfullpath");
-		System.out.println("PATH="+stationfullpath);
-		System.out.println("OLD VALUE="+model.getProperty(stationfullpath+"/url"));
-		model.setProperty("/screen['data']/form['1']/appeditor_content_url",model.getProperty(stationfullpath+"/url"));
+		model.setProperty("/screen['data']/form['1']/appeditor_content_url",model.getProperty("@station/url"));
 	}
 	
 	private void fillPage() {
@@ -60,7 +56,6 @@ public class PhotoExploreEditController extends Html5Controller{
 	private JSONObject memoryToData(JSONObject data) {
 		FsNode node = model.getNode("/screen['data']/form['1']");
 		if (node!=null) {
-			System.out.println("NODE="+node.asXML());
 			String[] checklist = valuelist.split(",");
 			for (int i=0;i<checklist.length;i++) {
 				String check = checklist[i];
@@ -75,7 +70,6 @@ public class PhotoExploreEditController extends Html5Controller{
 		FsNode node = model.getNode("/screen['data']/form['1']");
 		if (node==null) {
 			node = new FsNode("form","1");
-			System.out.println("SAVE NODE TO MEM");
 			model.putNode("/screen['data']", node);
 		}
 		String[] checklist = valuelist.split(",");
@@ -93,19 +87,17 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	public void onCancelWanted(ModelEvent e) {
-		System.out.println("ON CANCEL CALLED!!"+ selector);
 		screen.get(selector).remove();
 	}
 	
 	public void onSaveWanted(ModelEvent e) {
 		FsNode node = model.getNode("/screen['data']/form['1']");
 		if (node!=null) {
-			System.out.println("SAVE WANTED ON FOLLOWING DATA="+node.asXML());
 			for(Iterator<String> iter = node.getKeys(); iter.hasNext();) {
 				String key = iter.next();
 				String value = node.getProperty(key);
 				if (key.equals("appeditor_content_url")) {
-					model.setProperty(stationfullpath+"/url", value);
+					model.setProperty("@station/url", value);
 				}
 			}
 	

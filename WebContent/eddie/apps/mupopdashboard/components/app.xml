@@ -14,9 +14,44 @@
 	  	<rooms>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room</rooms>
 	    <room>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/room['@roomid']</room>
 	    
-		<currentstations>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station</currentstations>
-		<currentstation>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']</currentstation>
+		<stations>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station</stations>
+		<station>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']</station>
 	</model>
+	
+	<mapping id="updatestation">
+		<map id="labelid">
+			<from>station_labelid</from>
+		</map>
+		<map id="name">
+			<from>station_name</from>
+		</map>
+		<map id="app">
+			<from>station_app</from>
+		</map>
+	</mapping>
+	
+	<mapping id="newstation">
+		<type>station</type>
+		<id>$epoch</id>
+		<map id="labelid">
+			<from>station_labelid</from>
+		</map>
+		<map id="name">
+			<from>station_name</from>
+		</map>
+		<map id="app">
+			<from>station_app</from>
+		</map>
+		<constant id="room">
+			<value>offline</value>
+		</constant>
+		<constant id="x">
+			<value>40</value>
+		</constant>
+		<constant id="y">
+			<value>85</value>
+		</constant>
+	</mapping>
 	
 	<view id="#screen">
 		<template>screen.mst</template>

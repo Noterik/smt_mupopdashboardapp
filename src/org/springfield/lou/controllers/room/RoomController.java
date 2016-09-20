@@ -95,7 +95,7 @@ public class RoomController extends Html5Controller {
 	 * add the active stations data to the json object for display
 	 */
 	private JSONObject addStations(String roomid) {
-		FSList stations = model.getList("@currentstations"); // get stations from domain space
+		FSList stations = model.getList("@stations"); // get stations from domain space
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room",roomid); // filter out the ones based on room property
 			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url"); // convert it to json format
@@ -108,7 +108,7 @@ public class RoomController extends Html5Controller {
 	 * add the offline stations data to the json object for display
 	 */
 	private JSONObject addOfflineStations() {
-		FSList stations = model.getList("@currentstations");
+		FSList stations = model.getList("@stations");
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room","offline"); 
 			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url");
@@ -182,12 +182,12 @@ public class RoomController extends Html5Controller {
     	double xp = (Double)data.get("screenXp"); // get the percentage x from the station
     	double yp = (Double)data.get("screenYp"); // get the percentage y from the station
 
-    	model.setProperty("@currentstation/x",""+xp); // set the x property
-    	model.setProperty("@currentstation/y",""+yp); // set the y property
+    	model.setProperty("@station/x",""+xp); // set the x property
+    	model.setProperty("@station/y",""+yp); // set the y property
     	if (yp<80) { // kinda hacked based on that the 'offline area' starts at 80% of the screen
-    		model.setProperty("@currentstation/room",model.getProperty("@roomid")); // set the room id to this room
+    		model.setProperty("@station/room",model.getProperty("@roomid")); // set the room id to this room
     	} else {
-        	model.setProperty("@currentstation/room","offline"); // set room id to offline to signal not in use
+        	model.setProperty("@station/room","offline"); // set room id to offline to signal not in use
     	}
     }
     
