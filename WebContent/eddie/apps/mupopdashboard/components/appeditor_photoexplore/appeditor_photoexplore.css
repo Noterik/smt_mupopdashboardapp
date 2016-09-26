@@ -12,6 +12,21 @@
 	left: 100px;
 }
 
+#appeditor_stationurl {
+	position: absolute;
+	color: #ffffff;
+	top: 60px;
+	left: 100px;
+}
+
+#appeditor_mobileurl {
+	position: absolute;
+	color: #ffffff;
+	top: 80px;
+	left: 100px;
+}
+
+
 #appeditor_content_url {
 	position: absolute;
 	top: 60px;

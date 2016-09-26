@@ -1,0 +1,58 @@
+#appeditor_photoexploretable {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 5%;
+}
+
+#appeditor_content_url_label {
+	position: absolute;
+	top: 60px;
+	left: 100px;
+}
+
+#appeditor_stationurl {
+	position: absolute;
+	color: #ffffff;
+	top: 100px;
+	left: 100px;
+}
+
+#appeditor_waitscreen_mode_label {
+	position: absolute;
+	top: 60px;
+	left: 100px;
+}
+
+#appeditor_selection_mode_label {
+	position: absolute;
+	top: 60px;
+	left: 100px;
+}
+
+#appeditor_waitscreen_mode {
+	position: absolute;
+	top: 60px;
+	left: 150px;
+}
+
+#appeditor_selection_mode {
+	position: absolute;
+	top: 60px;
+	left: 150px;
+}
+
+#appeditor_mobileurl {
+	position: absolute;
+	color: #ffffff;
+	top: 120px;
+	left: 100px;
+}
+
+
+#appeditor_content_url {
+	position: absolute;
+	top: 60px;
+	left: 200px;
+}

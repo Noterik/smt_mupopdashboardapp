@@ -34,7 +34,11 @@ public class PhotoExploreEditController extends Html5Controller{
 	private void fillPage() {
 		JSONObject data = new JSONObject();
 		data.put(tab+"tab","true"); 
-		
+		data.put("username", model.getProperty("@username"));	
+		data.put("domain",model.getProperty("mupop"));	
+		data.put("exhibitionid",model.getProperty("@exhibitionid"));
+		data.put("stationid",model.getProperty("@stationid"));
+		System.out.println("STATIONID="+model.getProperty("@stationid"));
 		data = memoryToData(data);
 			
 		screen.get(selector).render(data);

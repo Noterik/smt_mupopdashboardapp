@@ -20,5 +20,9 @@
 
 {{#contenttab}}
 <div id="appeditor_content_url_label">zoom image</div><input id="appeditor_content_url" value="{{appeditor_content_url}}" size="80" />
-
 {{/contenttab}}	
+
+{{#modetab}}
+<div id="appeditor_stationurl"><a target="_blank" href="/lou/domain/{{domain}}/user/{{username}}/html5application/mupop?path=/exhibition/{{exhibitionid}}/station/{{stationid}}">stationurl</a></div>
+<div id="appeditor_mobileurl"><a target="_blank" href="/lou/domain/{{domain}}/user/{{username}}/html5application/mupopmobile?path=/exhibition/{{exhibitionid}}">mobileurl</a></div>
+{{/modetab}}
