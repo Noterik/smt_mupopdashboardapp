@@ -115,6 +115,13 @@
 		<controller id="PhotoExploreController">
 		</controller>
 	</view>
+	
+	<view id="#appeditor_interactivevideo">
+		<template>appeditor_interactivevideo/appeditor_interactivevideo.mst</template>
+		<style>appeditor_interactivevideo/appeditor_interactivevideo.css</style>
+		<controller id="InteractiveVideoController">
+		</controller>
+	</view>
 
 	
 </app>

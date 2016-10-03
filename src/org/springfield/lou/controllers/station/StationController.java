@@ -14,6 +14,7 @@ import org.springfield.fs.FsNode;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.roominfo.RoomInfoController;
+import org.springfield.lou.controllers.station.apps.InteractiveVideoEditController;
 import org.springfield.lou.controllers.station.apps.PhotoExploreEditController;
 import org.springfield.lou.controllers.station.apps.PhotoInfoSpotsEditController;
 import org.springfield.lou.model.ModelEvent;
@@ -56,12 +57,14 @@ public class StationController extends Html5Controller {
     			JSONObject data = getAppList(currentapp); // read the available aps to json 
     			data.put("stationname",stationnode.getProperty("name")); // load the name to json
     			data.put("stationlabel",stationnode.getProperty("labelid")); // load the labelid
-    			
+    			System.out.println("CURAPP="+currentapp);
     			screen.get(selector).render(data); // send the data to client mustache render
     			if (currentapp.equals("photoexplore")) { // check for the 2 apps en jump if needed
     				screen.get("#station_appspace").append("div","appeditor_photoexplore",new PhotoExploreEditController());
     			} else if (currentapp.equals("photoinfospots")) {
     				screen.get("#station_appspace").append("div","appeditor_photoinfospots",new PhotoInfoSpotsEditController());
+    			} else if (currentapp.equals("interactivevideo")) {
+    				screen.get("#station_appspace").append("div","appeditor_interactivevideo",new InteractiveVideoEditController());
     			}
     		}
 		}
@@ -117,6 +120,10 @@ public class StationController extends Html5Controller {
 		node = new FsNode("apps","4");
 		node.setProperty("name","photoinfospots");
 		node.setProperty("labelname","PhotoInfoSpots");
+		list.addNode(node);
+		node = new FsNode("apps","5");
+		node.setProperty("name","interactivevideo");
+		node.setProperty("labelname","InteractiveVideo");
 		list.addNode(node);
 		return list.toJSONObject("en","name,labelname");
     }

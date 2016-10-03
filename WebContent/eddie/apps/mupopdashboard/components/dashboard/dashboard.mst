@@ -1,7 +1,7 @@
 <table id="dashboard_exhbitionlist">
 	{{^username}}
 	<tr>
-		<th id="feedback" colspan="4">MuPop Dashboard, please login before you can use it</th>
+		<th id="feedback" colspan="4">MuPoP Dashboard, please login before you can use it</th>
 	</tr>
 	{{/username}}
 	{{#username}}

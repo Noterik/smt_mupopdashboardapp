@@ -46,6 +46,7 @@ public class LoginController extends Html5Controller {
 		ServiceInterface barney = ServiceManager.getService("barney"); // get barney to check if they are valid
 		if (barney!=null) { 
 			String ticket = barney.get("login("+s.getApplication().getDomain()+","+name+","+password+")", null, null);
+
 			if (!ticket.equals("-1")) { // barney gave a valid ticket so lets login in the app
 					model.setProperty("@username", name); // set user name in screen space for other controllers
 					screen.onNewUser(name); // signal new user to app (still needed?)
