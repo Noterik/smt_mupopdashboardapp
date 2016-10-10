@@ -22,8 +22,9 @@ import org.springfield.lou.screen.Screen;
 
 public class StationController extends Html5Controller {
 	
-	String fields = "station_labelid,station_name,station_app";
+	String fields = "station_labelid,station_name,station_app,station_paired";
 	String currentapp = "none"; // we assume a empty at the start
+	String oldpaired = "";
 
 	/**
 	 * Station controller where the station and its app get edited
@@ -49,6 +50,7 @@ public class StationController extends Html5Controller {
 			JSONObject data = getAppList(currentapp);  // read the available aps to json
 			data.put("newstation","true"); // set a variable to
 			data.put("stationlabel",getNewStationName()); // generate a id best we can 
+			data = addHids(data);
 			screen.get(selector).render(data); // send data to client mustache render
 		} else {
 			FsNode stationnode = model.getNode("@station");
@@ -57,7 +59,10 @@ public class StationController extends Html5Controller {
     			JSONObject data = getAppList(currentapp); // read the available aps to json 
     			data.put("stationname",stationnode.getProperty("name")); // load the name to json
     			data.put("stationlabel",stationnode.getProperty("labelid")); // load the labelid
+    			data.put("stationpaired",stationnode.getProperty("paired"));
+    			oldpaired = stationnode.getProperty("paired");
     			System.out.println("CURAPP="+currentapp);
+    			data = addHids(data);
     			screen.get(selector).render(data); // send the data to client mustache render
     			if (currentapp.equals("photoexplore")) { // check for the 2 apps en jump if needed
     				screen.get("#station_appspace").append("div","appeditor_photoexplore",new PhotoExploreEditController());
@@ -71,6 +76,15 @@ public class StationController extends Html5Controller {
 		screen.get("#station_formarea").draggable(); // make the window draggable for fun (its a overlay)
 		screen.get("#station_cancel").on("mouseup","onCancel", this); // watch if user wants to cancel
  		screen.get("#station_save").on("mouseup",fields,"onSave", this); // watch if user wants to save
+	}
+	
+	private JSONObject addHids(JSONObject data) {
+		FSList list = model.getList("/domain/mupop/config/hids/hid");
+		if (list!=null) {
+			JSONObject paired = list.toJSONObject("en","stationname");
+			data.put("paired",paired);
+		}
+		return data;
 	}
 	
 	/**
@@ -95,6 +109,14 @@ public class StationController extends Html5Controller {
     	} else {
     		model.mergeNode("@station",data,"updatestation");
     		model.notify("/screen['appsave']", new FsNode("data","1")); // notify the app controller to it can also save
+    	}
+    	
+    	// check hid and update it when exhibitionis active
+    	String paired = (String)data.get("station_paired");
+    	System.out.println("PAIRED="+paired);
+    	if (!paired.equals(oldpaired)) {
+    		// pairing change make active
+    		System.out.println("WANT TO MAKE ACTIVE BECAUSE CHANGED="+paired);
     	}
     	screen.get(selector).remove(); // remove from screen
     	model.setProperty("@roomid",model.getProperty("@roomid")); // dirty trick to get a reload

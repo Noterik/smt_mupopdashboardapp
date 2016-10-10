@@ -13,6 +13,7 @@ import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.dashboard.DashboardController;
+import org.springfield.lou.controllers.exhibitioninfo.ExhibitionInfoController;
 import org.springfield.lou.controllers.roominfo.RoomInfoController;
 import org.springfield.lou.controllers.roomselector.RoomSelectorController;
 import org.springfield.lou.controllers.station.StationController;
@@ -86,6 +87,7 @@ public class RoomController extends Html5Controller {
 		screen.get(".room_station").on("dblclick","onStationSelect", this);  // if user want to edit station tell us 
 		screen.get(".breadcrumbpathsubmit").on("mouseup","onBreadCrumbSubmit", this);  // is user wants to go back tell us
  		screen.get("#room_roomselectorbutton").on("mouseup","onRoomSelectorButton", this); // if user wants to change room tell us
+ 		screen.get("#room_exhibitionsettingsbutton").on("mouseup","onExhibitionSettingsButton", this);
  		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this); // if user wants to add a new station tell us
  		screen.get("#room_roomsettingsbutton").on("mouseup","onRoomSettingsButton", this); // if user wants to edit the room tell us
 		model.onPropertyUpdate("/screen['vars']/roomid","onRoomChange",this); // watch for room change events probably done my RoomSelectorController
@@ -137,6 +139,17 @@ public class RoomController extends Html5Controller {
     	System.out.println("ROOM EDIT WANTED");
     	s.get(selector).remove();
 		s.get("#content").append("div","roominfo",new RoomInfoController()); // if user wanted a new exhibition we open new room info screen for it
+    }
+    
+	/**
+	 * User wants to change some exhibition settings
+	 * @param s
+	 * @param data
+	 */
+    public void onExhibitionSettingsButton(Screen s,JSONObject data) {
+    	System.out.println("EXHIBITION SETTINGS WANTED");
+    	s.get(selector).remove();
+		s.get("#content").append("div","exhibitioninfo",new ExhibitionInfoController()); 
     }
 	
 	/**

@@ -60,6 +60,18 @@
 	right:30%;
 }
 
+#station_pairedlabel {
+	position: absolute;
+	top:10%;
+	left:50%;
+}
+
+#station_paired {
+	position: absolute;
+	top:10%;
+	left:55%;
+}
+
 #station_app {
 	position: absolute;
 	top:10%;

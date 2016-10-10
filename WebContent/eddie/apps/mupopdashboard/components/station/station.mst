@@ -7,6 +7,19 @@
 	<div id="station_labelname">Name</div>
 	<input id="station_name" size="20" value="{{stationname}}" />
 	
+	
+	<div id="station_pairedlabel">Paired</div>
+	<select id="station_paired">
+	{{#stationpaired}}
+		<option value="{{stationpaired}}">{{stationpaired}}
+	 {{/stationpaired}}
+	 {{#paired}}
+		 {{#nodes}}
+		 	<option value="{{id}}">{{id}}
+		{{/nodes}}
+	 {{/paired}}
+	</select>
+	
 	<div id="station_appnamelabel">App</div>
 	<select id="station_app">
 		 {{#nodes}}

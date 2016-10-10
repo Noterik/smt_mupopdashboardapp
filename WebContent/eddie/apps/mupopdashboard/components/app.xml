@@ -1,5 +1,17 @@
 <app>
 
+	<jumper id="/lou/mupop/dashboard">
+		<target>/lou/domain/mupop/user/daniel/html5application/mupopdashboard</target>
+	</jumper>
+	
+	<jumper id="dashboard.mupop.net@/lou/mupop/">
+		<target>/lou/domain/mupop/user/daniel/html5application/mupopdashboard</target>
+	</jumper>
+	
+	<jumpers id="/lou/mupop/">
+		<source>/domain/mupop/config/jumpers</source>
+	</jumpers>
+
 	<model id="default">
 		<username>/screen['profile']/username</username>
 		<exhibitionid>/screen['vars']/exhibitionid</exhibitionid>
@@ -28,6 +40,9 @@
 		<map id="app">
 			<from>station_app</from>
 		</map>
+		<map id="paired">
+			<from>station_paired</from>
+		</map>
 	</mapping>
 	
 	<mapping id="newstation">
@@ -41,6 +56,9 @@
 		</map>
 		<map id="app">
 			<from>station_app</from>
+		</map>
+		<map id="paired">
+			<from>station_paired</from>
 		</map>
 		<constant id="room">
 			<value>offline</value>
@@ -92,6 +110,13 @@
 		<template>roominfo/roominfo.mst</template>
 		<style>roominfo/roominfo.css</style>
 		<controller id="RoomInfoController">
+		</controller>
+	</view>
+
+	<view id="#exhibitioninfo">
+		<template>exhibitioninfo/exhibitioninfo.mst</template>
+		<style>exhibitioninfo/exhibitioninfo.css</style>
+		<controller id="ExhibitionInfoController">
 		</controller>
 	</view>
 	

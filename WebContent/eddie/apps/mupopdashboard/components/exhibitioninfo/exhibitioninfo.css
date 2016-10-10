@@ -1,0 +1,12 @@
+#exhibitioninfo_toparea {
+	position:absolute;
+	padding: 5px;
+  	border: solid 1px silver;
+  	color:#ffffff;
+  	background-color:#336;
+  	font-size:13pt;
+  	top: 100px;
+	left: 20%;
+	height: 240px;
+	width: 650px;
+}
