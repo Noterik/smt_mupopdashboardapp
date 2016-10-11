@@ -1,5 +1,8 @@
 <div id="exhibitioninfo_toparea">
 EXHIBITION INFO
+	<button id="exhibitioninfo_cancelbutton">cancel</button>
+	<button id="exhibitioninfo_updatebutton">update</button>
 </div>
+
 
 

@@ -10,3 +10,15 @@
 	height: 240px;
 	width: 650px;
 }
+
+#exhibitioninfo_cancelbutton {
+	position:absolute;
+	left: 30%;
+	bottom: 10px;
+}
+
+#exhibitioninfo_updatebutton {
+	position:absolute;
+	right: 30%;
+	bottom: 10px;
+}
