@@ -120,6 +120,8 @@ public class ExhibitionInfoController extends Html5Controller {
 		String hid = (String)hids.get(0);
 		if (hid!=null && !hid.equals("")) {
     		boolean result = Fs.deleteNode("/domain/mupop/config/hids/hid/"+hid);
+    		System.out.println("FILLPAGE CALLED");
+    		fillPage();
 		}
 	}
 	

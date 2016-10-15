@@ -3,8 +3,10 @@ package org.springfield.lou.controllers.room;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.springfield.fs.FSList;
@@ -24,6 +26,7 @@ public class RoomController extends Html5Controller {
 	
 	String newstationpath;
 	FsNode roomnode; 
+	Map<String,FsNode> alivestations = new HashMap<String, FsNode>();
 	
 	
 	/**
@@ -42,6 +45,36 @@ public class RoomController extends Html5Controller {
 		selector = sel; // set the id for later use.
 		getVars();
 		fillPage();
+		model.onNotify("/app['timers']", "onStationsCheck", this);
+		model.onNotify("/shared['mupop']/hids[alive]", "onAliveMessage", this);
+	}
+	
+	public void onStationsCheck(ModelEvent e) {
+		FSList list = model.getList("@stations");
+		if (list!=null) {
+			List<FsNode> nodes = list.getNodes();
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				String hid = node.getProperty("paired");
+				if (alivestations.get(hid)!=null) {
+					screen.get("#room_stationdot"+node.getId()).css("background-color","#009900");
+				} else if (hid.indexOf("*")==-1) {
+					screen.get("#room_stationdot"+node.getId()).css("background-color","#990000");	
+				} else {
+					screen.get("#room_stationdot"+node.getId()).css("background-color","#555555");
+				}
+			}
+		}
+		alivestations = new HashMap<String, FsNode>();
+	}
+	
+	public void onAliveMessage(ModelEvent e) {
+		//System.out.println("TIMER UPDATE !!!"+e.getTargetFsNode().asXML());
+		FsNode node = e.getTargetFsNode();
+		String message = node.getProperty("message");
+		System.out.println("ALIVE MESSAGE FROM="+message);
+		alivestations.put(message,node);
+		//screen.get("#room_stationdot"+message).css("background-color","#009900");
 	}
 	
 	/**
@@ -106,6 +139,7 @@ public class RoomController extends Html5Controller {
 		FSList stations = model.getList("@stations"); // get stations from domain space
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room",roomid); // filter out the ones based on room property
+
 			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url"); // convert it to json format
 		} else {
 			return new JSONObject(); // return empty json object if no stations found
@@ -238,13 +272,56 @@ public class RoomController extends Html5Controller {
     public void onExhibitionOnButton(Screen s,JSONObject data) {
     	System.out.println("Exhibition on button");
     	model.setProperty("@exhibition/state","on");
+    	updateHidsOn();
     	fillPage();
     }
     
     public void onExhibitionOffButton(Screen s,JSONObject data) {
     	System.out.println("Exhibition off button");
     	model.setProperty("@exhibition/state","off");
+    	updateHidsOff();
     	fillPage();
     }
+    
+    
+    private void updateHidsOn() {
+    	// we need to tell the hids table and active hardware about the change in state
+    	String exhibitionid = model.getProperty("@exhibitionid");
+		FSList list = model.getList("@stations");
+		if (list!=null) {
+			List<FsNode> nodes = list.getNodes();
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				String hid = node.getProperty("paired");
+				if (hid!=null && !hid.equals("") && hid.indexOf("*")==-1) {
+					model.setProperty("/domain/mupop/config/hids/hid/"+hid+"/stationid",node.getId());
+					model.setProperty("/domain/mupop/config/hids/hid/"+hid+"/exhibitionid",exhibitionid);
+		    		model.notify("/shared['mupop']/hid['"+hid+"']","paired");
+				}
+			}
+		}
+    }
+    
+    
+    private void updateHidsOff() {
+    	// we need to tell the hids table and active hardware about the change in state
+    	String exhibitionid = model.getProperty("@exhibitionid");
+		FSList list = model.getList("/domain/mupop/config/hids/hid");
+		if (list!=null) {
+			List<FsNode> nodes = list.getNodes();
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				if (node.getProperty("exhibitionid").equals(exhibitionid)) {
+					// found one lets turn it  off
+					model.setProperty("/domain/mupop/config/hids/hid/"+node.getId()+"/stationid","");
+					model.setProperty("/domain/mupop/config/hids/hid/"+node.getId()+"/exhibitionid","");
+		    		model.notify("/shared['mupop']/hid['"+node.getId()+"']","unpaired");
+				}
+			}
+		}
+  
+    }
+    
+   
  	 
 }

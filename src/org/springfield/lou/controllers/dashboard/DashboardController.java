@@ -56,7 +56,7 @@ public class DashboardController extends Html5Controller {
 		FSList list = model.getList("@exhibitions"); // get list of users exhibitions
 		List<FsNode> nodes = list.getNodes(); // gets its nodes in order of creation
 		
-		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name,location,timeframe"); // convert it to json list with wanted fields
+		JSONObject data = FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"name,location,timeframe,state"); // convert it to json list with wanted fields
 		data.put("username",model.getProperty("@username")); // also add the user name so we can display it
 		screen.get(selector).render(data); // tell frontend to render it using mustache
  		screen.get(".selectablerow").on("mouseup","onShow", this); // wait for user to select one of the exhibitions from the list

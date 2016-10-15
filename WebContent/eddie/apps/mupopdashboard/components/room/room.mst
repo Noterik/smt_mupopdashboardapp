@@ -35,7 +35,7 @@
 {{#stations}}
 	{{#nodes}}
 		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
-			<div id="room_station{{id}}" class="room_stationdot"/>
+			<div id="room_stationdot{{id}}" class="room_stationdot" />
 			<div id="room_station{{id}}" class="room_stationid">{{labelid}}</div>
 			<div id="room_station{{id}}" class="room_stationname">{{name}}</div>
 		</div>

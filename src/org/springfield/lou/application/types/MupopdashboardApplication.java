@@ -8,6 +8,7 @@
 package org.springfield.lou.application.types;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +46,16 @@ public class MupopdashboardApplication extends Html5Application {
 			s.get("#screen").append("div","login",new LoginController()); // Also allow a user to log in
      }
     
+    
+	public void maintainanceRun() {
+		super.maintainanceRun();
+		Iterator<Screen> iter = getScreenManager().getScreens().values().iterator();
+		if (iter.hasNext()) {
+			Screen scr = iter.next();
+			scr.getModel().notify("/app['timers']","10");
+		}
+	
+	}
     
 
 }
