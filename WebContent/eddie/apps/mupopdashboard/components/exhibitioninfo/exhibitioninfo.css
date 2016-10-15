@@ -7,18 +7,63 @@
   	font-size:13pt;
   	top: 100px;
 	left: 20%;
-	height: 240px;
+	height: 400px;
 	width: 650px;
 }
 
-#exhibitioninfo_cancelbutton {
+#exhibitioninfo_hids {
 	position:absolute;
-	left: 30%;
-	bottom: 10px;
+	left: 20px;
+	top: 110px;
+	height: 300px;
+	width: 200px;
 }
 
-#exhibitioninfo_updatebutton {
+#exhibitioninfo_hids_label {
 	position:absolute;
-	right: 30%;
+	left: 0px;
+	top: 0px;
+}
+
+#exhibitioninfo_hids_select {
+	position:absolute;
+	left: 10px;
+	top: 30px;
+}
+
+#exhibitioninfo_edithidbutton {
+	position:absolute;
+	left: 10px;
+	bottom: 100px;
+}
+
+#exhibitioninfo_deletehidbutton {
+	position:absolute;
+	left: 10px;
+	bottom: 70px;
+}
+
+#exhibitioninfo_addhidbutton {
+	position:absolute;
+	left: 10px;
+	bottom: 40px;
+}
+
+
+#exhibitioninfo_feedback {
+	position:absolute;
+	left: 50px;
+	top: 80px;
+}
+
+#exhibitioninfo_codelabel {
+	position:absolute;
+	left: 30px;
+	top: 50px;
+}
+
+#exhibitioninfo_donebutton {
+	position:absolute;
+	left: 50%;
 	bottom: 10px;
 }

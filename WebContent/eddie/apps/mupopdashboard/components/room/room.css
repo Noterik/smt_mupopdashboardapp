@@ -101,30 +101,51 @@
 	z-index: 1000;
 }
 
-#room_exhibitionsettingsbutton {
+#room_exhibitionstate {
 	position: absolute;
-	top: 50px;
+	top: 20px;
 	left: 10%;
 	width: 80%;
 }
 
-#room_roomselectorbutton {
+#room_exhibitiononbutton {
+	position: absolute;
+	top: 50px;
+	left: 10%;
+	width: 35%;
+}
+
+#room_exhibitionoffbutton {
+	position: absolute;
+	top: 50px;
+	right: 10%;
+	width: 35%;
+}
+
+#room_exhibitionsettingsbutton {
 	position: absolute;
 	top: 80px;
 	left: 10%;
 	width: 80%;
 }
 
-#room_roomsettingsbutton {
+#room_roomselectorbutton {
 	position: absolute;
 	top: 110px;
 	left: 10%;
 	width: 80%;
 }
 
-#room_addstationbutton {
+#room_roomsettingsbutton {
 	position: absolute;
 	top: 140px;
+	left: 10%;
+	width: 80%;
+}
+
+#room_addstationbutton {
+	position: absolute;
+	top: 170px;
 	left: 10%;
 	width: 80%;
 }

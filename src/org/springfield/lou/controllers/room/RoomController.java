@@ -70,6 +70,9 @@ public class RoomController extends Html5Controller {
 		
 		FsNode exhibitionnode = model.getNode("@exhibition"); // get the exhibition node
 		if (exhibitionnode!=null) {	// do we have a valid one
+			String exhibition_on = exhibitionnode.getProperty("state");
+			
+			if (exhibition_on!=null && exhibition_on.equals("on")) data.put("exhibition_on","true");
 			data.put("exhibition",exhibitionnode.getProperty("name")); // ifso set name in json
 			data.put("location",exhibitionnode.getProperty("location")); // ifso set location in json
 			data.put("timeframe",exhibitionnode.getProperty("timeframe")); // ifso set timeframe in json
@@ -90,7 +93,10 @@ public class RoomController extends Html5Controller {
  		screen.get("#room_exhibitionsettingsbutton").on("mouseup","onExhibitionSettingsButton", this);
  		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this); // if user wants to add a new station tell us
  		screen.get("#room_roomsettingsbutton").on("mouseup","onRoomSettingsButton", this); // if user wants to edit the room tell us
-		model.onPropertyUpdate("/screen['vars']/roomid","onRoomChange",this); // watch for room change events probably done my RoomSelectorController
+ 		screen.get("#room_exhibitiononbutton").on("mouseup","onExhibitionOnButton", this); // if user wants to edit the room tell us
+ 		screen.get("#room_exhibitionoffbutton").on("mouseup","onExhibitionOffButton", this); // if user wants to edit the room tell us
+
+ 		model.onPropertyUpdate("/screen['vars']/roomid","onRoomChange",this); // watch for room change events probably done my RoomSelectorController
 	}
 	
 	/**
@@ -227,6 +233,18 @@ public class RoomController extends Html5Controller {
     public void onBreadCrumbSubmit(Screen s,JSONObject data) {
     	screen.get(selector).remove(); // remove us from the screen.
 		screen.get("#content").append("div","dashboard",new DashboardController()); // 
+    }
+    
+    public void onExhibitionOnButton(Screen s,JSONObject data) {
+    	System.out.println("Exhibition on button");
+    	model.setProperty("@exhibition/state","on");
+    	fillPage();
+    }
+    
+    public void onExhibitionOffButton(Screen s,JSONObject data) {
+    	System.out.println("Exhibition off button");
+    	model.setProperty("@exhibition/state","off");
+    	fillPage();
     }
  	 
 }

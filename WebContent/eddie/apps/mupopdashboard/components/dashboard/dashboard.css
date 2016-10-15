@@ -9,6 +9,14 @@ body {
   	margin: 0;
 }
 
+#servermessage {
+	position:absolute;
+	background-color: #000000;
+	color: #ffffff;
+	left:50%;
+	top:50%;
+}
+
 #mupoplogo {
 	position:absolute;
 	padding: 5px;

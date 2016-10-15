@@ -116,7 +116,21 @@ public class StationController extends Html5Controller {
     	System.out.println("PAIRED="+paired);
     	if (!paired.equals(oldpaired)) {
     		// pairing change make active
-    		System.out.println("WANT TO MAKE ACTIVE BECAUSE CHANGED="+paired);
+    		System.out.println("WANT TO MAKE ACTIVE BECAUSE CHANGED ="+paired);
+    		if (paired.indexOf("*")==-1) {
+    			model.setProperty("/domain/mupop/config/hids/hid/"+paired+"/username",model.getProperty("@username"));
+    			model.setProperty("/domain/mupop/config/hids/hid/"+paired+"/exhibitionid",model.getProperty("@exhibitionid"));
+    			model.setProperty("/domain/mupop/config/hids/hid/"+paired+"/stationid",model.getProperty("@stationid"));
+    		} else {
+     			model.setProperty("/domain/mupop/config/hids/hid/"+oldpaired+"/username","");
+    			model.setProperty("/domain/mupop/config/hids/hid/"+oldpaired+"/exhibitionid","");
+    			model.setProperty("/domain/mupop/config/hids/hid/"+oldpaired+"/stationid","");
+    		}
+    		model.notify("/shared['mupop']/hid['"+oldpaired+"']","unpaired");
+    		model.notify("/shared['mupop']/hid['"+paired+"']","paired");
+    		
+		//	model.notify("/shared['mupop']/hid['"+oldpaired+"']",new FsNode("msg","unpaired"));
+	//		model.notify("/shared['mupop']/hid['"+paired+"']",new FsNode("msg","paired"));
     	}
     	screen.get(selector).remove(); // remove from screen
     	model.setProperty("@roomid",model.getProperty("@roomid")); // dirty trick to get a reload

@@ -1,7 +1,29 @@
 <div id="exhibitioninfo_toparea">
 EXHIBITION INFO
-	<button id="exhibitioninfo_cancelbutton">cancel</button>
-	<button id="exhibitioninfo_updatebutton">update</button>
+	{{#code}}
+		<div id="exhibitioninfo_codelabel">
+			PAIRCODE <input id="exhibitioninfo_code" size="4">
+			HARDWARE NAME <input id="exhibitioninfo_hid" size="12">	
+			<button id="exhibitioninfo_pairbutton">pair</button>
+		</div>
+		<div id="exhibitioninfo_feedback">
+			{{feedback}}
+		</div>
+	{{/code}}
+	
+	<div id="exhibitioninfo_hids">
+		<div id="exhibitioninfo_hids_label">hardware paired</div>
+		<select id="exhibitioninfo_hids_select" multiple="multiple" size="10">
+		 {{#paired}}
+			 {{#nodes}}
+		 		<option value="{{id}}">{{id}}
+			{{/nodes}}
+		 {{/paired}}
+		</select>
+		<button id="exhibitioninfo_edithidbutton">edit</button>
+		<button id="exhibitioninfo_deletehidbutton">delete</button>
+	</div>
+	<button id="exhibitioninfo_donebutton">done</button>
 </div>
 
 

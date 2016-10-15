@@ -17,6 +17,7 @@
 		 {{#nodes}}
 		 	<option value="{{id}}">{{id}}
 		{{/nodes}}
+		<option value="* not paired *">* not paired *
 	 {{/paired}}
 	</select>
 	
