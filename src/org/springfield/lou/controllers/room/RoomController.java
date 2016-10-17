@@ -72,7 +72,7 @@ public class RoomController extends Html5Controller {
 		//System.out.println("TIMER UPDATE !!!"+e.getTargetFsNode().asXML());
 		FsNode node = e.getTargetFsNode();
 		String message = node.getProperty("message");
-		System.out.println("ALIVE MESSAGE FROM="+message);
+		System.out.println("ALIVE MESSAGE FROM="+node.asXML());
 		alivestations.put(message,node);
 		//screen.get("#room_stationdot"+message).css("background-color","#009900");
 	}
