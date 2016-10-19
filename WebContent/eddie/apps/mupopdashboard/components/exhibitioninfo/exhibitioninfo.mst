@@ -1,5 +1,5 @@
 <div id="exhibitioninfo_toparea">
-EXHIBITION INFO
+	Exhibition settings 
 	{{#code}}
 		<div id="exhibitioninfo_codelabel">
 			PAIRCODE <input id="exhibitioninfo_code" size="4">
@@ -23,6 +23,11 @@ EXHIBITION INFO
 		<button id="exhibitioninfo_edithidbutton">edit</button>
 		<button id="exhibitioninfo_deletehidbutton">delete</button>
 	</div>
+	
+	<div id="exhibitioninfo_jumperarea">
+		<div id="exhibitioninfo_jumperlabel">mupop.net/</div><input id="exhibitioninfo_jumper" size="10" /><button id="exhibitioninfo_jumpersubmit">set jumper</button>
+	</div>
+	
 	<button id="exhibitioninfo_donebutton">done</button>
 </div>
 

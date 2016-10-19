@@ -45,37 +45,37 @@
 #station_labelname {
 	position: absolute;
 	top:11%;
-	left:25%;
+	left:23%;
 }
 
 #station_name {
 	position: absolute;
 	top:10%;
-	left:32%;
+	left:30%;
 }
 
 #station_appnamelabel {
 	position: absolute;
 	top:10%;
-	right:30%;
+	right:25%;
 }
 
 #station_pairedlabel {
 	position: absolute;
 	top:10%;
-	left:50%;
+	left:43%;
 }
 
 #station_paired {
 	position: absolute;
 	top:10%;
-	left:55%;
+	left:50%;
 }
 
 #station_app {
 	position: absolute;
 	top:10%;
-	right:15%;
+	right:8%;
 }
 
 #station_appspace {

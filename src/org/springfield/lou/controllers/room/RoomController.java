@@ -26,6 +26,7 @@ public class RoomController extends Html5Controller {
 	
 	String newstationpath;
 	FsNode roomnode; 
+	FsNode exhibitionnode; 
 	Map<String,FsNode> alivestations = new HashMap<String, FsNode>();
 	
 	
@@ -50,6 +51,7 @@ public class RoomController extends Html5Controller {
 	}
 	
 	public void onStationsCheck(ModelEvent e) {
+		if (exhibitionnode==null || !exhibitionnode.getProperty("state").equals("on")) return;
 		FSList list = model.getList("@stations");
 		if (list!=null) {
 			List<FsNode> nodes = list.getNodes();
@@ -72,9 +74,7 @@ public class RoomController extends Html5Controller {
 		//System.out.println("TIMER UPDATE !!!"+e.getTargetFsNode().asXML());
 		FsNode node = e.getTargetFsNode();
 		String message = node.getProperty("message");
-		System.out.println("ALIVE MESSAGE FROM="+node.asXML());
 		alivestations.put(message,node);
-		//screen.get("#room_stationdot"+message).css("background-color","#009900");
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class RoomController extends Html5Controller {
 		data.put("username",model.getProperty("@username")); // add username so we can display it
 		data.put("exhibitionid",model.getProperty("@exhibitionid")); // add exhibition idea for use in forms
 		
-		FsNode exhibitionnode = model.getNode("@exhibition"); // get the exhibition node
+		exhibitionnode = model.getNode("@exhibition"); // get the exhibition node
 		if (exhibitionnode!=null) {	// do we have a valid one
 			String exhibition_on = exhibitionnode.getProperty("state");
 			

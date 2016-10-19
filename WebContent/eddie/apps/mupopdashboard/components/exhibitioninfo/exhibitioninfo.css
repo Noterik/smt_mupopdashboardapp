@@ -11,6 +11,31 @@
 	width: 650px;
 }
 
+#exhibitioninfo_jumperarea {
+	position:absolute;
+	left: 40%;
+	bottom: 80px;
+	width: 60%;
+}
+
+#exhibitioninfo_jumperlabel {
+	position:absolute;
+	left:0px;
+}
+
+#exhibitioninfo_jumper {
+	position:absolute;
+	left:90px;
+}
+
+#exhibitioninfo_jumpersubmit {
+	position:absolute;
+	left:170px;
+	width:100;
+}
+
+
+
 #exhibitioninfo_hids {
 	position:absolute;
 	left: 20px;

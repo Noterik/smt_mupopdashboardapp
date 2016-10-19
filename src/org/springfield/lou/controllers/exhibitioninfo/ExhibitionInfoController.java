@@ -112,6 +112,13 @@ public class ExhibitionInfoController extends Html5Controller {
  		screen.get("#exhibitioninfo_donebutton").on("mouseup","onDoneButton", this);
  		screen.get("#exhibitioninfo_pairbutton").on("mouseup","exhibitioninfo_code,exhibitioninfo_hid","onPairButton", this);
 		screen.get("#exhibitioninfo_deletehidbutton").on("mouseup","exhibitioninfo_hids_select","onHidDeleteButton", this);
+		screen.get("#exhibitioninfo_jumpersubmit").on("mouseup","exhibitioninfo_jumper","onJumperSubmit", this);
+	}
+	
+	public void onJumperSubmit(Screen s,JSONObject data) {
+		System.out.println("Jumper Submit="+data.toJSONString());
+		feedback = "Jumper set";
+		fillPage();
 	}
 	
 	
@@ -120,7 +127,6 @@ public class ExhibitionInfoController extends Html5Controller {
 		String hid = (String)hids.get(0);
 		if (hid!=null && !hid.equals("")) {
     		boolean result = Fs.deleteNode("/domain/mupop/config/hids/hid/"+hid);
-    		System.out.println("FILLPAGE CALLED");
     		fillPage();
 		}
 	}

@@ -5,7 +5,7 @@
 	<div id="station_label">Station id</div>
 	<input id="station_labelid" size="6" value="{{stationlabel}}" />
 	<div id="station_labelname">Name</div>
-	<input id="station_name" size="20" value="{{stationname}}" />
+	<input id="station_name" size="12" value="{{stationname}}" />
 	
 	
 	<div id="station_pairedlabel">Paired</div>
