@@ -12,6 +12,19 @@
 	left: 100px;
 }
 
+#appeditor_content_fileupload {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+}
+
+#appeditor_content_uploadbutton {
+	position: absolute;
+	top: 100px;
+	left: 300px;
+}
+
+
 #appeditor_stationurl {
 	position: absolute;
 	color: #ffffff;

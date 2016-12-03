@@ -48,6 +48,11 @@ public class RoomSelectorController extends Html5Controller {
 		screen.get("#roomselector_formarea").draggable();
 		screen.get("#roomselector_cancel").on("mouseup","onCancel", this);
  		screen.get("#roomselector_selector").on("change","onSelectChange", this);
+		model.onNotify("/shared['mupop']/test[bla]", "onTestMessage", this);
+	}
+	
+	public void onTestMessage(ModelEvent e) {
+		System.out.println("E2="+e.getTargetFsNode().asXML());
 	}
 	
 	

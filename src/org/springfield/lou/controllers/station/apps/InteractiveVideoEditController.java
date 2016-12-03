@@ -44,8 +44,37 @@ public class InteractiveVideoEditController extends Html5Controller{
 		screen.get(selector).render(data);
  		screen.get(".appmenu").on("mouseup",valuelist,"onAppMenu", this);
  		screen.get(selector).on("mouseleave",valuelist,"onLeaveMenu", this);
+ 		
+ 		String upid = "appeditor_content_fileupload";
+ 		setUploadSettings(upid);
+ 		screen.get("#appeditor_content_uploadbutton").on("mouseup",upid,"onFileUpload", this);
+ 		model.onPropertiesUpdate("/screen/upload/"+upid,"onUploadState",this);
+ 		
 	}
 	
+	private void setUploadSettings(String upid) {
+		model.setProperty("/screen/upload/"+upid+"/destpath","/usr/local/sites/storage.qandr.eu/images/");
+		model.setProperty("/screen/upload/"+upid+"/pemfile","/home/springfield/.ssh/Noterikkey.pem");
+		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
+		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
+		model.setProperty("/screen/upload/"+upid+"/storagehost","storage.qandr.eu");
+		model.setProperty("/screen/upload/"+upid+"/storagename","ubuntu");
+		model.setProperty("/screen/upload/"+upid+"/filetype","image");
+		model.setProperty("/screen/upload/"+upid+"/fileext","png");
+		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+	}
+	
+	
+	public void onUploadState(ModelEvent e) {
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		System.out.println("UPLOAD ACTION="+action);
+		
+	}
+	
+	public void onFileUpload(Screen s,JSONObject data) {
+	//	System.out.println("FILE UPLOAD !!"+data.toJSONString());
+	}
 	
 	public void onAppMenu(Screen s,JSONObject data) {
 		tab  = (String)data.get("id");

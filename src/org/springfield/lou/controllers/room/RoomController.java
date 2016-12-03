@@ -48,6 +48,12 @@ public class RoomController extends Html5Controller {
 		fillPage();
 		model.onNotify("/app['timers']", "onStationsCheck", this);
 		model.onNotify("/shared['mupop']/hids[alive]", "onAliveMessage", this);
+		
+		model.onNotify("/shared['mupop']/test[bla]", "onTestMessage", this);
+	}
+	
+	public void onTestMessage(ModelEvent e) {
+		System.out.println("E1="+e.getTargetFsNode().asXML());
 	}
 	
 	public void onStationsCheck(ModelEvent e) {
@@ -229,11 +235,14 @@ public class RoomController extends Html5Controller {
      * @param data
      */
     public void onStationMove(Screen s,JSONObject data) {
+		model.notify("/shared['mupop']/test[bla]", "Yoohoo");
+		
     	String stationid = ((String)data.get("id")).substring(12); // remove the prefix to get the id
     	model.setProperty("@stationid", stationid);
     	
-    	double xp = (Double)data.get("screenXp"); // get the percentage x from the station
-    	double yp = (Double)data.get("screenYp"); // get the percentage y from the station
+    	System.out.println("DATA="+data.toJSONString());
+    	double xp = (Double)data.get("screenXP"); // get the percentage x from the station
+    	double yp = (Double)data.get("screenYP"); // get the percentage y from the station
 
     	model.setProperty("@station/x",""+xp); // set the x property
     	model.setProperty("@station/y",""+yp); // set the y property

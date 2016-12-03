@@ -61,7 +61,7 @@ public class StationController extends Html5Controller {
     			data.put("stationlabel",stationnode.getProperty("labelid")); // load the labelid
     			data.put("stationpaired",stationnode.getProperty("paired"));
     			oldpaired = stationnode.getProperty("paired");
-    			System.out.println("CURAPP="+currentapp);
+    			//System.out.println("CURAPP="+currentapp);
     			data = addHids(data);
     			screen.get(selector).render(data); // send the data to client mustache render
     			if (currentapp.equals("photoexplore")) { // check for the 2 apps en jump if needed
