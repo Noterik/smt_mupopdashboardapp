@@ -62,13 +62,18 @@ public class InteractiveVideoEditController extends Html5Controller{
 		model.setProperty("/screen/upload/"+upid+"/filetype","image");
 		model.setProperty("/screen/upload/"+upid+"/fileext","png");
 		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		model.setProperty("/screen/upload/"+upid+"/publicpath","http://storage.qandr.eu/images/");
 	}
 	
 	
 	public void onUploadState(ModelEvent e) {
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
-		System.out.println("UPLOAD ACTION="+action);
+		String progress = ps.getProperty("progress");
+		screen.get("#appeditor_content_fileupload_feedback").html(action+" - "+progress);
+		if (progress.equals("100")) {
+			screen.get("#appeditor_content_preview").html("<image width=\"100%\" height=\"100%\" src=\""+ps.getProperty("url")+"\" />");
+		}
 		
 	}
 	

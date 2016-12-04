@@ -24,6 +24,21 @@
 	left: 300px;
 }
 
+#appeditor_content_fileupload_feedback {
+	position: absolute;
+	top: 130px;
+	left: 100px;
+}
+
+#appeditor_content_preview {
+	position: absolute;
+	top: 160px;
+	left: 100px;
+	width: 200px;
+	height: 200px;
+}
+
+
 
 #appeditor_stationurl {
 	position: absolute;
