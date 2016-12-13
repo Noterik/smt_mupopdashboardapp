@@ -18,7 +18,7 @@ import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 
 public class RoomInfoController extends Html5Controller {
-	String fields = "roominfo_exhibition,roominfo_location,roominfo_room,roominfo_timeframe,roominfo_building,roominfo_description,roominfo_gpslan,roominfo_gpslat";
+	String fields = "roominfo_exhibition,roominfo_location,roominfo_room,roominfo_timeframe,roominfo_jumper,roominfo_building,roominfo_description,roominfo_gpslan,roominfo_gpslat";
 	String currentshape = "roomshape_square";
 	
 	public RoomInfoController() {
@@ -88,15 +88,20 @@ public class RoomInfoController extends Html5Controller {
     		screen.get("#roominfo_feedback").html("");
 			boolean result = checkExhibition(data);
 			if (result==true) result = checkRoom(data);
+			
+			if (result==false) return;
+			
 			// all is valid lets create exhibition and first room
 			String newid = ""+new Date().getTime();
     		FsNode exhibitionnode = new FsNode("exhibition",newid);
     		exhibitionnode.setProperty("name",(String)data.get("roominfo_exhibition"));
     		exhibitionnode.setProperty("location",(String)data.get("roominfo_location"));
     		exhibitionnode.setProperty("timeframe",(String)data.get("roominfo_timeframe"));
+    		exhibitionnode.setProperty("state","off");
     		
     		boolean insertresult = Fs.insertNode(exhibitionnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username"));
 			if (insertresult) {
+				
 				// lets insert the room node
 	    		FsNode roomnode = new FsNode("room",""+new Date().getTime());
 	    		roomnode.setProperty("name",(String)data.get("roominfo_room"));
@@ -147,6 +152,7 @@ public class RoomInfoController extends Html5Controller {
     	String exhibition = (String)data.get("roominfo_exhibition");
     	String location = (String)data.get("roominfo_location");
     	String timeframe = (String)data.get("roominfo_timeframe");
+    	String jumper = (String)data.get("roominfo_jumper");
     	if (exhibition.equals("")) {
     		screen.get("#roominfo_feedback").html("** exhibition name needed **");
     		return false;
@@ -156,10 +162,24 @@ public class RoomInfoController extends Html5Controller {
     	} else if (timeframe.equals("")) {
     		screen.get("#roominfo_feedback").html("** timeframe name needed **");
     		return false;
+    	} else if (jumper.equals("")) {
+    		screen.get("#roominfo_feedback").html("** short url needed **");
+    		
+    		return false;
+    	} else if (jumperInUse(jumper)) {
+    		screen.get("#roominfo_feedback").html("** url in use already **");	
+    		return false;
     	}
     	return true;
     }
     
+    private boolean jumperInUse(String jumper) {
+		//FsNode jumpernode = model.getNode("@jumpers/jumper['"+jumper+"']"); // fix in lou needed?
+		FsNode jumpernode = model.getNode("/domain['mupop']/config['jumpers']/jumper['"+jumper+"']");
+		if (jumpernode==null) return false;
+		return true;
+    }
+    	
     private boolean checkRoom(JSONObject data) {
     	String room = (String)data.get("roominfo_room");
     	if (room.equals("")) {

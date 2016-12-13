@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.json.simple.JSONObject;
 import org.springfield.fs.FsNode;
+import org.springfield.fs.FsPropertySet;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
@@ -36,10 +37,60 @@ public class PhotoInfoSpotsEditController extends Html5Controller{
 		screen.get(selector).render(data);
  		screen.get(".appmenu").on("mouseup","onAppMenu", this);
  		screen.get(selector).on("mouseleave",valuelist,"onLeaveMenu", this);
+ 		
+ 		String upid = "appeditor_content_fileupload";
+ 		setUploadSettings(upid);
+ 		screen.get("#appeditor_content_uploadbutton").on("mouseup",upid,"onFileUpload", this);
+ 		model.onPropertiesUpdate("/screen/upload/"+upid,"onUploadState",this);
 	}
 	
+	public void onUploadState(ModelEvent e) {
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		String progress = ps.getProperty("progress");
+		screen.get("#appeditor_content_fileupload_feedback").html(action+" - "+progress);
+		if (progress.equals("100")) {
+			model.setProperty("/screen['data']/form['1']/appeditor_content_url",ps.getProperty("url"));
+			fillPage();
+			//screen.get("#appeditor_content_preview").html("<image width=\"100%\" height=\"100%\" src=\""+ps.getProperty("url")+"\" />");
+		}
+		
+	}
+	
+	public void onFileUpload(Screen s,JSONObject data) {
+	//	System.out.println("FILE UPLOAD !!"+data.toJSONString());
+	}
+	
+	private void setUploadSettings(String upid) {
+		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
+		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
+		model.setProperty("/screen/upload/"+upid+"/destpath","mupop/images/");
+		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
+		model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
+		model.setProperty("/screen/upload/"+upid+"/filetype","image");
+		model.setProperty("/screen/upload/"+upid+"/fileext","png");
+		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		
+		/* using scp 
+		model.setProperty("/screen/upload/"+upid+"/method","scp");	
+		model.setProperty("/screen/upload/"+upid+"/destpath","/usr/local/sites/storage.qandr.eu/images/");
+		model.setProperty("/screen/upload/"+upid+"/pemfile","/home/springfield/.ssh/Noterikkey.pem");
+		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
+		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
+		model.setProperty("/screen/upload/"+upid+"/storagehost","storage.qandr.eu");
+		model.setProperty("/screen/upload/"+upid+"/storagename","ubuntu");
+		model.setProperty("/screen/upload/"+upid+"/filetype","image");
+		model.setProperty("/screen/upload/"+upid+"/fileext","png");
+		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		model.setProperty("/screen/upload/"+upid+"/publicpath","http://storage.qandr.eu/images/");
+		*/
+	}
+	
+	
 	private void getVars() {
-		model.setProperty("/screen['data']/form['1']/appeditor_content_url",model.getProperty("@station/url"));
+		model.setProperty("/screen['data']/form['1']/appeditor_content_url",model.getProperty("@station/image/1/url"));
 		model.setProperty("/screen['data']/form['1']/appeditor_waitscreen_mode",model.getProperty("@station/waitscreenmode"));
 		model.setProperty("/screen['data']/form['1']/appeditor_selection_mode",model.getProperty("@station/selectionmode"));
 	}
@@ -98,7 +149,8 @@ public class PhotoInfoSpotsEditController extends Html5Controller{
 				String key = iter.next();
 				String value = node.getProperty(key);
 				if (key.equals("appeditor_content_url")) {
-					model.setProperty("@station/url", value);
+					//model.setProperty("@station/url", value);
+					model.setProperty("@station/image/1/url", value);
 				} else if (key.equals("appeditor_waitscreen_mode")) {
 					model.setProperty("@station/waitscreenmode", value);
 				} else if (key.equals("appeditor_selection_mode")) {

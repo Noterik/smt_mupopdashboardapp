@@ -53,16 +53,32 @@ public class InteractiveVideoEditController extends Html5Controller{
 	}
 	
 	private void setUploadSettings(String upid) {
-		model.setProperty("/screen/upload/"+upid+"/destpath","/usr/local/sites/storage.qandr.eu/images/");
-		model.setProperty("/screen/upload/"+upid+"/pemfile","/home/springfield/.ssh/Noterikkey.pem");
-		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
-		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
-		model.setProperty("/screen/upload/"+upid+"/storagehost","storage.qandr.eu");
-		model.setProperty("/screen/upload/"+upid+"/storagename","ubuntu");
-		model.setProperty("/screen/upload/"+upid+"/filetype","image");
-		model.setProperty("/screen/upload/"+upid+"/fileext","png");
-		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
-		model.setProperty("/screen/upload/"+upid+"/publicpath","http://storage.qandr.eu/images/");
+		System.out.println("SETTING UPLOAD");
+		if (1==1) {
+			System.out.println("SETTING UP FOR s3");
+			model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
+			model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
+			model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
+			model.setProperty("/screen/upload/"+upid+"/destpath","mupop/images/");
+			model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
+			model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
+			model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
+			model.setProperty("/screen/upload/"+upid+"/filetype","image");
+			model.setProperty("/screen/upload/"+upid+"/fileext","png");
+			model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		} else {
+			model.setProperty("/screen/upload/"+upid+"/method","scp");
+			model.setProperty("/screen/upload/"+upid+"/destpath","/usr/local/sites/storage.qandr.eu/images/");
+			model.setProperty("/screen/upload/"+upid+"/pemfile","/home/springfield/.ssh/Noterikkey.pem");
+			model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
+			model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
+			model.setProperty("/screen/upload/"+upid+"/storagehost","storage.qandr.eu");
+			model.setProperty("/screen/upload/"+upid+"/storagename","ubuntu");
+			model.setProperty("/screen/upload/"+upid+"/filetype","image");
+			model.setProperty("/screen/upload/"+upid+"/fileext","png");
+			model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+			model.setProperty("/screen/upload/"+upid+"/publicpath","http://storage.qandr.eu/images/");
+		}
 	}
 	
 	

@@ -8,6 +8,10 @@
 		<target>/lou/domain/mupop/user/daniel/html5application/mupopdashboard</target>
 	</jumper>
 	
+	<jumper id="betadash.mupop.net@/lou/mupop/">
+		<target>/lou/domain/mupop/user/daniel/html5application/mupopdashboard</target>
+	</jumper>
+	
 	<jumpers id="/lou/mupop/">
 		<source>/domain/mupop/config/jumpers</source>
 	</jumpers>
@@ -19,6 +23,7 @@
 		<roomid>/screen['vars']/roomid</roomid>
 		<oldroomid>/screen['vars']/oldroomid</oldroomid>
 		<roomname>/screen['vars']/roomname</roomname>
+		<jumpers>/domain['mupop']/config['jumpers']</jumpers>
 	
 	 	<exhibitions>/domain['mupop']/user['@username']/exhibition</exhibitions>
 	    <exhibition>/domain['mupop']/user['@username']/exhibition['@exhibitionid']</exhibition>

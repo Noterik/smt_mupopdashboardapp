@@ -102,8 +102,22 @@
 #roominfo_gpslabel {
 	position:absolute;
 	left: 340px;
-	top: 160px;
+	top: 163px;
 }
+
+#roominfo_jumperlabel {
+	position:absolute;
+	left: 340px;
+	top: 130px;
+}
+
+#roominfo_jumper {
+	position:absolute;
+	left: 475px;
+	top: 130px;
+}
+
+
 
 #roominfo_timeframe {
 	position:absolute;
@@ -150,13 +164,13 @@
 #roominfo_gpslon {
 	position:absolute;
 	left: 440px;
-	top: 160px;
+	top: 163px;
 }
 
 #roominfo_gpslat {
 	position:absolute;
 	left: 540px;
-	top: 160px;
+	top: 163px;
 }
 
 #roominfo_feedback {

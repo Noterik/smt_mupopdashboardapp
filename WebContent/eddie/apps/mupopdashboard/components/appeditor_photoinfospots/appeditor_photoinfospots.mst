@@ -20,6 +20,10 @@
 
 {{#contenttab}}
 <div id="appeditor_content_url_label">zoom image</div><input id="appeditor_content_url" value="{{appeditor_content_url}}" size="80" />
+<input type="file" id="appeditor_content_fileupload" size="20" />
+<button id="appeditor_content_uploadbutton">upload</button>
+<div id="appeditor_content_fileupload_feedback">----</div>
+<div id="appeditor_content_preview"><image width="100%" height="100%" src="{{appeditor_content_url}}" /></div>
 {{/contenttab}}	
 
 {{#waitscreentab}}
