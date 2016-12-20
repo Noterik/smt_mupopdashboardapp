@@ -101,7 +101,17 @@ public class RoomInfoController extends Html5Controller {
     		
     		boolean insertresult = Fs.insertNode(exhibitionnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username"));
 			if (insertresult) {
-				
+				// lets first make the jumper work
+	    		FsNode jumpernode = new FsNode("jumper",(String)data.get("roominfo_jumper"));
+	    		jumpernode.setProperty("target","http://beta.mupop.net/lou/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/html5application/mupopmobile?u="+model.getProperty("@username")+"&e="+newid);
+	    		jumpernode.setProperty("domain","mupop");
+	    	    		
+	    		insertresult = Fs.insertNode(jumpernode,"/domain/mupop/config/jumpers"); // new name tricks don't work need fix daniel
+				if (!insertresult) {
+		    		screen.get("#roominfo_feedback").html("** could not insert jumper **"); 
+		    		return;
+				}
+	    		
 				// lets insert the room node
 	    		FsNode roomnode = new FsNode("room",""+new Date().getTime());
 	    		roomnode.setProperty("name",(String)data.get("roominfo_room"));
