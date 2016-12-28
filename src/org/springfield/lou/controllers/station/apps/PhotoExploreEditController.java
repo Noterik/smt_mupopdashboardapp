@@ -11,7 +11,7 @@ import org.springfield.lou.screen.Screen;
 
 public class PhotoExploreEditController extends Html5Controller{
 	
-	private String tab="content";
+	private String tab="waitscreen";
 	private String valuelist="appeditor_content_url";
 	
 	public PhotoExploreEditController() {

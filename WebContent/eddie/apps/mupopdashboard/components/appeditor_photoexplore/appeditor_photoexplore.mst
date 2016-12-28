@@ -1,28 +1,33 @@
 <table id="appeditor_photoexploretable">
 	<tr>
-		{{#contenttab}}<th id="content" class="appmenu">content</th>{{/contenttab}}
-		{{^contenttab}}<td id="content" class="appmenu">content</td>{{/contenttab}}
 		
 		{{#waitscreentab}}<th id="waitscreen" class="appmenu">waitscreen</th>{{/waitscreentab}}
 		{{^waitscreentab}}<td id="waitscreen" class="appmenu">waitscreen</td>{{/waitscreentab}}
 		
-		{{#introtab}}<th id="intro" class="appmenu">introtab</th>{{/introtab}}
-		{{^introtab}}<td id="intro" class="appmenu">introtab</td>{{/introtab}}
+		{{#contentselecttab}}<th id="contentselect" class="appmenu">content select</th>{{/contentselecttab}}
+		{{^contentselecttab}}<td id="contentselect" class="appmenu">content select</td>{{/contentselecttab}}
 		
-		{{#modetab}}<th id="mode" class="appmenu">modetab</th>{{/modetab}}
-		{{^modetab}}<td id="mode" class="appmenu">modetab</td>{{/modetab}}
-		{{#contenttab}}
-			Content Tab
-		{{/contenttab}}	
-
+		{{#mainapptab}}<th id="mainapp" class="appmenu">main app</th>{{/mainapptab}}
+		{{^mainapptab}}<td id="mainapp" class="appmenu">main app</td>{{/mainapptab}}
+		
+		{{#feedbacktab}}<th id="mode" class="appmenu">feedbacktab</th>{{/feedbacktab}}
+		{{^feedbacktab}}<td id="mode" class="appmenu">feedbacktab</td>{{/feedbacktab}}
 	</tr>
 </table>
 
-{{#contenttab}}
-<div id="appeditor_content_url_label">zoom image</div><input id="appeditor_content_url" value="{{appeditor_content_url}}" size="80" />
-{{/contenttab}}	
+{{#waitscreentab}}
+	waitscreen
+{{/waitscreentab}}	
 
-{{#modetab}}
-<div id="appeditor_stationurl"><a target="_blank" href="/lou/domain/{{domain}}/user/{{username}}/html5application/mupop?path=/exhibition/{{exhibitionid}}/station/{{stationid}}">stationurl</a></div>
-<div id="appeditor_mobileurl"><a target="_blank" href="/lou/domain/{{domain}}/user/{{username}}/html5application/mupopmobile?path=/exhibition/{{exhibitionid}}">mobileurl</a></div>
-{{/modetab}}
+{{#contentselecttab}}
+	content select
+{{/contentselecttab}}
+
+{{#mainapptab}}
+<div id="appeditor_content_url_label">zoom image</div><input id="appeditor_content_url" value="{{appeditor_content_url}}" size="80" />
+{{/mainapptab}}	
+
+{{#feedbacktab}}
+feedback
+{{/feedbacktab}}	
+

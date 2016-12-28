@@ -33,13 +33,11 @@
 	</div>
 
 	{{#newstation}}
-		<button id="station_save">new station</button>
-		<button id="station_cancel">cancel create</button>
+		<button id="station_done">done</button>
 	{{/newstation}}
 	
 	{{^newstation}}
-		<button id="station_save">save changes</button>
-		<button id="station_cancel">cancel changes</button>
+		<button id="station_done">done</button>
 	{{/newstation}}
 </div>
 

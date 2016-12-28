@@ -74,9 +74,52 @@ public class StationController extends Html5Controller {
     		}
 		}
 		screen.get("#station_formarea").draggable(); // make the window draggable for fun (its a overlay)
-		screen.get("#station_cancel").on("mouseup","onCancel", this); // watch if user wants to cancel
- 		screen.get("#station_save").on("mouseup",fields,"onSave", this); // watch if user wants to save
+		screen.get("#station_done").on("mouseup","onDone", this); // watch if user wants to cancel
+		screen.get("#station_labelid").on("change","onLabelChange", this); // watch if user wants to save
+		screen.get("#station_name").on("change","onNameChange", this); // watch if user wants to save
+		screen.get("#station_app").on("change","onAppChange", this); // watch if user wants to save
+		screen.get("#station_paired").on("change","onPairedChange", this); // watch if user wants to save
+
 	}
+	
+    public void onPairedChange(Screen s,JSONObject data) {
+    	System.out.println("PAIRED STATION CHANGE="+data.toJSONString());
+    	String oldvalue = model.getProperty("@station/paired");
+    	String newvalue = (String)data.get("value");
+    	model.setProperty("@station/paired",newvalue);
+    	
+		model.setProperty("/domain/mupop/config/hids/hid/"+oldvalue+"/username","");
+		model.setProperty("/domain/mupop/config/hids/hid/"+oldvalue+"/exhibitionid","");
+		model.setProperty("/domain/mupop/config/hids/hid/"+oldvalue+"/stationid","");
+		
+		if (newvalue.indexOf("*")==-1) {
+			model.setProperty("/domain/mupop/config/hids/hid/"+newvalue+"/username",model.getProperty("@username"));
+			model.setProperty("/domain/mupop/config/hids/hid/"+newvalue+"/exhibitionid",model.getProperty("@exhibitionid"));
+			model.setProperty("/domain/mupop/config/hids/hid/"+newvalue+"/stationid",model.getProperty("@stationid"));
+		}
+
+    	
+		model.notify("/shared['mupop']/hid['"+oldvalue+"']","unpaired");
+		model.notify("/shared['mupop']/hid['"+newvalue+"']","paired");
+    	fillPage(); // we need to rewrite this page
+    }
+	
+    public void onAppChange(Screen s,JSONObject data) {
+    	System.out.println("APP STATION CHANGE="+data.toJSONString());
+    	model.setProperty("@station/app",(String)data.get("value"));
+    	fillPage(); // we need to rewrite this page
+		model.notify("@station","changed");
+    }
+	
+    public void onLabelChange(Screen s,JSONObject data) {
+    	System.out.println("LABEL STATION CHANGE="+data.toJSONString());
+    	model.setProperty("@station/labelid",(String)data.get("value"));
+    }
+	
+    public void onNameChange(Screen s,JSONObject data) {
+    	System.out.println("NAME STATION CHANGE="+data.toJSONString());
+    	model.setProperty("@station/name",(String)data.get("value"));
+    }
 	
 	private JSONObject addHids(JSONObject data) {
 		FSList list = model.getList("/domain/mupop/config/hids/hid");
@@ -88,53 +131,14 @@ public class StationController extends Html5Controller {
 	}
 	
 	/**
-	 * user hit cancel signal
+	 * user hit done signal
 	 * @param s
      * @param data
 	 */
-    public void onCancel(Screen s,JSONObject data) {
-		model.notify("/screen['appcancel']", new FsNode("data","1")); // signal the app controller if active
+    public void onDone(Screen s,JSONObject data) {
     	screen.get(selector).remove(); // remove us from the screen
     }
     
-    /**
-     * user hit save
-     * @param s
-     * @param data
-     */
-    public void onSave(Screen s,JSONObject data) {
-    	if (model.getProperty("/screen['vars']/newstation").equals("true")) { // check if its a new or old station
-    		model.importNode("@stations",data,"newstation");
-    		model.notify("/screen['appsave']", new FsNode("data","1")); // notify the app controller to it can also save
-    	} else {
-    		model.mergeNode("@station",data,"updatestation");
-    		model.notify("/screen['appsave']", new FsNode("data","1")); // notify the app controller to it can also save
-    	}
-    	
-    	// check hid and update it when exhibitionis active
-    	String paired = (String)data.get("station_paired");
-    	System.out.println("PAIRED="+paired);
-    	if (!paired.equals(oldpaired)) {
-    		// pairing change make active
-    		System.out.println("WANT TO MAKE ACTIVE BECAUSE CHANGED ="+paired);
-    		if (paired.indexOf("*")==-1) {
-    			model.setProperty("/domain/mupop/config/hids/hid/"+paired+"/username",model.getProperty("@username"));
-    			model.setProperty("/domain/mupop/config/hids/hid/"+paired+"/exhibitionid",model.getProperty("@exhibitionid"));
-    			model.setProperty("/domain/mupop/config/hids/hid/"+paired+"/stationid",model.getProperty("@stationid"));
-    		} else {
-     			model.setProperty("/domain/mupop/config/hids/hid/"+oldpaired+"/username","");
-    			model.setProperty("/domain/mupop/config/hids/hid/"+oldpaired+"/exhibitionid","");
-    			model.setProperty("/domain/mupop/config/hids/hid/"+oldpaired+"/stationid","");
-    		}
-    		model.notify("/shared['mupop']/hid['"+oldpaired+"']","unpaired");
-    		model.notify("/shared['mupop']/hid['"+paired+"']","paired");
-    		
-		//	model.notify("/shared['mupop']/hid['"+oldpaired+"']",new FsNode("msg","unpaired"));
-	//		model.notify("/shared['mupop']/hid['"+paired+"']",new FsNode("msg","paired"));
-    	}
-    	screen.get(selector).remove(); // remove from screen
-    	model.setProperty("@roomid",model.getProperty("@roomid")); // dirty trick to get a reload
-    }
     
     /*
      * temp list might be programmable in the future for example per client
