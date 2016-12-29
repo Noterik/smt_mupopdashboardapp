@@ -24,6 +24,8 @@
 		<oldroomid>/screen['vars']/oldroomid</oldroomid>
 		<roomname>/screen['vars']/roomname</roomname>
 		<jumpers>/domain['mupop']/config['jumpers']</jumpers>
+		<contentrole>/screen['vars']/contentrole</contentrole>
+		<languagecode>/screen['vars']/languagecode</languagecode>
 	
 	 	<exhibitions>/domain['mupop']/user['@username']/exhibition</exhibitions>
 	    <exhibition>/domain['mupop']/user['@username']/exhibition['@exhibitionid']</exhibition>
@@ -33,6 +35,15 @@
 	    
 		<stations>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station</stations>
 		<station>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']</station>
+		
+		<content>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']</content>
+				
+		<images>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/image</images>
+		<image>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/image['@imageid']</image>
+		
+		<videos>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/video</videos>
+		<video>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/video['@videoid']</video>
+		
 	</model>
 	
 	<mapping id="updatestation">
@@ -150,6 +161,13 @@
 		<template>appeditor_interactivevideo/appeditor_interactivevideo.mst</template>
 		<style>appeditor_interactivevideo/appeditor_interactivevideo.css</style>
 		<controller id="InteractiveVideoController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_subeditor_waitscreen">
+		<template>appeditor_generic/waitscreen/waitscreen.mst</template>
+		<style>appeditor_generic/waitscreen/waitscreen.css</style>
+		<controller id="WaitScreenEditController">
 		</controller>
 	</view>
 

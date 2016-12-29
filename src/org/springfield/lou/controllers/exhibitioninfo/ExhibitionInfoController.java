@@ -17,7 +17,6 @@ import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.room.RoomController;
 import org.springfield.lou.controllers.roominfo.RoomInfoController;
 import org.springfield.lou.controllers.roomselector.RoomSelectorController;
-import org.springfield.lou.controllers.station.StationController;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 

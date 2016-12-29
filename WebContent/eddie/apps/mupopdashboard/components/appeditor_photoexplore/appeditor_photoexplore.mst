@@ -14,14 +14,8 @@
 		{{^feedbacktab}}<td id="mode" class="appmenu">feedbacktab</td>{{/feedbacktab}}
 	</tr>
 </table>
-
-{{#waitscreentab}}
-	waitscreen
-{{/waitscreentab}}	
-
-{{#contentselecttab}}
-	content select
-{{/contentselecttab}}
+<div id="subeditor">
+</div>
 
 {{#mainapptab}}
 <div id="appeditor_content_url_label">zoom image</div><input id="appeditor_content_url" value="{{appeditor_content_url}}" size="80" />

@@ -216,6 +216,7 @@ public class RoomController extends Html5Controller {
     	String stationid = ((String)data.get("id")).substring(12); // get the id by removing prefix
     	model.setProperty("@stationid",stationid); // set id screen space 
     	model.setProperty(newstationpath, "false");
+    	System.out.println("STATION CREATE 1 CALLED");
     	screen.get(selector).append("div","station",new StationController()); 	
     }
     
@@ -225,6 +226,7 @@ public class RoomController extends Html5Controller {
      * @param data
      */
     public void onAddStationButton(Screen s,JSONObject data) {
+    	System.out.println("STATION CREATE 2 CALLED");
     	model.setProperty(newstationpath, "true"); // tell other controllers we are talking new station !
     	screen.get(selector).append("div","station",new StationController()); // create the station controller as overlay
     }
