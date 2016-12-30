@@ -38,3 +38,10 @@
 		 	</div>
 	{{/images}}
 	</div>
+	
+	<div id="station_waitscreen_deletelabel">Delete this station</div>
+	<button id="station_waitscreen_delete">delete</button>
+	<select id="station_waitscreen_deleteconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>

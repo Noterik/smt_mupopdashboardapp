@@ -24,6 +24,15 @@
 		<button id="exhibitioninfo_deletehidbutton">delete</button>
 	</div>
 	
+	<div id="exhibitioninfo_languageselectlabel">languageselector</div>
+	<select id="exhibitioninfo_languageselect">
+		{{#languageselect}}
+		 {{#nodes}}
+		 	<option value="{{name}}">{{name}}
+		 {{/nodes}}
+		{{/languageselect}}
+	</select>
+	
 	<div id="exhibitioninfo_jumperarea">
 		<div id="exhibitioninfo_jumperlabel">mupop.net/</div><input id="exhibitioninfo_jumper" size="10" /><button id="exhibitioninfo_jumpersubmit">set jumper</button>
 	</div>

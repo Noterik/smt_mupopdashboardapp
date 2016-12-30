@@ -5,11 +5,25 @@
   	color:#ffffff;
   	background-color:#336;
   	font-size:13pt;
-  	top: 100px;
-	left: 20%;
-	height: 400px;
-	width: 650px;
+  	top: 10%;
+	left: 10%;
+	right: 10%;
+	height: 80%;
+
 }
+
+#exhibitioninfo_languageselectlabel {
+	position:absolute;
+	left: 20px;
+	top: 350px;
+}
+
+#exhibitioninfo_languageselect {
+	position:absolute;
+	left: 180px;
+	top: 350px;
+}
+
 
 #exhibitioninfo_jumperarea {
 	position:absolute;

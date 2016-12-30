@@ -46,15 +46,15 @@ public class StationController extends Html5Controller {
 	 */
 	private void fillPage() {
 		if (model.getProperty("/screen['vars']/newstation").equals("true")) { // is it a new or old station
-			currentapp = "none"; // its new so no app is selected
-			JSONObject data = getAppList(currentapp);  // read the available aps to json
-			data.put("newstation","true"); // set a variable to
-			data.put("stationlabel",getNewStationName()); // generate a id best we can 
-			data = addHids(data);
-			screen.get(selector).render(data); // send data to client mustache render
-		} else {
+			createNewStation();
+		} 
+		System.out.println("CHECK 1");
 			FsNode stationnode = model.getNode("@station");
-    		if (stationnode!=null) { // did we find the old station node ?
+    		if (stationnode==null) { // did we find the old station node ?
+    			screen.get(selector).remove();
+    			System.out.println("EMPTY STATION DID REMOVE FROM SCREEN");
+    		} else {
+    			System.out.println("CHECK 2");
     			currentapp = stationnode.getProperty("app"); // yes 
     			JSONObject data = getAppList(currentapp); // read the available aps to json 
     			data.put("stationname",stationnode.getProperty("name")); // load the name to json
@@ -63,6 +63,7 @@ public class StationController extends Html5Controller {
     			oldpaired = stationnode.getProperty("paired");
     			//System.out.println("CURAPP="+currentapp);
     			data = addHids(data);
+    			System.out.println("CHECK 3");
     			screen.get(selector).render(data); // send the data to client mustache render
     			if (currentapp.equals("photoexplore")) { // check for the 2 apps en jump if needed
     				screen.get("#station_appspace").append("div","appeditor_photoexplore",new PhotoExploreEditController());
@@ -72,7 +73,7 @@ public class StationController extends Html5Controller {
     				screen.get("#station_appspace").append("div","appeditor_interactivevideo",new InteractiveVideoEditController());
     			}
     		}
-		}
+    		System.out.println("CHECK 4");
 		screen.get("#station_formarea").draggable(); // make the window draggable for fun (its a overlay)
 		screen.get("#station_done").on("mouseup","onDone", this); // watch if user wants to cancel
 		screen.get("#station_labelid").on("change","onLabelChange", this); // watch if user wants to save
@@ -80,6 +81,19 @@ public class StationController extends Html5Controller {
 		screen.get("#station_app").on("change","onAppChange", this); // watch if user wants to save
 		screen.get("#station_paired").on("change","onPairedChange", this); // watch if user wants to save
 
+	}
+	
+	private void createNewStation() {
+		FsNode stationnode = new FsNode("station",""+new Date().getTime());
+		stationnode.setProperty("labelid",getNewStationName()); // generate a id best we can 
+		stationnode.setProperty("name","name"+stationnode.getProperty("labelid"));
+		stationnode.setProperty("room", model.getProperty("@roomid"));
+		stationnode.setProperty("app", "none");
+		stationnode.setProperty("x","50");
+		stationnode.setProperty("y","85");
+		stationnode.setProperty("paired","*");
+		model.putNode("@stations", stationnode);
+		model.setProperty("@stationid", stationnode.getId());
 	}
 	
     public void onPairedChange(Screen s,JSONObject data) {
@@ -137,6 +151,7 @@ public class StationController extends Html5Controller {
 	 */
     public void onDone(Screen s,JSONObject data) {
     	screen.get(selector).remove(); // remove us from the screen
+		model.notify("@room","changed");
     }
     
     

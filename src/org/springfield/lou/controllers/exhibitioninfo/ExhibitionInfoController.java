@@ -107,11 +107,20 @@ public class ExhibitionInfoController extends Html5Controller {
 			JSONObject paired = list.toJSONObject("en","stationname");
 			data.put("paired",paired);
 		}
+		
+		String currentlanguage = model.getProperty("@exhibition/languageselect");
+		addLanguageSelectList(data,currentlanguage);
+		
 		screen.get(selector).render(data); // now we have all data give it to client and render using mustache	
  		screen.get("#exhibitioninfo_donebutton").on("mouseup","onDoneButton", this);
  		screen.get("#exhibitioninfo_pairbutton").on("mouseup","exhibitioninfo_code,exhibitioninfo_hid","onPairButton", this);
 		screen.get("#exhibitioninfo_deletehidbutton").on("mouseup","exhibitioninfo_hids_select","onHidDeleteButton", this);
 		screen.get("#exhibitioninfo_jumpersubmit").on("mouseup","exhibitioninfo_jumper","onJumperSubmit", this);
+		screen.get("#exhibitioninfo_languageselect").on("change","onLanguageSelectChange", this);
+	}
+	
+	public void onLanguageSelectChange(Screen s,JSONObject data) {
+		 model.setProperty("@exhibition/languageselect",(String)data.get("value"));
 	}
 	
 	public void onJumperSubmit(Screen s,JSONObject data) {
@@ -135,6 +144,23 @@ public class ExhibitionInfoController extends Html5Controller {
 		screen.get(selector).remove();
     }
     
+    private void addLanguageSelectList(JSONObject data,String currentapp) {
+		FSList list =new FSList();
+		if (currentapp==null || currentapp.equals("")) currentapp="none";
+		FsNode node = new FsNode("option","1");
+		node.setProperty("name",currentapp.toLowerCase());
+		list.addNode(node);
+		node = new FsNode("option","2");
+		node.setProperty("name","none");
+		list.addNode(node);
+		node = new FsNode("option","3");
+		node.setProperty("name","default");
+		list.addNode(node);
+		node = new FsNode("option","4");
+		node.setProperty("name","flags");
+		list.addNode(node);
+		data.put("languageselect",list.toJSONObject("en","name"));
+    }
 	
  	 
 }

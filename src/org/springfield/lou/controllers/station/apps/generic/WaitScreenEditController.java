@@ -50,7 +50,17 @@ public class WaitScreenEditController extends Html5Controller{
 		screen.get("#station_waitscreen_imageuploadbutton").on("mouseup","station_waitscreen_imageupload","onFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_waitscreen_imageupload","onUploadState",this);
 		screen.get(".waitscreen_deleteimage").on("mouseup","onDeleteImage", this);
+		screen.get("#station_waitscreen_delete").on("mouseup","station_waitscreen_deleteconfirm","onDeleteStation", this);
 		}
+	
+	public void onDeleteStation(Screen s,JSONObject data) {
+		String confirm = (String)data.get("station_waitscreen_deleteconfirm");
+		if (confirm.equals("yes")) {
+			model.deleteNode("@station");
+			model.setProperty("@stationid","");
+			model.notify("@room","change");
+		}
+	}
 
 	public void onTitleChange(Screen s,JSONObject data) {
 		String title = (String)data.get("value");
@@ -150,6 +160,7 @@ public class WaitScreenEditController extends Html5Controller{
 
 	
     private JSONObject getWaitScreenAppList(String currentapp) {
+    	if (currentapp==null) currentapp="none";
 		FSList list =new FSList();
 		FsNode node = new FsNode("apps","1");
 		node.setProperty("name",currentapp.toLowerCase());

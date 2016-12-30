@@ -41,6 +41,24 @@
 	left:55%;
 }
 
+#station_waitscreen_deletelabel {
+	position: absolute;
+	top:90%;
+	left:5%;
+}
+
+#station_waitscreen_delete {
+	position: absolute;
+	top:90%;
+	left:18%;
+}
+
+#station_waitscreen_deleteconfirm {
+	position: absolute;
+	top:90%;
+	left:25%;
+}
+
 
 #station_waitscreen_images {
 	position: absolute;

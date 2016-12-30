@@ -49,14 +49,13 @@ public class RoomController extends Html5Controller {
 		model.onNotify("/app['timers']", "onStationsCheck", this);
 		model.onNotify("/shared['mupop']/hids[alive]", "onAliveMessage", this);
 		
-		model.onNotify("/shared['mupop']/test[bla]", "onTestMessage", this);
+		model.onNotify("@room", "onRoomChange", this);
 	}
 	
-	public void onTestMessage(ModelEvent e) {
-		System.out.println("E1="+e.getTargetFsNode().asXML());
-	}
 	
 	public void onStationsCheck(ModelEvent e) {
+		//System.out.println("STATION CHECK "+this);
+		try {
 		if (exhibitionnode==null || !exhibitionnode.getProperty("state").equals("on")) return;
 		FSList list = model.getList("@stations");
 		if (list!=null) {
@@ -74,6 +73,9 @@ public class RoomController extends Html5Controller {
 			}
 		}
 		alivestations = new HashMap<String, FsNode>();
+		} catch(Exception er) {
+			er.printStackTrace();
+		}
 	}
 	
 	public void onAliveMessage(ModelEvent e) {
