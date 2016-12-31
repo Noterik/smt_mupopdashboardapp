@@ -94,6 +94,14 @@ public class StationController extends Html5Controller {
 		stationnode.setProperty("paired","*");
 		model.putNode("@stations", stationnode);
 		model.setProperty("@stationid", stationnode.getId());
+		
+		// also create some subnodes we need
+		FsNode node = new FsNode("content","waitscreen");
+		model.putNode("@station",node);
+		node = new FsNode("content","contentselect");
+		model.putNode("@station",node);
+		node = new FsNode("content","mainapp");
+		model.putNode("@station",node);
 	}
 	
     public void onPairedChange(Screen s,JSONObject data) {

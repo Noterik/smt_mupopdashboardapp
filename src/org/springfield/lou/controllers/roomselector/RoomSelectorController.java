@@ -18,18 +18,6 @@ import org.springfield.lou.screen.Screen;
 
 public class RoomSelectorController extends Html5Controller {
 
-	/*
-	String username;
-	String usernamepath;
-	String exhibitionidpath;
-	String exhibitionid;
-	String roomidpath;
-	String roomid;
-	String roomnamepath;
-	String oldroomidpath;
-	String roomname;
-	*/
-
 	public RoomSelectorController() {
 	}
 	
@@ -48,12 +36,9 @@ public class RoomSelectorController extends Html5Controller {
 		screen.get("#roomselector_formarea").draggable();
 		screen.get("#roomselector_cancel").on("mouseup","onCancel", this);
  		screen.get("#roomselector_selector").on("change","onSelectChange", this);
-		model.onNotify("/shared['mupop']/test[bla]", "onTestMessage", this);
 	}
 	
-	public void onTestMessage(ModelEvent e) {
-		System.out.println("E2="+e.getTargetFsNode().asXML());
-	}
+
 	
 	
     public void onCancel(Screen s,JSONObject data) {

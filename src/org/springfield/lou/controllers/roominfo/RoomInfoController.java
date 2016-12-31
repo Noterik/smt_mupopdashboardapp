@@ -14,6 +14,7 @@ import org.springfield.fs.FsNode;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.room.RoomController;
+import org.springfield.lou.homer.LazyHomer;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 
@@ -33,6 +34,7 @@ public class RoomInfoController extends Html5Controller {
 	private void fillPage() {
 		JSONObject data = new JSONObject();
 		data.put("username",model.getProperty("@username"));
+		data.put("domain",LazyHomer.getExternalIpNumber());
 		String exhibitionid = model.getProperty("@exhibitionid");
 		if (exhibitionid.equals("newexhibition")) {
 			data.put("newexhibition","true");	
@@ -98,25 +100,29 @@ public class RoomInfoController extends Html5Controller {
     		exhibitionnode.setProperty("location",(String)data.get("roominfo_location"));
     		exhibitionnode.setProperty("timeframe",(String)data.get("roominfo_timeframe"));
     		exhibitionnode.setProperty("state","off");
-    		
-    		boolean insertresult = Fs.insertNode(exhibitionnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username"));
+    		boolean insertresult = model.putNode("@exhibitions",exhibitionnode);
 			if (insertresult) {
+				// set the exhibtion id for later use
+				model.setProperty("@exhibitionid",newid);
 				// lets first make the jumper work
 	    		FsNode jumpernode = new FsNode("jumper",(String)data.get("roominfo_jumper"));
-	    		jumpernode.setProperty("target","http://beta.mupop.net/lou/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/html5application/mupopmobile?u="+model.getProperty("@username")+"&e="+newid);
+	    		jumpernode.setProperty("target","http://"+LazyHomer.getExternalIpNumber()+"/lou/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/html5application/mupopmobile?u="+model.getProperty("@username")+"&e="+newid);
 	    		jumpernode.setProperty("domain","mupop");
 	    	    		
-	    		insertresult = Fs.insertNode(jumpernode,"/domain/mupop/config/jumpers"); // new name tricks don't work need fix daniel
+	    		insertresult = model.putNode("@jumpers", jumpernode);
 				if (!insertresult) {
 		    		screen.get("#roominfo_feedback").html("** could not insert jumper **"); 
 		    		return;
+				} else {
+					// also set it in the exhibition
+					model.setProperty("@exhibition/jumper",(String)data.get("roominfo_jumper"));
 				}
 	    		
 				// lets insert the room node
 	    		FsNode roomnode = new FsNode("room",""+new Date().getTime());
 	    		roomnode.setProperty("name",(String)data.get("roominfo_room"));
 	    		roomnode.setProperty("shape",currentshape);
-	    		insertresult = Fs.insertNode(roomnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+newid);
+	    		insertresult = model.putNode("@exhibition", roomnode);
 				if (insertresult) {
 					screen.get(selector).remove();
 					screen.get("#content").append("div","dashboard",new DashboardController());
@@ -135,7 +141,7 @@ public class RoomInfoController extends Html5Controller {
 	    			FsNode roomnode = new FsNode("room",newid);
 	    			roomnode.setProperty("name",(String)data.get("roominfo_room"));
 	    			roomnode.setProperty("shape",currentshape);
-	    			boolean insertresult = Fs.insertNode(roomnode,"/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+model.getProperty("@exhibitionid"));
+	    			boolean insertresult = model.putNode("@exhibition", roomnode);
 					if (insertresult) {
 						model.setProperty("@roomid",newid);
 		       			screen.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it
@@ -146,7 +152,6 @@ public class RoomInfoController extends Html5Controller {
 				}
 			} else {
 				// just update the roomid fields
-			//	String roompath = "/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/exhibition/"+model.getProperty("@exhibitionid")+"/room/"+model.getProperty("@roomid");
 				model.setProperty("@room/name",(String)data.get("roominfo_room"));
 				model.setProperty("@room/shape",currentshape);
      			screen.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it

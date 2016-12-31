@@ -71,16 +71,13 @@ public class WaitScreenEditController extends Html5Controller{
 		model.notify("@station","changed"); 
 	}
 	public void onLanguageChange(Screen s,JSONObject data) {
-		System.out.println("CODE="+(String)data.get("value"));
 		model.setProperty("@languagecode",(String)data.get("value"));
 		fillPage();
 	}
 	
 	public void onDeleteImage(Screen s,JSONObject data) {
-		System.out.println("Delete image with id = "+(String)data.get("id"));
 		String id=(String)data.get("id");
 		Boolean result = model.deleteNode("@content/image/"+id);
-		System.out.println("DELETE RESULT="+result);
 		if (result) {
 			fillPage();
 			model.notify("@station","changed"); 
@@ -101,7 +98,6 @@ public class WaitScreenEditController extends Html5Controller{
 	
 	private void addImages(JSONObject data) {
 		FSList imagesList = model.getList("@images");
-		System.out.println("IMAGELIST SIZE="+imagesList.size());
 		JSONObject images = imagesList.toJSONObject("en","url");
 		data.put("images",images);
 	}
@@ -187,12 +183,18 @@ public class WaitScreenEditController extends Html5Controller{
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
-//		System.out.println("ACTION="+action+" PROGRESS="+progress);
 		if (progress!=null && progress.equals("100")) {
 			//screen.get("#appeditor_content_preview").html("<image width=\"100%\" height=\"100%\" src=\""+ps.getProperty("url")+"\" />");
 			//System.out.println("UPLOAD DONE SHOULD CREATE NODE !");
     		FsNode imagenode = new FsNode("image",""+new Date().getTime());
     		imagenode.setProperty("url",ps.getProperty("url"));
+    		
+    		// check if we already have a contentrole if not set it to waitscreen
+    		String contentrole = model.getProperty("@contentrole");
+    		if (contentrole==null || contentrole.equals("")) {
+    			model.setProperty("@station/waitscreen_content","waitscreen");
+    			model.setProperty("@contentrole","waitscreen");
+    		}
     		boolean result = model.putNode("@content",imagenode);
     		if (!result) {
     			System.out.println("COUNT NOT INSERT IMAGE");
