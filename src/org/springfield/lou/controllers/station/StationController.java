@@ -48,13 +48,10 @@ public class StationController extends Html5Controller {
 		if (model.getProperty("/screen['vars']/newstation").equals("true")) { // is it a new or old station
 			createNewStation();
 		} 
-		System.out.println("CHECK 1");
 			FsNode stationnode = model.getNode("@station");
     		if (stationnode==null) { // did we find the old station node ?
     			screen.get(selector).remove();
-    			System.out.println("EMPTY STATION DID REMOVE FROM SCREEN");
     		} else {
-    			System.out.println("CHECK 2");
     			currentapp = stationnode.getProperty("app"); // yes 
     			JSONObject data = getAppList(currentapp); // read the available aps to json 
     			data.put("stationname",stationnode.getProperty("name")); // load the name to json
@@ -63,7 +60,6 @@ public class StationController extends Html5Controller {
     			oldpaired = stationnode.getProperty("paired");
     			//System.out.println("CURAPP="+currentapp);
     			data = addHids(data);
-    			System.out.println("CHECK 3");
     			screen.get(selector).render(data); // send the data to client mustache render
     			if (currentapp.equals("photoexplore")) { // check for the 2 apps en jump if needed
     				screen.get("#station_appspace").append("div","appeditor_photoexplore",new PhotoExploreEditController());
@@ -73,7 +69,6 @@ public class StationController extends Html5Controller {
     				screen.get("#station_appspace").append("div","appeditor_interactivevideo",new InteractiveVideoEditController());
     			}
     		}
-    		System.out.println("CHECK 4");
 		screen.get("#station_formarea").draggable(); // make the window draggable for fun (its a overlay)
 		screen.get("#station_done").on("mouseup","onDone", this); // watch if user wants to cancel
 		screen.get("#station_labelid").on("change","onLabelChange", this); // watch if user wants to save
@@ -105,7 +100,7 @@ public class StationController extends Html5Controller {
 	}
 	
     public void onPairedChange(Screen s,JSONObject data) {
-    	System.out.println("PAIRED STATION CHANGE="+data.toJSONString());
+    //	System.out.println("PAIRED STATION CHANGE="+data.toJSONString());
     	String oldvalue = model.getProperty("@station/paired");
     	String newvalue = (String)data.get("value");
     	model.setProperty("@station/paired",newvalue);
@@ -127,14 +122,14 @@ public class StationController extends Html5Controller {
     }
 	
     public void onAppChange(Screen s,JSONObject data) {
-    	System.out.println("APP STATION CHANGE="+data.toJSONString());
+    	//System.out.println("APP STATION CHANGE="+data.toJSONString());
     	model.setProperty("@station/app",(String)data.get("value"));
     	fillPage(); // we need to rewrite this page
 		model.notify("@station","changed");
     }
 	
     public void onLabelChange(Screen s,JSONObject data) {
-    	System.out.println("LABEL STATION CHANGE="+data.toJSONString());
+    	//System.out.println("LABEL STATION CHANGE="+data.toJSONString());
     	model.setProperty("@station/labelid",(String)data.get("value"));
     }
 	

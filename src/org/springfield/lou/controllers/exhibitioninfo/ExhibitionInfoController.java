@@ -110,6 +110,8 @@ public class ExhibitionInfoController extends Html5Controller {
 		
 		String currentlanguage = model.getProperty("@exhibition/languageselect");
 		addLanguageSelectList(data,currentlanguage);
+		String currentstationselect = model.getProperty("@exhibition/stationselect");
+		addStationSelectList(data,currentstationselect);
 		
 		screen.get(selector).render(data); // now we have all data give it to client and render using mustache	
  		screen.get("#exhibitioninfo_donebutton").on("mouseup","onDoneButton", this);
@@ -117,11 +119,31 @@ public class ExhibitionInfoController extends Html5Controller {
 		screen.get("#exhibitioninfo_deletehidbutton").on("mouseup","exhibitioninfo_hids_select","onHidDeleteButton", this);
 		screen.get("#exhibitioninfo_jumpersubmit").on("mouseup","exhibitioninfo_jumper","onJumperSubmit", this);
 		screen.get("#exhibitioninfo_languageselect").on("change","onLanguageSelectChange", this);
+		screen.get("#exhibitioninfo_stationselect").on("change","onStationSelectChange", this);
+		screen.get("#exhibitioninfo_delete").on("mouseup","exhibitioninfo_deleteconfirm","onDeleteExhibition", this);
+
+	}
+	
+	public void onDeleteExhibition(Screen s,JSONObject data) {
+		String confirm = (String)data.get("exhibitioninfo_deleteconfirm");
+		if (confirm.equals("yes")) {
+			model.deleteNode("@exhibition");
+			model.setProperty("@exhibitionid","");
+	    	screen.get(selector).remove(); // remove us from the screen.
+	    	screen.get("#room").remove(); // remove us from the screen.
+			screen.get("#content").append("div","dashboard",new DashboardController()); // 
+		}
 	}
 	
 	public void onLanguageSelectChange(Screen s,JSONObject data) {
 		 model.setProperty("@exhibition/languageselect",(String)data.get("value"));
 	}
+	
+	public void onStationSelectChange(Screen s,JSONObject data) {
+		 model.setProperty("@exhibition/stationselect",(String)data.get("value"));
+		 model.notify("@exhibition","change");
+	}
+	
 	
 	public void onJumperSubmit(Screen s,JSONObject data) {
 		System.out.println("Jumper Submit="+data.toJSONString());
@@ -160,6 +182,22 @@ public class ExhibitionInfoController extends Html5Controller {
 		node.setProperty("name","flags");
 		list.addNode(node);
 		data.put("languageselect",list.toJSONObject("en","name"));
+    }
+    
+    private void addStationSelectList(JSONObject data,String currentapp) {
+    	System.out.println("STATIONSELECT="+currentapp);
+		FSList list =new FSList();
+		if (currentapp==null || currentapp.equals("")) currentapp="none";
+		FsNode node = new FsNode("option","1");
+		node.setProperty("name",currentapp.toLowerCase());
+		list.addNode(node);
+		node = new FsNode("option","2");
+		node.setProperty("name","none");
+		list.addNode(node);
+		node = new FsNode("option","3");
+		node.setProperty("name","listview");
+		list.addNode(node);
+		data.put("stationselect",list.toJSONObject("en","name"));
     }
 	
  	 

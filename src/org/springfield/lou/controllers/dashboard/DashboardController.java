@@ -62,6 +62,7 @@ public class DashboardController extends Html5Controller {
  		screen.get(".selectablerow").on("mouseup","onShow", this); // wait for user to select one of the exhibitions from the list
 	}
 	
+	
 	/**
 	 * onShow will be called when user selects exhibtion from the list
 	 * @param s
