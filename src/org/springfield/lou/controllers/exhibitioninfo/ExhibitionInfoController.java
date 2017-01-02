@@ -197,6 +197,9 @@ public class ExhibitionInfoController extends Html5Controller {
 		node = new FsNode("option","3");
 		node.setProperty("name","listview");
 		list.addNode(node);
+		node = new FsNode("option","4");
+		node.setProperty("name","codeselect");
+		list.addNode(node);
 		data.put("stationselect",list.toJSONObject("en","name"));
     }
 	
