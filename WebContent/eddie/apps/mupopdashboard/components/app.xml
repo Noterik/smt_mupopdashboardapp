@@ -170,6 +170,13 @@
 		<controller id="WaitScreenEditController">
 		</controller>
 	</view>
+	
+	<view id="#appeditor_subeditor_contentselect">
+		<template>appeditor_generic/contentselect/contentselect.mst</template>
+		<style>appeditor_generic/contentselect/contentselect.css</style>
+		<controller id="WaitScreenEditController">
+		</controller>
+	</view>
 
 	
 </app>

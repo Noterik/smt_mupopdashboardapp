@@ -1,0 +1,42 @@
+#station_contentselect_appnamelabel {
+	position: absolute;
+	top:10%;
+	left:5%;
+}
+
+#station_contentselect_appname {
+	position: absolute;
+	top: 10%;
+	left:10%;
+}
+
+#station_contentselect_prefixlabel {
+	position: absolute;
+	top:10%;
+	left:20%;
+}
+
+#station_contentselect_prefix {
+	position: absolute;
+	top:10%;
+	left:25%;
+}
+
+
+
+#station_contentselect_images {
+	position: absolute;
+	border: solid 1px silver;
+	top: 30%;
+	left: 10%;
+	width:80%;
+}
+
+
+.contentselect_image {
+	position: relative;
+	display:inline-block;
+	border: solid 1px silver;
+	width:100px;
+}
+

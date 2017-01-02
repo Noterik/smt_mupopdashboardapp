@@ -1,0 +1,33 @@
+	<div id="station_contentselect_appnamelabel">App</div>
+	<select id="station_contentselect_appname">
+		 {{#nodes}}
+		 	<option value="{{name}}">{{labelname}}
+		{{/nodes}}
+	</select>
+	
+	<div id="station_contentselect_prefixlabel">Prefix</div>
+	<select id="station_contentselect_prefix">
+		{{#prefix}}
+		 	{{#nodes}}
+		 		<option value="{{name}}">{{name}}
+			{{/nodes}}
+		{{/prefix}}
+	</select>
+	
+	
+	<div id="station_contentselect_images">
+	{{#images}}
+		 	{{#nodes}}
+		 			<div id="station_contentselect_image{{id}}" class="contentselect_image">
+		 				<image width="100%" height="50%" src="{{url}}" />
+		 				<button id="{{id}}" class="contentselect_deleteimage">delete</button>
+		 			</div>
+			{{/nodes}}
+			<div id="station_contentselect_imagenew" class="contentselect_image">
+				<input type="file" id="station_contentselect_imageupload" size="20" />
+		 		<button id="station_contentselect_imageuploadbutton">upload</button>
+		 	</div>
+	{{/images}}
+	</div>
+	
+
