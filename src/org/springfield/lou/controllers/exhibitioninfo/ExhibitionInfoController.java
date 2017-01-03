@@ -112,6 +112,8 @@ public class ExhibitionInfoController extends Html5Controller {
 		addLanguageSelectList(data,currentlanguage);
 		String currentstationselect = model.getProperty("@exhibition/stationselect");
 		addStationSelectList(data,currentstationselect);
+		String currentshowurl = model.getProperty("@exhibition/showurl");	
+		addShowUrlList(data,currentshowurl);
 		
 		screen.get(selector).render(data); // now we have all data give it to client and render using mustache	
  		screen.get("#exhibitioninfo_donebutton").on("mouseup","onDoneButton", this);
@@ -121,6 +123,7 @@ public class ExhibitionInfoController extends Html5Controller {
 		screen.get("#exhibitioninfo_languageselect").on("change","onLanguageSelectChange", this);
 		screen.get("#exhibitioninfo_stationselect").on("change","onStationSelectChange", this);
 		screen.get("#exhibitioninfo_delete").on("mouseup","exhibitioninfo_deleteconfirm","onDeleteExhibition", this);
+		screen.get("#exhibitioninfo_showurl").on("change","onShowUrlChange", this);
 
 	}
 	
@@ -133,6 +136,11 @@ public class ExhibitionInfoController extends Html5Controller {
 	    	screen.get("#room").remove(); // remove us from the screen.
 			screen.get("#content").append("div","dashboard",new DashboardController()); // 
 		}
+	}
+	
+	public void onShowUrlChange(Screen s,JSONObject data) {
+		 model.setProperty("@exhibition/showurl",(String)data.get("value"));
+		 model.notify("@exhibition","change");
 	}
 	
 	public void onLanguageSelectChange(Screen s,JSONObject data) {
@@ -182,6 +190,21 @@ public class ExhibitionInfoController extends Html5Controller {
 		node.setProperty("name","flags");
 		list.addNode(node);
 		data.put("languageselect",list.toJSONObject("en","name"));
+    }
+    
+    private void addShowUrlList(JSONObject data,String currentapp) {
+		FSList list =new FSList();
+		if (currentapp==null || currentapp.equals("")) currentapp="false";
+		FsNode node = new FsNode("option","1");
+		node.setProperty("name",currentapp.toLowerCase());
+		list.addNode(node);
+		node = new FsNode("option","2");
+		node.setProperty("name","false");
+		list.addNode(node);
+		node = new FsNode("option","3");
+		node.setProperty("name","true");
+		list.addNode(node);
+		data.put("urlchange",list.toJSONObject("en","name"));
     }
     
     private void addStationSelectList(JSONObject data,String currentapp) {

@@ -42,6 +42,15 @@
 		{{/stationselect}}
 	</select>
 	
+	<div id="exhibitioninfo_showurllabel">Show url in stationselect</div>
+	<select id="exhibitioninfo_showurl">
+		{{#urlchange}}
+		 {{#nodes}}
+		 	<option value="{{name}}">{{name}}
+		 {{/nodes}}
+		{{/urlchange}}
+	</select>
+	
 	<div id="exhibitioninfo_deletelabel">Delete this exhibition</div>
 	<button id="exhibitioninfo_delete">delete</button>
 	<select id="exhibitioninfo_deleteconfirm">
