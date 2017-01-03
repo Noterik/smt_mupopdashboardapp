@@ -21,6 +21,7 @@
 		<exhibitionid>/screen['vars']/exhibitionid</exhibitionid>
 		<stationid>/screen['vars']/stationid</stationid>
 		<roomid>/screen['vars']/roomid</roomid>
+		<itemid>/screen['vars']/itemid</itemid>
 		<oldroomid>/screen['vars']/oldroomid</oldroomid>
 		<roomname>/screen['vars']/roomname</roomname>
 		<jumpers>/domain['mupop']/config['jumpers']</jumpers>
@@ -43,6 +44,10 @@
 		
 		<videos>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/video</videos>
 		<video>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/video['@videoid']</video>
+	
+		<items>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item</items>
+		<item>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']</item>
+		<itemimages>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/image</itemimages>
 		
 	</model>
 	
@@ -168,6 +173,13 @@
 		<template>appeditor_generic/waitscreen/waitscreen.mst</template>
 		<style>appeditor_generic/waitscreen/waitscreen.css</style>
 		<controller id="WaitScreenEditController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_subeditor_mainapp_photoexplore">
+		<template>appeditor_photoexplore/mainapp.mst</template>
+		<style>appeditor_photoexplore/mainapp.css</style>
+		<controller id="PhotoExploreMainAppController">
 		</controller>
 	</view>
 	

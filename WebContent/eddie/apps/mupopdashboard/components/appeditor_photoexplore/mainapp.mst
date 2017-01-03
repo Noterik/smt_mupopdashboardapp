@@ -1,0 +1,33 @@
+	<div id="station_mainapp_items">
+	{{#items}}
+		 	{{#nodes}}
+		 			<div id="station_mainapp_item{{id}}" class="{{classname}}">
+		 				name {{id}}
+		 			</div>
+			{{/nodes}}
+			<div id="station_mainapp_newitem" class="station_mainapp_item">
+				<input id="station_mainapp_newitemname" value="" />
+		 		<button id="station_mainapp_newitem">new item</button>
+		 	</div>
+	{{/items}}
+	</div>
+	
+	<div id="station_mainapp_edititem">
+	item name = {{id}}
+		<div id="station_mainapp_edititem_images">
+		{{#images}}
+			 	{{#nodes}}
+		 				<div id="station_mainapp_edititem_image{{id}}" class="station_mainapp_edititem_image">
+		 					<image width="100%" height="50%" src="{{url}}" />
+		 					<button id="{{id}}" class="station_mainapp_edititem_deleteimage">delete</button>
+		 				</div>
+				{{/nodes}}
+				<div id="station_mainapp_edititem_image_imagenew" class="station_mainapp_edititem_image">
+					<input type="file" id="station_mainapp_newitem_imageupload" size="20" />
+			 		<button id="station_mainapp_newitem_imageuploadbutton">upload</button>
+			 	</div>
+		{{/images}}
+	</div>
+	
+	</div>
+

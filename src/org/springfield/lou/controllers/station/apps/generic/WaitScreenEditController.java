@@ -19,7 +19,6 @@ public class WaitScreenEditController extends Html5Controller{
 	
 	public void attach(String sel) {
 		selector = sel;
-		System.out.println("WAISCREEN SELECTOR="+selector);
 		fillPage();
 	}
 	
@@ -33,7 +32,6 @@ public class WaitScreenEditController extends Html5Controller{
 			model.setProperty("@languagecode","en");
 		}
 		model.setProperty("@contentrole",prefixdir);
-		System.out.println("WAITSCREEN APP="+currentapp+" "+prefixdir);
 		JSONObject data = getWaitScreenAppList(currentapp);  // read the available aps to json
 		addWaitScreenPrefixList(data,prefixdir);
 		addWaitScreenLanguagesList(data,languagecode);

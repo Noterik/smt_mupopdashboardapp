@@ -1,4 +1,4 @@
-package org.springfield.lou.controllers.station.apps;
+package org.springfield.lou.controllers.station.apps.photoexplore;
 
 import java.util.Iterator;
 
@@ -48,10 +48,13 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	private void fillSubPage(String tab) {
+		System.out.println("TAB="+tab);
 		if (tab.equals("waitscreen")) {
 			screen.get("#subeditor").append("div","appeditor_subeditor_waitscreen",new WaitScreenEditController());
 		} else if (tab.equals("contentselect")) {
 			screen.get("#subeditor").append("div","appeditor_subeditor_contentselect",new ContentSelectEditController());
+		} else if (tab.equals("mainapp")) {
+			screen.get("#subeditor").append("div","appeditor_subeditor_mainapp_photoexplore",new PhotoExploreMainAppController());
 		}
 	}
 	

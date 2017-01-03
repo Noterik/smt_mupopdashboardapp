@@ -15,8 +15,8 @@ import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.roominfo.RoomInfoController;
 import org.springfield.lou.controllers.station.apps.InteractiveVideoEditController;
-import org.springfield.lou.controllers.station.apps.PhotoExploreEditController;
 import org.springfield.lou.controllers.station.apps.PhotoInfoSpotsEditController;
+import org.springfield.lou.controllers.station.apps.photoexplore.PhotoExploreEditController;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 
