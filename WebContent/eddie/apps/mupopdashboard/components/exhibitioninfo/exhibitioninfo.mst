@@ -60,6 +60,15 @@
 		{{/style}}
 	</select>
 	
+	<div id="exhibitioninfo_audiochecklabel">AudioCheck</div>
+	<select id="exhibitioninfo_audiocheck">
+		{{#audiocheck}}
+		 {{#nodes}}
+		 	<option value="{{name}}">{{name}}
+		 {{/nodes}}
+		{{/audiocheck}}
+	</select>
+	
 	<div id="exhibitioninfo_deletelabel">Delete this exhibition</div>
 	<button id="exhibitioninfo_delete">delete</button>
 	<select id="exhibitioninfo_deleteconfirm">

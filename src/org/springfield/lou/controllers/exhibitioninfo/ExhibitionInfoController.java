@@ -116,6 +116,8 @@ public class ExhibitionInfoController extends Html5Controller {
 		addShowUrlList(data,currentshowurl);
 		String currentstyle = model.getProperty("@exhibition/style");	
 		addStyleList(data,currentstyle);
+		String currentaudiocheck = model.getProperty("@exhibition/audiocheck");	
+		addAudiocheckList(data,currentaudiocheck);
 		
 		screen.get(selector).render(data); // now we have all data give it to client and render using mustache	
  		screen.get("#exhibitioninfo_donebutton").on("mouseup","onDoneButton", this);
@@ -127,6 +129,7 @@ public class ExhibitionInfoController extends Html5Controller {
 		screen.get("#exhibitioninfo_delete").on("mouseup","exhibitioninfo_deleteconfirm","onDeleteExhibition", this);
 		screen.get("#exhibitioninfo_showurl").on("change","onShowUrlChange", this);
 		screen.get("#exhibitioninfo_style").on("change","onStyleChange", this);
+		screen.get("#exhibitioninfo_audiocheck").on("change","onAudiocheckChange", this);
 
 	}
 	
@@ -148,6 +151,11 @@ public class ExhibitionInfoController extends Html5Controller {
 	
 	public void onStyleChange(Screen s,JSONObject data) {
 		 model.setProperty("@exhibition/style",(String)data.get("value"));
+		 model.notify("@exhibition","change");
+	}
+	
+	public void onAudiocheckChange(Screen s,JSONObject data) {
+		 model.setProperty("@exhibition/audiocheck",(String)data.get("value"));
 		 model.notify("@exhibition","change");
 	}
 	
@@ -215,6 +223,21 @@ public class ExhibitionInfoController extends Html5Controller {
 		data.put("urlchange",list.toJSONObject("en","name"));
     }
     
+    private void addAudiocheckList(JSONObject data,String currentapp) {
+		FSList list =new FSList();
+		if (currentapp==null || currentapp.equals("")) currentapp="false";
+		FsNode node = new FsNode("option","1");
+		node.setProperty("name",currentapp.toLowerCase());
+		list.addNode(node);
+		node = new FsNode("option","2");
+		node.setProperty("name","false");
+		list.addNode(node);
+		node = new FsNode("option","3");
+		node.setProperty("name","true");
+		list.addNode(node);
+		data.put("audiocheck",list.toJSONObject("en","name"));
+    }
+    
     private void addStyleList(JSONObject data,String currentstyle) {
 		FSList list =new FSList();
 		if (currentstyle==null || currentstyle.equals("")) currentstyle="neutral";
@@ -234,8 +257,7 @@ public class ExhibitionInfoController extends Html5Controller {
     }
     
     private void addStationSelectList(JSONObject data,String currentapp) {
-    	System.out.println("STATIONSELECT="+currentapp);
-		FSList list =new FSList();
+  	FSList list =new FSList();
 		if (currentapp==null || currentapp.equals("")) currentapp="none";
 		FsNode node = new FsNode("option","1");
 		node.setProperty("name",currentapp.toLowerCase());

@@ -48,16 +48,33 @@
 	top: 410px;
 }
 
+
 #exhibitioninfo_stylelabel {
 	position:absolute;
 	left: 20px;
 	top: 440px;
 }
 
+
+
 #exhibitioninfo_style {
 	position:absolute;
 	left: 180px;
 	top: 440px;
+}
+
+#exhibitioninfo_audiochecklabel {
+	position:absolute;
+	left: 20px;
+	top: 480px;
+}
+
+
+
+#exhibitioninfo_audiocheck {
+	position:absolute;
+	left: 140px;
+	top: 480px;
 }
 
 #exhibitioninfo_jumperarea {
