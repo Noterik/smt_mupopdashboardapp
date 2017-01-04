@@ -48,21 +48,34 @@
 	top: 410px;
 }
 
+#exhibitioninfo_stylelabel {
+	position:absolute;
+	left: 20px;
+	top: 440px;
+}
+
+#exhibitioninfo_style {
+	position:absolute;
+	left: 180px;
+	top: 440px;
+}
 
 #exhibitioninfo_jumperarea {
 	position:absolute;
 	left: 40%;
-	bottom: 80px;
+	top: 8000px;
 	width: 60%;
 }
 
 #exhibitioninfo_jumperlabel {
 	position:absolute;
+		top: 8000px;
 	left:0px;
 }
 
 #exhibitioninfo_jumper {
 	position:absolute;
+		top: 8000px;
 	left:90px;
 }
 
@@ -70,6 +83,7 @@
 	position:absolute;
 	left:170px;
 	width:100;
+		top: 8000px;
 }
 
 

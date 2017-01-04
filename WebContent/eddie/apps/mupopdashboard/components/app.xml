@@ -183,6 +183,14 @@
 		</controller>
 	</view>
 	
+	
+	<view id="#appeditor_subeditor_mainapp_interactivevideo">
+		<template>appeditor_interactivevideo/mainapp.mst</template>
+		<style>appeditor_interactivevideo/mainapp.css</style>
+		<controller id="InteractiveVideoMainAppController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_subeditor_contentselect">
 		<template>appeditor_generic/contentselect/contentselect.mst</template>
 		<style>appeditor_generic/contentselect/contentselect.css</style>

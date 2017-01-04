@@ -1,6 +1,5 @@
 <table id="appeditor_photoexploretable">
-	<tr>
-		
+	<tr>		
 		{{#waitscreentab}}<th id="waitscreen" class="appmenu">waitscreen</th>{{/waitscreentab}}
 		{{^waitscreentab}}<td id="waitscreen" class="appmenu">waitscreen</td>{{/waitscreentab}}
 		

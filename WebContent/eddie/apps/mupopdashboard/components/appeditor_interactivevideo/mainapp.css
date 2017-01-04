@@ -1,0 +1,13 @@
+#station_mainapp_videos {
+	position: absolute;
+	border: solid 1px silver;
+	top: 30%;
+	left: 10%;
+	width:80%;
+}
+
+.mainapp_video {
+	position: relative;
+	display:inline-block;
+	border: solid 1px silver;
+}

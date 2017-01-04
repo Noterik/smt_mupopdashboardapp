@@ -1,0 +1,14 @@
+	<div id="station_mainapp_videos">
+	{{#videos}}
+		 	{{#nodes}}
+		 			<div id="station_mainapp_video{{id}}" class="mainapp_video">
+		 				<video width="320" height="240" src="{{url}}" controls />
+		 				<button id="{{id}}" class="mainapp_deletevideo">delete</button>
+		 			</div>
+			{{/nodes}}
+			<div id="station_mainapp_videonew" class="mainapp_video">
+				<input type="file" id="station_mainapp_videoupload" size="20" />
+		 		<button id="station_mainapp_videouploadbutton">upload</button>
+		 	</div>
+	{{/videos}}
+	</div>

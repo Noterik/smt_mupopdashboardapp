@@ -51,6 +51,15 @@
 		{{/urlchange}}
 	</select>
 	
+	<div id="exhibitioninfo_stylelabel">Exhibition style</div>
+	<select id="exhibitioninfo_style">
+		{{#style}}
+		 {{#nodes}}
+		 	<option value="{{name}}">{{name}}
+		 {{/nodes}}
+		{{/style}}
+	</select>
+	
 	<div id="exhibitioninfo_deletelabel">Delete this exhibition</div>
 	<button id="exhibitioninfo_delete">delete</button>
 	<select id="exhibitioninfo_deleteconfirm">

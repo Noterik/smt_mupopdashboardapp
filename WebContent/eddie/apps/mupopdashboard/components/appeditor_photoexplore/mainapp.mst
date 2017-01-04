@@ -2,7 +2,7 @@
 	{{#items}}
 		 	{{#nodes}}
 		 			<div id="station_mainapp_item{{id}}" class="{{classname}}">
-		 				name {{id}}
+		 				{{id}}
 		 			</div>
 			{{/nodes}}
 			<div id="station_mainapp_newitem" class="station_mainapp_item">
@@ -18,7 +18,7 @@
 		{{#images}}
 			 	{{#nodes}}
 		 				<div id="station_mainapp_edititem_image{{id}}" class="station_mainapp_edititem_image">
-		 					<image width="100%" height="50%" src="{{url}}" />
+		 					<image width="100" height="100" src="{{url}}" />
 		 					<button id="{{id}}" class="station_mainapp_edititem_deleteimage">delete</button>
 		 				</div>
 				{{/nodes}}
