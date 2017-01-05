@@ -68,6 +68,20 @@
 		 {{/nodes}}
 		{{/audiocheck}}
 	</select>
+	<input type="file" id="exhibitioninfo_audioupload" size="20" />
+	<button id="exhibitioninfo_audiouploadbutton">upload</button>
+	{{#audiochecksample}}
+		<a id="exhibitioninfo_audiouploadpreview" target="_new" href="{{audiochecksample}}">play</a> 
+	{{/audiochecksample}}
+	
+	<div id="exhibitioninfo_languagelabel">Exhibition Language</div>
+	<select id="exhibitioninfo_language">
+		{{#language}}
+		 {{#nodes}}
+		 	<option value="{{name}}">{{name}}
+		 {{/nodes}}
+		{{/language}}
+	</select>
 	
 	<div id="exhibitioninfo_deletelabel">Delete this exhibition</div>
 	<button id="exhibitioninfo_delete">delete</button>

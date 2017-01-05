@@ -2,7 +2,7 @@
 	{{#videos}}
 		 	{{#nodes}}
 		 			<div id="station_mainapp_video{{id}}" class="mainapp_video">
-		 				<video width="320" height="240" src="{{url}}" controls />
+		 				<video width="200" height="160" src="{{url}}" controls />
 		 				<button id="{{id}}" class="mainapp_deletevideo">delete</button>
 		 			</div>
 			{{/nodes}}
@@ -11,4 +11,18 @@
 		 		<button id="station_mainapp_videouploadbutton">upload</button>
 		 	</div>
 	{{/videos}}
+	</div>
+	
+	<div id="station_mainapp_items">
+	{{#items}}
+		 	{{#nodes}}
+		 			<div id="station_mainapp_item{{id}}" class="{{classname}}">
+		 				{{id}}
+		 			</div>
+			{{/nodes}}
+			<div id="station_mainapp_newitem" class="station_mainapp_item">
+				<input id="station_mainapp_newitemname" value="" />
+		 		<button id="station_mainapp_newitem">new item</button>
+		 	</div>
+	{{/items}}
 	</div>

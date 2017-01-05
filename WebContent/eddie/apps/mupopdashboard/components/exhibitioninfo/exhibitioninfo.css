@@ -63,17 +63,45 @@
 	top: 440px;
 }
 
+#exhibitioninfo_languagelabel {
+	position:absolute;
+	left: 20px;
+	top: 510px;
+}
+
+#exhibitioninfo_language {
+	position:absolute;
+	left: 220px;
+	top: 510px;
+}
+
 #exhibitioninfo_audiochecklabel {
 	position:absolute;
 	left: 20px;
 	top: 480px;
 }
 
-
-
 #exhibitioninfo_audiocheck {
 	position:absolute;
 	left: 140px;
+	top: 480px;
+}
+
+#exhibitioninfo_audioupload {
+	position:absolute;
+	left: 240px;
+	top: 480px;
+}
+
+#exhibitioninfo_audiouploadbutton {
+	position:absolute;
+	left: 320px;
+	top: 480px;
+}
+
+#exhibitioninfo_audiouploadpreview {
+	position:absolute;
+	left: 450px;
 	top: 480px;
 }
 

@@ -12,6 +12,7 @@ import org.springfield.fs.FSList;
 import org.springfield.fs.FSListManager;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
+import org.springfield.fs.FsPropertySet;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.room.RoomController;
@@ -60,8 +61,6 @@ public class ExhibitionInfoController extends Html5Controller {
 	}
 	
     public void onPairButton(Screen s,JSONObject data) {
-    	System.out.println("PAIR BUTTON="+data.toJSONString());
-    	
     	String givencode = (String)data.get("exhibitioninfo_code");
     	hid = (String)data.get("exhibitioninfo_hid");
     	if (givencode.equals(code)) {
@@ -108,8 +107,8 @@ public class ExhibitionInfoController extends Html5Controller {
 			data.put("paired",paired);
 		}
 		
-		String currentlanguage = model.getProperty("@exhibition/languageselect");
-		addLanguageSelectList(data,currentlanguage);
+		String currentlanguageselecy = model.getProperty("@exhibition/languageselect");
+		addLanguageSelectList(data,currentlanguageselecy);
 		String currentstationselect = model.getProperty("@exhibition/stationselect");
 		addStationSelectList(data,currentstationselect);
 		String currentshowurl = model.getProperty("@exhibition/showurl");	
@@ -118,8 +117,24 @@ public class ExhibitionInfoController extends Html5Controller {
 		addStyleList(data,currentstyle);
 		String currentaudiocheck = model.getProperty("@exhibition/audiocheck");	
 		addAudiocheckList(data,currentaudiocheck);
+		String currentlanguage = model.getProperty("@exhibition/language");	
+		addLanguageList(data,currentlanguage);
+		
+		System.out.println("LANGTEST EN="+model.getProperty("@exhibition/hellotest","en"));	
+		System.out.println("LANGTEST NL="+model.getProperty("@exhibition/hellotest","nl"));	
+		System.out.println("LANGTEST DE="+model.getProperty("@exhibition/hellotest","de"));
+		
+		String audiochecksample = model.getProperty("@exhibition/audiochecksample");
+		if (audiochecksample!=null && !audiochecksample.equals("")) {
+			data.put("audiochecksample",audiochecksample);
+		}
 		
 		screen.get(selector).render(data); // now we have all data give it to client and render using mustache	
+		
+		setUploadSettings("exhibitioninfo_audioupload");
+		screen.get("#exhibitioninfo_audiouploadbutton").on("mouseup","exhibitioninfo_audioupload","onFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/exhibitioninfo_audioupload","onUploadState",this);
+		
  		screen.get("#exhibitioninfo_donebutton").on("mouseup","onDoneButton", this);
  		screen.get("#exhibitioninfo_pairbutton").on("mouseup","exhibitioninfo_code,exhibitioninfo_hid","onPairButton", this);
 		screen.get("#exhibitioninfo_deletehidbutton").on("mouseup","exhibitioninfo_hids_select","onHidDeleteButton", this);
@@ -130,6 +145,7 @@ public class ExhibitionInfoController extends Html5Controller {
 		screen.get("#exhibitioninfo_showurl").on("change","onShowUrlChange", this);
 		screen.get("#exhibitioninfo_style").on("change","onStyleChange", this);
 		screen.get("#exhibitioninfo_audiocheck").on("change","onAudiocheckChange", this);
+		screen.get("#exhibitioninfo_language").on("change","onLanguageChange", this);
 
 	}
 	
@@ -142,6 +158,11 @@ public class ExhibitionInfoController extends Html5Controller {
 	    	screen.get("#room").remove(); // remove us from the screen.
 			screen.get("#content").append("div","dashboard",new DashboardController()); // 
 		}
+	}
+	
+	public void onLanguageChange(Screen s,JSONObject data) {
+		 model.setProperty("@exhibition/language",(String)data.get("value"));
+		 model.notify("@exhibition","change");
 	}
 	
 	public void onShowUrlChange(Screen s,JSONObject data) {
@@ -256,6 +277,21 @@ public class ExhibitionInfoController extends Html5Controller {
 		data.put("style",list.toJSONObject("en","name"));
     }
     
+    private void addLanguageList(JSONObject data,String currentlanguage) {
+		FSList list =new FSList();
+		if (currentlanguage==null || currentlanguage.equals("")) currentlanguage="en";
+		FsNode node = new FsNode("option","1");
+		node.setProperty("name",currentlanguage.toLowerCase());
+		list.addNode(node);
+		node = new FsNode("option","2");
+		node.setProperty("name","en");
+		list.addNode(node);
+		node = new FsNode("option","3");
+		node.setProperty("name","nl");
+		list.addNode(node);
+		data.put("language",list.toJSONObject("en","name"));
+    }
+    
     private void addStationSelectList(JSONObject data,String currentapp) {
   	FSList list =new FSList();
 		if (currentapp==null || currentapp.equals("")) currentapp="none";
@@ -273,6 +309,32 @@ public class ExhibitionInfoController extends Html5Controller {
 		list.addNode(node);
 		data.put("stationselect",list.toJSONObject("en","name"));
     }
+    
+	public void onUploadState(ModelEvent e) {
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		String progress = ps.getProperty("progress");
+		if (progress!=null && progress.equals("100")) {
+			model.setProperty("@exhibition/audiochecksample",ps.getProperty("url"));
+ 		}
+	}
+    
+	public void onFileUpload(Screen s,JSONObject data) {
+		System.out.println("FILE UPLOAD !!"+data.toJSONString());
+	}
+	
+	private void setUploadSettings(String upid) {
+		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
+		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
+		model.setProperty("/screen/upload/"+upid+"/destpath","mupop/audios/");
+		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
+		model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
+		model.setProperty("/screen/upload/"+upid+"/filetype","audio");
+		model.setProperty("/screen/upload/"+upid+"/fileext","mp3");
+		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+	}
 	
  	 
 }

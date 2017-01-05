@@ -1,7 +1,7 @@
 #station_mainapp_videos {
 	position: absolute;
 	border: solid 1px silver;
-	top: 30%;
+	top: 10%;
 	left: 10%;
 	width:80%;
 }
@@ -10,4 +10,35 @@
 	position: relative;
 	display:inline-block;
 	border: solid 1px silver;
+}
+
+#station_mainapp_items {
+	position: absolute;
+	top: 38%;
+	left: 3%;
+	width:94%;
+}
+
+#station_mainapp_edititem {
+	position: absolute;
+	border: solid 1px silver;
+	top: 30%;
+	left: 3%;
+	width:94%;
+	height:50%;
+}
+
+.station_mainapp_itemselected {
+	position: relative;
+	background-color: #cccccc;
+	display:inline-block;
+	border: solid 1px silver;
+	width:20%;
+}
+
+.station_mainapp_item {
+	position: relative;
+	display:inline-block;
+	border: solid 1px silver;
+	width:20%;
 }

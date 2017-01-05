@@ -32,6 +32,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		addItems(data);
 
 		if (selecteditem!=null) {
+			model.setProperty("@contentrole","mainapp");
 			model.setProperty("@itemid",selecteditem);
 			FsNode item=model.getNode("@item");
 			System.out.println("ITEMNODE="+item.asXML());
