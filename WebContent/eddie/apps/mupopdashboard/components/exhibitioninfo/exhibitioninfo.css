@@ -75,6 +75,18 @@
 	top: 510px;
 }
 
+#exhibitioninfo_availablelanguageslabel {
+	position:absolute;
+	left: 300px;
+	top: 510px;
+}
+
+#exhibitioninfo_availablelanguages {
+	position:absolute;
+	left: 475px;
+	top: 510px;
+}
+
 #exhibitioninfo_audiochecklabel {
 	position:absolute;
 	left: 20px;

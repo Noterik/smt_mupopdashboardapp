@@ -37,6 +37,10 @@ public class PhotoExploreMainAppController extends Html5Controller{
 			FsNode item=model.getNode("@item");
 			System.out.println("ITEMNODE="+item.asXML());
 			data.put("id", item.getId());
+			String voiceover = model.getProperty("@item/voiceover");
+			if (voiceover!=null && !voiceover.equals("")) {
+				data.put("voiceover",voiceover);
+			}
 		}
 		addImages(data);
 		
@@ -44,6 +48,10 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		screen.get(".station_mainapp_item").on("mouseup","onEditItem", this);
 		screen.get("#station_mainapp_newitem").on("mouseup","station_mainapp_newitemname","onNewItem", this);
 
+		//setUploadAudioSettings("station_mainapp_edititem_audioupload");
+		//screen.get("#station_mainapp_edititem_audiouploadbutton").on("mouseup","station_mainapp_edititem_audioupload","onAudioFileUpload", this);
+		//model.onPropertiesUpdate("/screen/upload/station_mainapp_edititem_audioupload","onAudioUploadState",this);
+		
 		setUploadSettings("station_mainapp_newitem_imageupload");
 		screen.get("#station_mainapp_newitem_imageuploadbutton").on("mouseup","station_mainapp_newitem_imageupload","onFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_newitem_imageupload","onUploadState",this);
@@ -124,6 +132,20 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		System.out.println("FILE UPLOAD !!"+data.toJSONString());
 	}
 	
+	public void onAudioUploadState(ModelEvent e) {
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		String progress = ps.getProperty("progress");
+		if (progress!=null && progress.equals("100")) {
+			model.setProperty("@item/voiceover",ps.getProperty("url"));
+		}
+	
+	}
+
+	public void onAudioFileUpload(Screen s,JSONObject data) {
+		System.out.println("AUDIO FILE UPLOAD !!"+data.toJSONString());
+	}
+	
 	private void setUploadSettings(String upid) {
 		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
 		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
@@ -134,6 +156,19 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
 		model.setProperty("/screen/upload/"+upid+"/filetype","image");
 		model.setProperty("/screen/upload/"+upid+"/fileext","png");
+		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+	}
+	
+	private void setUploadAudioSettings(String upid) {
+		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
+		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
+		model.setProperty("/screen/upload/"+upid+"/destpath","mupop/audios/");
+		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
+		model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
+		model.setProperty("/screen/upload/"+upid+"/filetype","audio");
+		model.setProperty("/screen/upload/"+upid+"/fileext","mp4");
 		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
 	}
 	

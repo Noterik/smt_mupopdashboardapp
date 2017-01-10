@@ -40,13 +40,13 @@ public class ContentSelectEditController extends Html5Controller{
 		screen.get("#station_contentselect_imageuploadbutton").on("mouseup","station_contentselect_imageupload","onFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_contentselect_imageupload","onUploadState",this);
 		screen.get(".contentselect_deleteimage").on("mouseup","onDeleteImage", this);
-		screen.get("#contentselect_wantedselect").on("mouseup","onWantedSelect", this);
+		screen.get("#contentselect_wantedselect").on("change","onWantedSelect", this);
 		}
 	
 
 	
 	public void onDeleteImage(Screen s,JSONObject data) {
-		String id=(String)data.get("id");
+		String id=((String)data.get("id")).substring(25);
 		Boolean result = model.deleteNode("@content/image/"+id);
 		if (result) {
 			fillPage();
@@ -55,7 +55,7 @@ public class ContentSelectEditController extends Html5Controller{
 	}
 	
 	public void onWantedSelect(Screen s,JSONObject data) {
-		String id=(String)data.get("id");
+		String id=((String)data.get("id")).substring(26);
 		String value=(String)data.get("value");
 		model.setProperty("@content/image/"+id+"/wantedselect",value);
 	}

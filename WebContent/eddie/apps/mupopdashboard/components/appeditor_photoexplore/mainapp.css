@@ -1,6 +1,6 @@
 #station_mainapp_items {
 	position: absolute;
-	top: 8%;
+	top: 25%;
 	left: 3%;
 	width:94%;
 }
@@ -8,17 +8,36 @@
 #station_mainapp_edititem {
 	position: absolute;
 	border: solid 1px silver;
-	top: 30%;
+	top: 35%;
 	left: 3%;
 	width:94%;
 	height:50%;
 }
 
+#station_mainapp_edititem_audiouploadlabel {
+	position: absolute;
+	top: 15%;
+	left: 20px;
+}
+
+#station_mainapp_edititem_audioupload {
+	position: absolute;
+	top: 15%;
+	left: 150px;
+}
+
+#station_mainapp_edititem_audiouploadbutton {
+	position: absolute;
+	top: 15%;
+	left: 300px;
+}
+
+
 
 #station_mainapp_edititem_images {
 	position: absolute;
 	border: solid 1px silver;
-	top: 30%;
+	top: 40%;
 	left: 10%;
 	width:80%;
 }
@@ -36,13 +55,13 @@
 	background-color: #cccccc;
 	display:inline-block;
 	border: solid 1px silver;
-	width:20%;
+	width:10%;
 }
 
 .station_mainapp_item {
 	position: relative;
 	display:inline-block;
 	border: solid 1px silver;
-	width:20%;
+	width:10%;
 }
 

@@ -13,7 +13,14 @@
 	</div>
 	
 	<div id="station_mainapp_edititem">
-	item name = {{id}}
+		{{id}}
+		<div id="station_mainapp_edititem_audiouploadlabel">voiceover audio</div>
+		<input type="file" id="station_mainapp_edititem_audioupload" size="20" />
+		<button id="station_mainapp_edititem_audiouploadbutton">upload</button>
+		{{#voiceover}}
+			<a id="station_mainapp_edititem_audiouploadpreview" target="_new" href="{{voiceover}}">play</a> 
+		{{/voiceover}}
+		
 		<div id="station_mainapp_edititem_images">
 		{{#images}}
 			 	{{#nodes}}

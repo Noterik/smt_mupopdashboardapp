@@ -1,28 +1,89 @@
-	<div id="station_mainapp_videos">
-	{{#videos}}
-		 	{{#nodes}}
-		 			<div id="station_mainapp_video{{id}}" class="mainapp_video">
-		 				<video width="200" height="160" src="{{url}}" controls />
-		 				<button id="{{id}}" class="mainapp_deletevideo">delete</button>
-		 			</div>
-			{{/nodes}}
-			<div id="station_mainapp_videonew" class="mainapp_video">
-				<input type="file" id="station_mainapp_videoupload" size="20" />
-		 		<button id="station_mainapp_videouploadbutton">upload</button>
-		 	</div>
-	{{/videos}}
-	</div>
-	
-	<div id="station_mainapp_items">
+	<table id="station_mainapp_items">
+	<tr>
 	{{#items}}
 		 	{{#nodes}}
-		 			<div id="station_mainapp_item{{id}}" class="{{classname}}">
+		 			<td id="station_mainapp_item{{id}}" class="{{classname}}">
 		 				{{id}}
-		 			</div>
+		 			</td>
 			{{/nodes}}
-			<div id="station_mainapp_newitem" class="station_mainapp_item">
+			<td id="station_mainapp_newitem" class="station_mainapp_item">
 				<input id="station_mainapp_newitemname" value="" />
 		 		<button id="station_mainapp_newitem">new item</button>
-		 	</div>
+		 	</td>
 	{{/items}}
+	</tr>
+	</table>
+	
+	{{#selecteditem}}
+	<div id="station_mainapp_edititem">
+
+
+	<div id="station_mainapp_videouploadlabel">video</div>
+	<input type="file" id="station_mainapp_videoupload" size="20" />
+	<button id="station_mainapp_videouploadbutton">upload</button>
+	{{#videourl}}
+		<a id="station_mainapp_videouploadpreview" target="_new" href="{{videourl}}">play</a> 
+	{{/videourl}}
+	
+	<div id="station_mainapp_audiouploadlabel">audio</div>
+	<input type="file" id="station_mainapp_audioupload" size="20" />
+	<button id="station_mainapp_audiouploadbutton">upload</button>
+	{{#audiourl}}
+		<a id="station_mainapp_audiouploadpreview" target="_new" href="{{audiourl}}">play</a> 
+	{{/audiourl}}
+	
+	<table id="station_mainapp_item_questions">
+	<tr>
+	{{#questions}}
+		 	{{#nodes}}
+		 			<td id="station_mainapp_item_question{{id}}" class="station_mainapp_question">
+		 				{{id}}
+		 			</td>
+			{{/nodes}}
+			<td class="station_mainapp_question">
+				<input id="station_mainapp_item_newquestionname" value="" />
+		 		<button id="station_mainapp_item_newquestion">new question</button>
+		 	</td>
+	{{/questions}}
+	</tr>
+	</table>
+	
+
+	{{#selecteditemquestion}}
+			<div id="station_mainapp_item_editquestion">
+			
+				<div id="station_mainapp_item_editquestionstarttimelabel">starttime</div>
+				<input  id="station_mainapp_item_editquestionstarttime" value="{{starttime}}" size="10" />
+				
+				<div id="station_mainapp_item_editquestiondurationlabel">duration</div>
+				<input  id="station_mainapp_item_editquestionduration" value="{{duration}}" size="10" />
+				
+				<div id="station_mainapp_item_editquestiontitlelabel">question</div>
+				<input  id="station_mainapp_item_editquestiontitle" value="{{questiontitle}}" size="80" />
+				
+				<div id="station_mainapp_item_editanswer1label">Answer1</div>
+				<input  id="station_mainapp_item_editanswer1" value="{{answer1}}" size="80" />
+				
+				<div id="station_mainapp_item_editanswer2label">Answer2</div>
+				<input  id="station_mainapp_item_editanswer2" value="{{answer2}}" size="80" />
+				
+				<div id="station_mainapp_item_editanswer3label">Answer3</div>
+				<input  id="station_mainapp_item_editanswer3" value="{{answer3}}" size="80" />
+				
+				<div id="station_mainapp_item_editanswer4label">Answer4</div>
+				<input  id="station_mainapp_item_editanswer4" value="{{answer4}}" size="80" />
+				
+				<div id="station_mainapp_item_editcorrectanswerlabel">Correct Answer</div>
+				<input  id="station_mainapp_item_editcorrectanswer" value="{{correctanswer}}" size="1" />
+			</div>
+	{{/selecteditemquestion}}
+
+	
+	<button id="station_mainapp_deleteitem">delete item</button>
+	<select id="station_mainapp_deleteitemconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
 	</div>
+	{{/selecteditem}}

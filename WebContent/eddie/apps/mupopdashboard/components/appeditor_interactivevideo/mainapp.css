@@ -1,7 +1,7 @@
 #station_mainapp_videos {
 	position: absolute;
 	border: solid 1px silver;
-	top: 10%;
+	top: 30%;
 	left: 10%;
 	width:80%;
 }
@@ -14,7 +14,7 @@
 
 #station_mainapp_items {
 	position: absolute;
-	top: 38%;
+	top: 10%;
 	left: 3%;
 	width:94%;
 }
@@ -22,23 +22,196 @@
 #station_mainapp_edititem {
 	position: absolute;
 	border: solid 1px silver;
-	top: 30%;
+	top: 15%;
 	left: 3%;
 	width:94%;
-	height:50%;
+	height:80%;
 }
 
-.station_mainapp_itemselected {
-	position: relative;
-	background-color: #cccccc;
-	display:inline-block;
+#station_mainapp_item_questions {
+	position: absolute;
+	top: 10%;
+	left: 3%;
+	width:94%;
+}
+
+#station_mainapp_item_editquestion {
+	position: absolute;
 	border: solid 1px silver;
-	width:20%;
+	top: 20%;
+	left: 5%;
+	width:90%;
+	height:65%;
+}
+
+#station_mainapp_videouploadlabel {
+	position: absolute;
+	top: 5%;
+	left: 3%;
+}
+
+#station_mainapp_videoupload {
+	position: absolute;
+	top: 5%;
+	left: 10%;
+}
+
+
+#station_mainapp_videouploadbutton {
+	position: absolute;
+	top: 5%;
+	left: 30%;
+}
+
+#station_mainapp_videouploadpreview {
+	position: absolute;
+	top: 5%;
+	left: 40%;
+}
+
+#station_mainapp_audiouploadlabel {
+	position: absolute;
+	top: 5%;
+	left: 53%;
+}
+
+#station_mainapp_audioupload {
+	position: absolute;
+	top: 5%;
+	left: 60%;
+}
+
+#station_mainapp_audiouploadbutton {
+	position: absolute;
+	top: 5%;
+	left: 80%;
+}
+
+#station_mainapp_audiouploadpreview {
+	position: absolute;
+	top: 5%;
+	left: 90%;
+}
+
+#station_mainapp_item_editquestionstarttimelabel {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+}
+
+#station_mainapp_item_editquestionstarttime {
+	position: absolute;
+	top: 5%;
+	left: 20%;
+}
+
+#station_mainapp_item_editquestiondurationlabel {
+	position: absolute;
+	top: 15%;
+	left: 5%;
+}
+
+#station_mainapp_item_editquestionduration {
+	position: absolute;
+	top: 15%;
+	left: 20%;
+}
+
+#station_mainapp_item_editquestiontitlelabel {
+	position: absolute;
+	top: 25%;
+	left: 5%;
+}
+
+#station_mainapp_item_editquestiontitle {
+	position: absolute;
+	top: 25%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer1label {
+	position: absolute;
+	top: 35%;
+	left: 5%;
+}
+
+#station_mainapp_item_editanswer1 {
+	position: absolute;
+	top: 35%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer2label {
+	position: absolute;
+	top: 45%;
+	left: 5%;
+}
+
+#station_mainapp_item_editanswer2 {
+	position: absolute;
+	top: 45%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer3label {
+	position: absolute;
+	top: 55%;
+	left: 5%;
+}
+
+#station_mainapp_item_editanswer3 {
+	position: absolute;
+	top: 55%;
+	left: 20%;
+}
+
+
+#station_mainapp_item_editanswer4 {
+	position: absolute;
+	top: 65%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer4label {
+	position: absolute;
+	top: 65%;
+	left: 5%;
+}
+
+#station_mainapp_item_editcorrectanswer {
+	position: absolute;
+	top: 75%;
+	left: 20%;
+}
+
+#station_mainapp_item_editcorrectanswerlabel {
+	position: absolute;
+	top: 75%;
+	left: 5%;
+}
+
+
+
+
+#station_mainapp_deleteitem {
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
+
+#station_mainapp_deleteitemconfirm {
+	position: absolute;
+	border: solid 1px silver;
+	bottom: 5%;
+	left: 15%;
+}
+
+
+
+.station_mainapp_itemselected {
+	background-color: #cccccc;
 }
 
 .station_mainapp_item {
-	position: relative;
-	display:inline-block;
-	border: solid 1px silver;
-	width:20%;
+	background-color: #000000;
 }

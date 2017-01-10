@@ -22,6 +22,7 @@
 		<stationid>/screen['vars']/stationid</stationid>
 		<roomid>/screen['vars']/roomid</roomid>
 		<itemid>/screen['vars']/itemid</itemid>
+		<itemquestionid>/screen['vars']/itemquestionid</itemquestionid>
 		<oldroomid>/screen['vars']/oldroomid</oldroomid>
 		<roomname>/screen['vars']/roomname</roomname>
 		<jumpers>/domain['mupop']/config['jumpers']</jumpers>
@@ -47,6 +48,7 @@
 	
 		<items>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item</items>
 		<item>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']</item>
+		<itemquestion>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/question['@itemquestionid']</itemquestion>
 		<itemimages>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/image</itemimages>
 		
 	</model>

@@ -82,6 +82,8 @@
 		 {{/nodes}}
 		{{/language}}
 	</select>
+	<div id="exhibitioninfo_availablelanguageslabel">Available languages</div>
+	<input id="exhibitioninfo_availablelanguages" size="20" value="{{availablelanguages}}" />
 	
 	<div id="exhibitioninfo_deletelabel">Delete this exhibition</div>
 	<button id="exhibitioninfo_delete">delete</button>

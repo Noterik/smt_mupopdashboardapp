@@ -154,8 +154,22 @@ public class RoomInfoController extends Html5Controller {
 				}
 			} else {
 				// just update the roomid fields
+				System.out.println("UPDATE ROOM");
 				model.setProperty("@room/name",(String)data.get("roominfo_room"));
 				model.setProperty("@room/shape",currentshape);
+				// lets first make the jumper work
+	    		FsNode jumpernode = new FsNode("jumper",(String)data.get("roominfo_jumper"));
+	    		jumpernode.setProperty("target","http://"+LazyHomer.getExternalIpNumber()+"/lou/domain/"+screen.getApplication().getDomain()+"/user/"+model.getProperty("@username")+"/html5application/mupopmobile?u="+model.getProperty("@username")+"&e="+model.getProperty("@exhibitionid"));
+	    		jumpernode.setProperty("domain","mupop");
+	    	    		
+	    		Boolean insertresult = model.putNode("@jumpers", jumpernode);
+				if (!insertresult) {
+		    		screen.get("#roominfo_feedback").html("** could not insert jumper **"); 
+		    		return;
+				} else {
+					// also set it in the exhibition
+					model.setProperty("@exhibition/jumper",(String)data.get("roominfo_jumper"));
+				}
      			screen.get("#content").append("div","room",new RoomController()); // if user wanted a old exhibition lets open the default room for it
        			screen.get(selector).remove();
 			}

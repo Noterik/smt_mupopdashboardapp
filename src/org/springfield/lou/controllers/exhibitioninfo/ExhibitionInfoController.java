@@ -119,8 +119,9 @@ public class ExhibitionInfoController extends Html5Controller {
 		addAudiocheckList(data,currentaudiocheck);
 		String currentlanguage = model.getProperty("@exhibition/language");	
 		addLanguageList(data,currentlanguage);
+		data.put("availablelanguages",model.getProperty("@exhibition/availablelanguages"));
 		
-		System.out.println("LANGTEST EN="+model.getProperty("@exhibition/hellotest","en"));	
+		System.out.println("LANGTEST EN="+model.getProperty("@exhibition/hellotest","nl"));	
 		System.out.println("LANGTEST NL="+model.getProperty("@exhibition/hellotest","nl"));	
 		System.out.println("LANGTEST DE="+model.getProperty("@exhibition/hellotest","de"));
 		
@@ -146,6 +147,8 @@ public class ExhibitionInfoController extends Html5Controller {
 		screen.get("#exhibitioninfo_style").on("change","onStyleChange", this);
 		screen.get("#exhibitioninfo_audiocheck").on("change","onAudiocheckChange", this);
 		screen.get("#exhibitioninfo_language").on("change","onLanguageChange", this);
+		screen.get("#exhibitioninfo_availablelanguages").on("change","onAvailableLanguagesChange", this);
+
 
 	}
 	
@@ -158,6 +161,11 @@ public class ExhibitionInfoController extends Html5Controller {
 	    	screen.get("#room").remove(); // remove us from the screen.
 			screen.get("#content").append("div","dashboard",new DashboardController()); // 
 		}
+	}
+	
+	public void onAvailableLanguagesChange(Screen s,JSONObject data) {
+	 model.setProperty("@exhibition/availablelanguages",(String)data.get("value"));
+	 model.notify("@exhibition","change");
 	}
 	
 	public void onLanguageChange(Screen s,JSONObject data) {
@@ -311,6 +319,7 @@ public class ExhibitionInfoController extends Html5Controller {
     }
     
 	public void onUploadState(ModelEvent e) {
+		System.out.println("UPLOAD ="+e);
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
