@@ -90,7 +90,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	
 	   private void addImageRenderOptions(JSONObject data,String current) {
 		    if (current==null || current.equals("")) {
-		    	current = "medium";
+		    	current = "none";
 		    }
 			FSList list =new FSList();
 			FsNode node = new FsNode("option","1");
@@ -113,6 +113,9 @@ public class PhotoExploreMainAppController extends Html5Controller{
 			list.addNode(node);
 			node = new FsNode("option","7");
 			node.setProperty("name","thumbnail");
+			list.addNode(node);
+			node = new FsNode("option","8");
+			node.setProperty("name","none");
 			list.addNode(node);
 			data.put("renderoptions",list.toJSONObject("en","name"));
 	    }
