@@ -32,6 +32,18 @@
 	left: 300px;
 }
 
+#station_mainapp_edititem_renderoptionslabel {
+	position: absolute;
+	top: 15%;
+	left: 450px;
+}
+
+#station_mainapp_edititem_renderoptions {
+	position: absolute;
+	top: 15%;
+	left: 600px;
+}
+
 
 
 #station_mainapp_edititem_images {

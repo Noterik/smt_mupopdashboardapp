@@ -35,13 +35,13 @@ public class PhotoExploreMainAppController extends Html5Controller{
 			model.setProperty("@contentrole","mainapp");
 			model.setProperty("@itemid",selecteditem);
 			FsNode item=model.getNode("@item");
-			System.out.println("ITEMNODE="+item.asXML());
 			data.put("id", item.getId());
 			String voiceover = model.getProperty("@item/voiceover");
 			if (voiceover!=null && !voiceover.equals("")) {
 				data.put("voiceover",voiceover);
 			}
 		}
+		addImageRenderOptions(data,model.getProperty("@item/renderoption"));
 		addImages(data);
 		
 		screen.get(selector).render(data);
@@ -55,7 +55,13 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		setUploadSettings("station_mainapp_newitem_imageupload");
 		screen.get("#station_mainapp_newitem_imageuploadbutton").on("mouseup","station_mainapp_newitem_imageupload","onFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_newitem_imageupload","onUploadState",this);
-
+		screen.get("#station_mainapp_edititem_renderoptions").on("change","onRenderOptionChange", this);
+	}
+	
+	public void onRenderOptionChange(Screen s,JSONObject data) {
+		model.setProperty("@item/renderoption",(String)data.get("value"));
+		fillPage();
+		model.notify("@station","changed"); 
 	}
 	
 	public void onNewItem(Screen s,JSONObject data) {
@@ -81,6 +87,35 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		JSONObject images = imagesList.toJSONObject("en","url");
 		data.put("images",images);
 	}
+	
+	   private void addImageRenderOptions(JSONObject data,String current) {
+		    if (current==null || current.equals("")) {
+		    	current = "medium";
+		    }
+			FSList list =new FSList();
+			FsNode node = new FsNode("option","1");
+			node.setProperty("name",current.toLowerCase());
+			list.addNode(node);
+			node = new FsNode("option","2");
+			node.setProperty("name","small");
+			list.addNode(node);
+			node = new FsNode("option","3");
+			node.setProperty("name","medium");
+			list.addNode(node);
+			node = new FsNode("option","4");
+			node.setProperty("name","large");
+			list.addNode(node);
+			node = new FsNode("option","5");
+			node.setProperty("name","super");
+			list.addNode(node);
+			node = new FsNode("option","6");
+			node.setProperty("name","nolimit");
+			list.addNode(node);
+			node = new FsNode("option","7");
+			node.setProperty("name","thumbnail");
+			list.addNode(node);
+			data.put("renderoptions",list.toJSONObject("en","name"));
+	    }
 	
 	private void addItems(JSONObject data) {
 		model.setProperty("@contentrole","mainapp");

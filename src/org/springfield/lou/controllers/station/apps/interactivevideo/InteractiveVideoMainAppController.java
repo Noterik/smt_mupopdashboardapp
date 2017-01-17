@@ -66,13 +66,13 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 		
 		screen.get(selector).render(data);
 	
-		//setUploadVideoSettings("station_mainapp_videoupload");
-		//screen.get("#station_mainapp_videouploadbutton").on("mouseup","station_mainapp_videoupload","onFileVideoUpload", this);
-		//model.onPropertiesUpdate("/screen/upload/station_mainapp_videoupload","onVideoUploadState",this);
+		setUploadVideoSettings("station_mainapp_videoupload");
+		screen.get("#station_mainapp_videouploadbutton").on("mouseup","station_mainapp_videoupload","onFileVideoUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_videoupload","onVideoUploadState",this);
 
-		setUploadAudioSettings("station_mainapp_audioupload");
-		screen.get("#station_mainapp_audiouploadbutton").on("mouseup","station_mainapp_audioupload","onFileAudioUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_mainapp_audioupload","onAudioUploadState",this);
+		//setUploadAudioSettings("station_mainapp_audioupload");
+		//screen.get("#station_mainapp_audiouploadbutton").on("mouseup","station_mainapp_audioupload","onFileAudioUpload", this);
+		//model.onPropertiesUpdate("/screen/upload/station_mainapp_audioupload","onAudioUploadState",this);
 
 		
 		
@@ -267,6 +267,8 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 		model.setProperty("/screen/upload/"+upid+"/fileext","mp3");
 		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
 	}
+	
+	
 	
 
 	

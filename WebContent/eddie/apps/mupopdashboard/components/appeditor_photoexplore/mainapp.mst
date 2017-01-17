@@ -21,6 +21,15 @@
 			<a id="station_mainapp_edititem_audiouploadpreview" target="_new" href="{{voiceover}}">play</a> 
 		{{/voiceover}}
 		
+		<div id="station_mainapp_edititem_renderoptionslabel">Render Options</div>
+			<select id="station_mainapp_edititem_renderoptions">
+			{{#renderoptions}}
+		 		{{#nodes}}
+		 			<option value="{{name}}">{{name}}
+				{{/nodes}}
+			{{/renderoptions}}
+		</select>
+		
 		<div id="station_mainapp_edititem_images">
 		{{#images}}
 			 	{{#nodes}}
