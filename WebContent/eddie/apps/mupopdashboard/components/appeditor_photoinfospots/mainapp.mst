@@ -1,0 +1,69 @@
+	<table id="station_mainapp_items">
+	<tr>
+	{{#items}}
+		 	{{#nodes}}
+		 			<td id="station_mainapp_item{{id}}" class="{{classname}}">
+		 				{{id}}
+		 			</td>
+			{{/nodes}}
+			<td id="station_mainapp_newitem" class="station_mainapp_item">
+				<input id="station_mainapp_newitemname" value="" />
+		 		<button id="station_mainapp_newitem">new item</button>
+		 	</td>
+	{{/items}}
+	</tr>
+	</table>
+	
+	{{#selecteditem}}
+	{{selecteditem}}
+	<div id="station_mainapp_edititem">
+
+
+
+	
+	<table id="station_mainapp_item_masks">
+	<tr>
+	{{#masks}}
+		 	{{#nodes}}
+		 			<td id="station_mainapp_item_mask{{id}}" class="{{classname}}">
+		 				{{id}}
+		 			</td>
+			{{/nodes}}
+			<td class="station_mainapp_mask">
+				<input id="station_mainapp_item_newmaskname" value="" />
+		 		<button id="station_mainapp_item_newmask">new mask</button>
+		 	</td>
+	{{/masks}}
+	</tr>
+	</table>
+	
+
+	{{#selecteditemmask}}
+			<div id="station_mainapp_item_editmask">
+			
+				<div id="station_mainapp_item_editmaskurllabel">mask image</div>
+				<input type="file" id="station_mainapp_item_editmaskurlupload" size="20" />
+				<button id="station_mainapp_item_editmaskurluploadbutton">upload</button>
+				{{#maskurl}}
+					<img id="station_mainapp_item_editmaskurluploadpreview" src="{{maskurl}}">
+				{{/maskurl}}
+				
+				<div id="station_mainapp_item_editmaskaudiolabel">audio file</div>
+				<input type="file" id="station_mainapp_item_editmaskaudioupload" size="20" />
+				<button id="station_mainapp_item_editmaskaudiouploadbutton">upload</button>
+				{{#audiourl}}
+					<a href="{{audiourl}}" id="station_mainapp_item_editmaskaudiouploadpreview" target="_new">play</a>
+				{{/audiourl}}
+				
+			</div>
+	{{/selecteditemmask}}
+
+	
+	<button id="station_mainapp_deleteitem">delete item</button>
+	<select id="station_mainapp_deleteitemconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
+	</div>
+	{{/selecteditem}}

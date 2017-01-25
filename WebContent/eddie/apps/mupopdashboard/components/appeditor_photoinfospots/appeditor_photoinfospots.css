@@ -1,4 +1,4 @@
-#appeditor_photoexploretable {
+#appeditor_photoinfospotstable {
 	position: absolute;
 	top: 0%;
 	left: 0%;
@@ -9,77 +9,54 @@
 #appeditor_content_url_label {
 	position: absolute;
 	top: 60px;
-	left: 20px;
-}
-
-#appeditor_stationurl {
-	position: absolute;
-	color: #ffffff;
-	top: 100px;
-	left: 100px;
-}
-
-#appeditor_waitscreen_mode_label {
-	position: absolute;
-	top: 60px;
-	left: 100px;
-}
-
-#appeditor_selection_mode_label {
-	position: absolute;
-	top: 60px;
-	left: 100px;
-}
-
-#appeditor_waitscreen_mode {
-	position: absolute;
-	top: 60px;
-	left: 150px;
-}
-
-#appeditor_selection_mode {
-	position: absolute;
-	top: 60px;
-	left: 150px;
-}
-
-#appeditor_mobileurl {
-	position: absolute;
-	color: #ffffff;
-	top: 120px;
 	left: 100px;
 }
 
 #appeditor_content_fileupload {
 	position: absolute;
 	top: 100px;
-	left: 20px;
+	left: 100px;
 }
 
 #appeditor_content_uploadbutton {
 	position: absolute;
 	top: 100px;
-	left: 220px;
+	left: 300px;
 }
 
 #appeditor_content_fileupload_feedback {
 	position: absolute;
 	top: 130px;
-	left: 20px;
+	left: 100px;
 }
 
 #appeditor_content_preview {
 	position: absolute;
 	top: 160px;
-	left: 20px;
-	width: 100px;
-	height: 100px;
+	left: 100px;
+	width: 200px;
+	height: 200px;
+}
+
+
+
+#appeditor_stationurl {
+	position: absolute;
+	color: #ffffff;
+	top: 60px;
+	left: 100px;
+}
+
+#appeditor_mobileurl {
+	position: absolute;
+	color: #ffffff;
+	top: 80px;
+	left: 100px;
 }
 
 
 #appeditor_content_url {
 	position: absolute;
 	top: 60px;
-	left: 120px;
-	width: 35%;
+	left: 200px;
 }

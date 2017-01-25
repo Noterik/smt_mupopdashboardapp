@@ -23,11 +23,15 @@
 		<roomid>/screen['vars']/roomid</roomid>
 		<itemid>/screen['vars']/itemid</itemid>
 		<itemquestionid>/screen['vars']/itemquestionid</itemquestionid>
+		<itemmaskid>/screen['vars']/itemmaskid</itemmaskid>
 		<oldroomid>/screen['vars']/oldroomid</oldroomid>
+		<uploadid>/screen['vars']/uploadid</uploadid>
 		<roomname>/screen['vars']/roomname</roomname>
 		<jumpers>/domain['mupop']/config['jumpers']</jumpers>
 		<contentrole>/screen['vars']/contentrole</contentrole>
 		<languagecode>/screen['vars']/languagecode</languagecode>
+		
+		<upload>/screen['upload']/target['@uploadid']</upload>
 	
 	 	<exhibitions>/domain['mupop']/user['@username']/exhibition</exhibitions>
 	    <exhibition>/domain['mupop']/user['@username']/exhibition['@exhibitionid']</exhibition>
@@ -50,6 +54,8 @@
 		<item>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']</item>
 		<itemquestion>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/question['@itemquestionid']</itemquestion>
 		<itemimages>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/image</itemimages>
+		<itemmask>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/mask['@itemmaskid']</itemmask>
+
 		
 	</model>
 	
@@ -164,6 +170,13 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_photoinfospots">
+		<template>appeditor_photoinfospots/appeditor_photoinfospots.mst</template>
+		<style>appeditor_photoinfospots/appeditor_photoinfospots.css</style>
+		<controller id="PhotoInfoSpotsController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_interactivevideo">
 		<template>appeditor_interactivevideo/appeditor_interactivevideo.mst</template>
 		<style>appeditor_interactivevideo/appeditor_interactivevideo.css</style>
@@ -182,6 +195,13 @@
 		<template>appeditor_photoexplore/mainapp.mst</template>
 		<style>appeditor_photoexplore/mainapp.css</style>
 		<controller id="PhotoExploreMainAppController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_subeditor_mainapp_photoinfospots">
+		<template>appeditor_photoinfospots/mainapp.mst</template>
+		<style>appeditor_photoinfospots/mainapp.css</style>
+		<controller id="PhotoInfoSpotsMainAppController">
 		</controller>
 	</view>
 	
