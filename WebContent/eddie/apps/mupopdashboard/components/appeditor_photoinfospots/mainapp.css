@@ -34,6 +34,33 @@
 	height:45%;
 }
 
+#station_mainapp_item_editurllabel {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+}
+
+#station_mainapp_item_editurlupload {
+	position: absolute;
+	top: 5%;
+	left: 20%;
+}
+
+#station_mainapp_item_editurluploadbutton {
+	position: absolute;
+	top: 5%;
+	left: 45%;
+}
+
+#station_mainapp_item_editurluploadpreview {
+	position: absolute;
+	border: solid 1px silver;
+	top: 5%;
+	left: 60%;
+	height: 20%;
+}
+
+
 #station_mainapp_item_editmaskurllabel {
 	position: absolute;
 	top: 10%;

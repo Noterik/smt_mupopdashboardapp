@@ -18,7 +18,12 @@
 	{{selecteditem}}
 	<div id="station_mainapp_edititem">
 
-
+	<div id="station_mainapp_item_editurllabel">main image</div>
+	<input type="file" id="station_mainapp_item_editurlupload" size="20" />
+	<button id="station_mainapp_item_editurluploadbutton">upload</button>
+	{{#url}}
+		<img id="station_mainapp_item_editurluploadpreview" src="{{url}}">
+	{{/url}}
 
 	
 	<table id="station_mainapp_item_masks">
