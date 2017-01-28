@@ -305,7 +305,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		model.setProperty("@upload/filetype","audio");
 		model.setProperty("@upload/fileext","mp3,m4a");
 		model.setProperty("@upload/checkupload","true");
-		System.out.println("BACK="+model.getProperty("@upload/destpath")+" UPID="+upid);
 	}
 	
 

@@ -15,7 +15,6 @@
 	</table>
 	
 	{{#selecteditem}}
-	{{selecteditem}}
 	<div id="station_mainapp_edititem">
 
 	<div id="station_mainapp_item_editurllabel">main image</div>

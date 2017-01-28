@@ -243,29 +243,31 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 	}
 	
 	private void setUploadVideoSettings(String upid) {
-		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
-		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
-		model.setProperty("/screen/upload/"+upid+"/destpath","mupop/videos/");
-		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
-		model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
-		model.setProperty("/screen/upload/"+upid+"/filetype","video");
-		model.setProperty("/screen/upload/"+upid+"/fileext","mp4");
-		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		model.setProperty("@uploadid",upid);
+		model.setProperty("@upload/method","s3amazon");	
+		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/bucketname","springfield-storage");
+		model.setProperty("@upload/destpath","mupop/videos/");
+		model.setProperty("@upload/destname_prefix","upload_");
+		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/destname_type","epoch");
+		model.setProperty("@upload/filetype","video");
+		model.setProperty("@upload/fileext","mp4");
+		model.setProperty("@upload/checkupload","true");
 	}
 	
 	private void setUploadAudioSettings(String upid) {
-		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
-		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
-		model.setProperty("/screen/upload/"+upid+"/destpath","mupop/audios/");
-		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
-		model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
-		model.setProperty("/screen/upload/"+upid+"/filetype","audio");
-		model.setProperty("/screen/upload/"+upid+"/fileext","mp3");
-		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		model.setProperty("@uploadid",upid);
+		model.setProperty("@upload/method","s3amazon");		
+		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/bucketname","springfield-storage");
+		model.setProperty("@upload/destpath","mupop/audios/");
+		model.setProperty("@upload/destname_prefix","upload_");
+		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/destname_type","epoch");
+		model.setProperty("@upload/filetype","audio");
+		model.setProperty("@upload//fileext","mp3");
+		model.setProperty("@upload/checkupload","true");
 	}
 	
 	

@@ -1,47 +1,57 @@
 #station_mainapp_items {
 	position: absolute;
-	top: 25%;
+	top: 10%;
+	padding: 0%;
 	left: 3%;
+	height: 5%;
 	width:94%;
 }
 
 #station_mainapp_edititem {
 	position: absolute;
 	border: solid 1px silver;
-	top: 35%;
+	top: 18%;
 	left: 3%;
 	width:94%;
-	height:50%;
+	height:75%;
 }
 
 #station_mainapp_edititem_audiouploadlabel {
 	position: absolute;
-	top: 15%;
+	top: 5%;
 	left: 20px;
 }
 
 #station_mainapp_edititem_audioupload {
 	position: absolute;
-	top: 15%;
+	top: 5%;
 	left: 150px;
 }
 
 #station_mainapp_edititem_audiouploadbutton {
 	position: absolute;
-	top: 15%;
-	left: 300px;
+	top: 5%;
+	left: 350px;
 }
+
+#station_mainapp_edititem_audiouploadpreview {
+	position: absolute;
+	color: white;
+	top: 5%;
+	left: 450px;
+}
+
 
 #station_mainapp_edititem_renderoptionslabel {
 	position: absolute;
-	top: 15%;
-	left: 450px;
+	top: 20%;
+	left: 20px;
 }
 
 #station_mainapp_edititem_renderoptions {
 	position: absolute;
-	top: 15%;
-	left: 600px;
+	top: 20%;
+	left: 200px;
 }
 
 
@@ -63,17 +73,7 @@
 }
 
 .station_mainapp_itemselected {
-	position: relative;
-	background-color: #cccccc;
-	display:inline-block;
-	border: solid 1px silver;
-	width:10%;
+	background-color: #888888;
 }
 
-.station_mainapp_item {
-	position: relative;
-	display:inline-block;
-	border: solid 1px silver;
-	width:10%;
-}
 

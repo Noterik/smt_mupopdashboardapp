@@ -31,11 +31,13 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		JSONObject data = new JSONObject();
 		addItems(data);
 
+		
+		
 		if (selecteditem!=null) {
 			model.setProperty("@contentrole","mainapp");
 			model.setProperty("@itemid",selecteditem);
 			FsNode item=model.getNode("@item");
-			data.put("id", item.getId());
+			data.put("selecteditem", item.getId());
 			String voiceover = model.getProperty("@item/voiceover");
 			if (voiceover!=null && !voiceover.equals("")) {
 				data.put("voiceover",voiceover);
@@ -48,9 +50,9 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		screen.get(".station_mainapp_item").on("mouseup","onEditItem", this);
 		screen.get("#station_mainapp_newitem").on("mouseup","station_mainapp_newitemname","onNewItem", this);
 
-		//setUploadAudioSettings("station_mainapp_edititem_audioupload");
-		//screen.get("#station_mainapp_edititem_audiouploadbutton").on("mouseup","station_mainapp_edititem_audioupload","onAudioFileUpload", this);
-		//model.onPropertiesUpdate("/screen/upload/station_mainapp_edititem_audioupload","onAudioUploadState",this);
+		setUploadAudioSettings("station_mainapp_edititem_audioupload");
+		screen.get("#station_mainapp_edititem_audiouploadbutton").on("mouseup","station_mainapp_edititem_audioupload","onAudioFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_edititem_audioupload","onAudioUploadState",this);
 		
 		setUploadSettings("station_mainapp_newitem_imageupload");
 		screen.get("#station_mainapp_newitem_imageuploadbutton").on("mouseup","station_mainapp_newitem_imageupload","onFileUpload", this);
@@ -65,6 +67,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	}
 	
 	public void onNewItem(Screen s,JSONObject data) {
+		System.out.println("NEW ITEM="+data.toJSONString());
 		String newid=(String)data.get("station_mainapp_newitemname");
 		FsNode newitem = new FsNode("item",newid);
 		model.setProperty("@contentrole","mainapp");
@@ -152,7 +155,6 @@ public class PhotoExploreMainAppController extends Html5Controller{
     		imagenode.setProperty("url",ps.getProperty("url"));
     		
     		// check if we already have a contentrole if not set it to waitscreen
-    		model.setDebug(true);
     		model.setProperty("@contentrole","mainapp");
     		boolean result = model.putNode("@item",imagenode);
     		if (!result) {
@@ -185,29 +187,31 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	}
 	
 	private void setUploadSettings(String upid) {
-		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
-		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
-		model.setProperty("/screen/upload/"+upid+"/destpath","mupop/images/");
-		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
-		model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
-		model.setProperty("/screen/upload/"+upid+"/filetype","image");
-		model.setProperty("/screen/upload/"+upid+"/fileext","png");
-		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		model.setProperty("@uploadid",upid);
+		model.setProperty("@upload/method","s3amazon");		
+		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/bucketname","springfield-storage");
+		model.setProperty("@upload/destpath","mupop/images/");
+		model.setProperty("@upload/destname_prefix","upload_");
+		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/destname_type","epoch");
+		model.setProperty("@upload/filetype","image");
+		model.setProperty("@upload/fileext","png,jpg,jpeg");
+		model.setProperty("@upload/checkupload","true");
 	}
 	
 	private void setUploadAudioSettings(String upid) {
-		model.setProperty("/screen/upload/"+upid+"/method","s3amazon");		
-		model.setProperty("/screen/upload/"+upid+"/storagehost","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/bucketname","springfield-storage");
-		model.setProperty("/screen/upload/"+upid+"/destpath","mupop/audios/");
-		model.setProperty("/screen/upload/"+upid+"/destname_prefix","upload_");
-		model.setProperty("/screen/upload/"+upid+"/publicpath","https://s3-eu-west-1.amazonaws.com/");
-		model.setProperty("/screen/upload/"+upid+"/destname_type","epoch");
-		model.setProperty("/screen/upload/"+upid+"/filetype","audio");
-		model.setProperty("/screen/upload/"+upid+"/fileext","mp4");
-		model.setProperty("/screen/upload/"+upid+"/checkupload","true");
+		model.setProperty("@uploadid",upid);
+		model.setProperty("@upload/method","s3amazon");		
+		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/bucketname","springfield-storage");
+		model.setProperty("@upload/destpath","mupop/audios/");
+		model.setProperty("@upload/destname_prefix","upload_");
+		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/destname_type","epoch");
+		model.setProperty("@upload/filetype","audio");
+		model.setProperty("@upload/fileext","m4a,mp3");
+		model.setProperty("@upload/checkupload","true");
 	}
 	
 
