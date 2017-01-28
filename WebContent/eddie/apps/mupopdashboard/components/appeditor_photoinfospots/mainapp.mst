@@ -6,7 +6,7 @@
 		 				{{id}}
 		 			</td>
 			{{/nodes}}
-			<td id="station_mainapp_newitem" class="station_mainapp_item">
+			<td>
 				<input id="station_mainapp_newitemname" value="" />
 		 		<button id="station_mainapp_newitem">new item</button>
 		 	</td>
@@ -34,7 +34,7 @@
 		 				{{id}}
 		 			</td>
 			{{/nodes}}
-			<td class="station_mainapp_mask">
+			<td>
 				<input id="station_mainapp_item_newmaskname" value="" />
 		 		<button id="station_mainapp_item_newmask">new mask</button>
 		 	</td>

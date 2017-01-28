@@ -30,7 +30,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	private void fillPage() {
 
 		JSONObject data = new JSONObject();
-		addItems(data,selectedmask);
+		addItems(data);
 		System.out.println("SELECTEDITEM="+selecteditem);
 		if (selecteditem!=null) {
 			model.setProperty("@contentrole","mainapp");
@@ -45,10 +45,12 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		}
 		//addImageRenderOptions(data,model.getProperty("@item/renderoption"));
 		//addImages(data);
-		addItemMasks(data,selectedmask);
+		addItemMasks(data);
 		
 		if (selectedmask!=null) {
+			model.setProperty("@itemid",selecteditem);
 			model.setProperty("@itemmaskid",selectedmask);
+			System.out.println("SELECTEDITEM="+selecteditem+" "+selectedmask);
 			FsNode itemmask=model.getNode("@itemmask");
 			System.out.println("MASKNODE="+itemmask.asXML());
 			data.put("maskurl", itemmask.getProperty("maskurl"));
@@ -66,12 +68,12 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editmaskaudioupload","onAudioUploadState",this);
 		
 		
-		setUploadSettings("station_mainapp_item_editmaskurlupload");
+		setUploadMaskSettings("station_mainapp_item_editmaskurlupload");
 		screen.get("#station_mainapp_item_editmaskurluploadbutton").on("mouseup","station_mainapp_item_editmaskurlupload","onFileMaskUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editmaskurlupload","onUploadMaskState",this);
 		
 
-		setUploadSettings("station_mainapp_item_editurlupload");
+		setUploadMainSettings("station_mainapp_item_editurlupload");
 		screen.get("#station_mainapp_item_editurluploadbutton").on("mouseup","station_mainapp_item_editurlupload","onFileMainImageUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editurlupload","onUploadMainImageState",this);
 		
@@ -121,14 +123,14 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		String itemid = (String)data.get("id");
 		itemid = itemid.substring(20);
 		selecteditem = itemid;
+		selectedmask = null;
 		fillPage();
 	}
 		
-	private void addItemMasks(JSONObject data,String selectedmask) {
+	private void addItemMasks(JSONObject data) {
 		model.setProperty("@contentrole","mainapp");
 		System.out.println("E="+model.getNode("@item"));
 		FSList masksList = model.getList("@item/mask");
-		//JSONObject masks = masksList.toJSONObject("en","maskurl,audiourl");
 		FSList resultitems = new FSList();
 		List<FsNode> nodes =masksList.getNodes();
 		if (nodes != null) {
@@ -187,7 +189,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 			data.put("renderoptions",list.toJSONObject("en","name"));
 	    }
 	
-	private void addItems(JSONObject data,String selecteditem) {
+	private void addItems(JSONObject data) {
 		model.setProperty("@contentrole","mainapp");
 		FSList itemsList = model.getList("@items");
 		JSONObject items = itemsList.toJSONObject("en","url");
@@ -262,7 +264,22 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		System.out.println("AUDIO FILE UPLOAD !!"+data.toJSONString());
 	}
 	
-	private void setUploadSettings(String upid) {
+	private void setUploadMainSettings(String upid) {
+		model.setProperty("@uploadid",upid);
+		model.setProperty("@upload/method","s3amazon");		
+		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/bucketname","springfield-storage");
+		model.setProperty("@upload/destpath","mupop/images/");
+		model.setProperty("@upload/destname_prefix","upload_");
+		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/destname_type","epoch");
+		model.setProperty("@upload/filetype","image");
+		model.setProperty("@upload/fileext","png,jpeg,jpg");
+		model.setProperty("@upload/checkupload","true");
+	}
+	
+	
+	private void setUploadMaskSettings(String upid) {
 		model.setProperty("@uploadid",upid);
 		model.setProperty("@upload/method","s3amazon");		
 		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
@@ -286,7 +303,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","audio");
-		model.setProperty("@upload//fileext","mp3");
+		model.setProperty("@upload/fileext","mp3,m4a");
 		model.setProperty("@upload/checkupload","true");
 		System.out.println("BACK="+model.getProperty("@upload/destpath")+" UPID="+upid);
 	}
