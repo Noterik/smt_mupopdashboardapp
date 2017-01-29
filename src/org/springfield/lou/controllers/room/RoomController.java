@@ -54,7 +54,6 @@ public class RoomController extends Html5Controller {
 	
 	
 	public void onStationsCheck(ModelEvent e) {
-		//System.out.println("STATION CHECK "+this);
 		try {
 		if (exhibitionnode==null || !exhibitionnode.getProperty("state").equals("on")) return;
 		FSList list = model.getList("@stations");
@@ -79,7 +78,6 @@ public class RoomController extends Html5Controller {
 	}
 	
 	public void onAliveMessage(ModelEvent e) {
-		//System.out.println("TIMER UPDATE !!!"+e.getTargetFsNode().asXML());
 		FsNode node = e.getTargetFsNode();
 		String message = node.getProperty("message");
 		alivestations.put(message,node);
@@ -184,7 +182,6 @@ public class RoomController extends Html5Controller {
 	 * @param data
 	 */
     public void onRoomSettingsButton(Screen s,JSONObject data) {
-    	System.out.println("ROOM EDIT WANTED");
     	s.get(selector).remove();
 		s.get("#content").append("div","roominfo",new RoomInfoController()); // if user wanted a new exhibition we open new room info screen for it
     }
@@ -195,7 +192,6 @@ public class RoomController extends Html5Controller {
 	 * @param data
 	 */
     public void onExhibitionSettingsButton(Screen s,JSONObject data) {
-    	System.out.println("EXHIBITION SETTINGS WANTED");
     	s.get(selector).remove();
 		s.get("#content").append("div","exhibitioninfo",new ExhibitionInfoController()); 
     }
@@ -218,7 +214,6 @@ public class RoomController extends Html5Controller {
     	String stationid = ((String)data.get("id")).substring(12); // get the id by removing prefix
     	model.setProperty("@stationid",stationid); // set id screen space 
     	model.setProperty(newstationpath, "false");
-    	System.out.println("STATION CREATE 1 CALLED");
     	screen.get(selector).append("div","station",new StationController()); 	
     }
     
@@ -228,7 +223,6 @@ public class RoomController extends Html5Controller {
      * @param data
      */
     public void onAddStationButton(Screen s,JSONObject data) {
-    	System.out.println("STATION CREATE 2 CALLED");
     	model.setProperty(newstationpath, "true"); // tell other controllers we are talking new station !
     	screen.get(selector).append("div","station",new StationController()); // create the station controller as overlay
     }
@@ -244,7 +238,6 @@ public class RoomController extends Html5Controller {
     	String stationid = ((String)data.get("id")).substring(12); // remove the prefix to get the id
     	model.setProperty("@stationid", stationid);
     	
-    	//System.out.println("DATA="+data.toJSONString());
     	double xp = (Double)data.get("screenXP"); // get the percentage x from the station
     	double yp = (Double)data.get("screenYP"); // get the percentage y from the station
 
@@ -269,9 +262,7 @@ public class RoomController extends Html5Controller {
      */
 	public void onRoomChange(ModelEvent e) {
 		String check = model.getProperty("@roomid");
-		System.out.println("ROOM ID="+check);
 		if (check!=null && check.equals("addnewroom")) {
-	    	System.out.println("ROOM ADD WANTED");
 	    	screen.get(selector).remove();
 			screen.get("#content").append("div","roominfo",new RoomInfoController()); // if user wanted a new exhibition we open new room info screen for it
 		} else {
@@ -289,14 +280,12 @@ public class RoomController extends Html5Controller {
     }
     
     public void onExhibitionOnButton(Screen s,JSONObject data) {
-    	System.out.println("Exhibition on button");
     	model.setProperty("@exhibition/state","on");
     	updateHidsOn();
     	fillPage();
     }
     
     public void onExhibitionOffButton(Screen s,JSONObject data) {
-    	System.out.println("Exhibition off button");
     	model.setProperty("@exhibition/state","off");
     	updateHidsOff();
     	fillPage();

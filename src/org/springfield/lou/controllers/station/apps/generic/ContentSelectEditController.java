@@ -19,7 +19,6 @@ public class ContentSelectEditController extends Html5Controller{
 	
 	public void attach(String sel) {
 		selector = sel;
-		System.out.println("CONTENT EDIT SELECTOR="+selector);
 		fillPage();
 	}
 	

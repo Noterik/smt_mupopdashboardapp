@@ -22,15 +22,15 @@
 #station_mainapp_edititem {
 	position: absolute;
 	border: solid 1px silver;
-	top: 15%;
+	top: 18%;
 	left: 3%;
 	width:94%;
-	height:80%;
+	height:75%;
 }
 
 #station_mainapp_item_questions {
 	position: absolute;
-	top: 10%;
+	top: 15%;
 	left: 3%;
 	width:94%;
 }
@@ -38,10 +38,10 @@
 #station_mainapp_item_editquestion {
 	position: absolute;
 	border: solid 1px silver;
-	top: 20%;
-	left: 5%;
-	width:90%;
-	height:65%;
+	top: 26%;
+	left: 3%;
+	width:94%;
+	height:57%;
 }
 
 #station_mainapp_videouploadlabel {
@@ -65,6 +65,7 @@
 
 #station_mainapp_videouploadpreview {
 	position: absolute;
+	color: white;
 	top: 5%;
 	left: 40%;
 }
@@ -89,6 +90,7 @@
 
 #station_mainapp_audiouploadpreview {
 	position: absolute;
+	color: white;
 	top: 5%;
 	left: 90%;
 }
@@ -206,12 +208,10 @@
 	left: 15%;
 }
 
-
-
 .station_mainapp_itemselected {
-	background-color: #cccccc;
+	background-color: #888888;
 }
 
-.station_mainapp_item {
-	background-color: #000000;
+.station_mainapp_questionselected {
+	background-color: #888888;
 }

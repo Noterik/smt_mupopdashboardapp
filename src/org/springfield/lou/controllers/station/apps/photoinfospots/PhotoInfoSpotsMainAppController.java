@@ -129,7 +129,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		
 	private void addItemMasks(JSONObject data) {
 		model.setProperty("@contentrole","mainapp");
-		System.out.println("E="+model.getNode("@item"));
 		FSList masksList = model.getList("@item/mask");
 		FSList resultitems = new FSList();
 		List<FsNode> nodes =masksList.getNodes();

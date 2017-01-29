@@ -49,9 +49,7 @@ public class ExhibitionInfoController extends Html5Controller {
 	}
 	
 	public void onHidRequest(ModelEvent e) {
-		System.out.println("HID REQUEST");
 		FsNode node = e.getTargetFsNode();
-		System.out.println("CODE="+node.asXML());
 		code = node.getProperty("hidrequest");
 
 		// use code to reflect back to only that screen
@@ -121,9 +119,6 @@ public class ExhibitionInfoController extends Html5Controller {
 		addLanguageList(data,currentlanguage);
 		data.put("availablelanguages",model.getProperty("@exhibition/availablelanguages"));
 		
-		System.out.println("LANGTEST EN="+model.getProperty("@exhibition/hellotest","nl"));	
-		System.out.println("LANGTEST NL="+model.getProperty("@exhibition/hellotest","nl"));	
-		System.out.println("LANGTEST DE="+model.getProperty("@exhibition/hellotest","de"));
 		
 		String audiochecksample = model.getProperty("@exhibition/audiochecksample");
 		if (audiochecksample!=null && !audiochecksample.equals("")) {

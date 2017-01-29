@@ -1,4 +1,4 @@
-<table id="appeditor_photoinfospotstable">
+<table id="appeditor_interactivevideotable">
 	<tr>
 		{{#waitscreentab}}<th id="waitscreen" class="appmenu">waitscreen</th>{{/waitscreentab}}
 		{{^waitscreentab}}<td id="waitscreen" class="appmenu">waitscreen</td>{{/waitscreentab}}

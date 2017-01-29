@@ -22,7 +22,6 @@ public class InteractiveVideoEditController extends Html5Controller{
 	
 	public void attach(String sel) {
 		selector = sel;
-		System.out.println("SELECTOR VAE="+selector);
 		fillPage();
 	}
 	
@@ -35,8 +34,6 @@ public class InteractiveVideoEditController extends Html5Controller{
 		data.put("domain",model.getProperty("mupop"));	
 		data.put("exhibitionid",model.getProperty("@exhibitionid"));
 		data.put("stationid",model.getProperty("@stationid"));
-		System.out.println("STATIONID="+model.getProperty("@stationid"));
-		//data = memoryToData(data);	
 		screen.get(selector).render(data);
  		screen.get(".appmenu").on("mouseup",valuelist,"onAppMenu", this);
  		//screen.get(selector).on("mouseleave",valuelist,"onLeaveMenu", this);

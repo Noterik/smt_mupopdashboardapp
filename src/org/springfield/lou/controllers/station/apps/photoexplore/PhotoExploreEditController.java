@@ -39,8 +39,6 @@ public class PhotoExploreEditController extends Html5Controller{
 		data.put("domain",model.getProperty("mupop"));	
 		data.put("exhibitionid",model.getProperty("@exhibitionid"));
 		data.put("stationid",model.getProperty("@stationid"));
-		System.out.println("STATIONID="+model.getProperty("@stationid"));
-		//data = memoryToData(data);	
 		screen.get(selector).render(data);
  		screen.get(".appmenu").on("mouseup",valuelist,"onAppMenu", this);
  		//screen.get(selector).on("mouseleave",valuelist,"onLeaveMenu", this);
@@ -48,7 +46,6 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	private void fillSubPage(String tab) {
-		System.out.println("TAB="+tab);
 		if (tab.equals("waitscreen")) {
 			screen.get("#subeditor").append("div","appeditor_subeditor_waitscreen",new WaitScreenEditController());
 		} else if (tab.equals("contentselect")) {
@@ -61,7 +58,6 @@ public class PhotoExploreEditController extends Html5Controller{
 	
 	public void onAppMenu(Screen s,JSONObject data) {
 		tab  = (String)data.get("id");
-		System.out.println("TAB="+tab);
 		fillPage();
 	}
 	

@@ -29,6 +29,7 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 	
 	private void fillPage() {
 		JSONObject data = new JSONObject();
+		addItems(data);
 		if (selecteditem!=null) {
 			model.setProperty("@contentrole","mainapp");
 			model.setProperty("@itemid",selecteditem);
@@ -49,7 +50,6 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 			if (selectedquestion!=null) {
 				model.setProperty("@itemquestionid",selectedquestion);
 				FsNode itemquestion=model.getNode("@itemquestion");
-				System.out.println("QUESTIONNODE="+itemquestion.asXML());
 				data.put("starttime", itemquestion.getProperty("starttime"));
 				data.put("duration", itemquestion.getProperty("duration"));
 				data.put("questiontitle", itemquestion.getProperty("question"));
@@ -62,7 +62,6 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 			}
 		}
 		addVideos(data);
-		addItems(data);
 		
 		screen.get(selector).render(data);
 	
@@ -178,7 +177,22 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 		model.setProperty("@contentrole","mainapp");
 		System.out.println("E="+model.getNode("@item"));
 		FSList questionsList = model.getList("@item/question");
-		JSONObject questions = questionsList.toJSONObject("en","url");
+		
+		FSList resultquestions = new FSList();
+		List<FsNode> nodes = questionsList.getNodes();
+		if (nodes != null) {
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = (FsNode) iter.next();
+				if (selectedquestion==null) selectedquestion = node.getId();
+				if (selectedquestion.equals(node.getId())) {
+					node.setProperty("classname","station_mainapp_questionselected");
+				} else {
+					node.setProperty("classname","station_mainapp_question");	
+				}
+				resultquestions.addNode(node);
+			}
+		}
+		JSONObject questions = resultquestions.toJSONObject("en","url,classname");
 		data.put("questions",questions);
 	}
 	
@@ -192,7 +206,6 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 	private void addItems(JSONObject data) {
 		model.setProperty("@contentrole","mainapp");
 		FSList itemsList = model.getList("@items");
-		System.out.println("ADD ITEMS!");
 		JSONObject items = itemsList.toJSONObject("en","url");
 		FSList resultitems = new FSList();
 		List<FsNode> nodes = itemsList.getNodes();

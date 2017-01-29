@@ -113,6 +113,7 @@
 
 #exhibitioninfo_audiouploadpreview {
 	position:absolute;
+	color: white;
 	left: 450px;
 	top: 480px;
 }
