@@ -64,6 +64,19 @@
 	width:80%;
 }
 
+#station_mainapp_deleteitem {
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
+
+#station_mainapp_deleteitemconfirm {
+	position: absolute;
+	border: solid 1px silver;
+	bottom: 5%;
+	left: 15%;
+}
+
 
 .station_mainapp_edititem_image {
 	position: relative;

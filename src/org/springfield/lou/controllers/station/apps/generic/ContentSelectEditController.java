@@ -161,7 +161,7 @@ public class ContentSelectEditController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
-		model.setProperty("@upload/fileext","png");
+		model.setProperty("@upload/fileext","png,jpg,jpeg");
 		model.setProperty("@upload/checkupload","true");
 	}
 	

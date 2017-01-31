@@ -26,6 +26,8 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 		fillPage();
 	}
 	
+
+	
 	
 	private void fillPage() {
 		JSONObject data = new JSONObject();
@@ -34,7 +36,6 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 			model.setProperty("@contentrole","mainapp");
 			model.setProperty("@itemid",selecteditem);
 			FsNode item=model.getNode("@item");
-			System.out.println("ITEMNODE="+item.asXML());
 			String videourl = item.getProperty("videourl");
 			if (videourl!=null && !videourl.equals("")) {
 				data.put("videourl", videourl);
@@ -69,11 +70,12 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 		screen.get("#station_mainapp_videouploadbutton").on("mouseup","station_mainapp_videoupload","onFileVideoUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_videoupload","onVideoUploadState",this);
 
-		//setUploadAudioSettings("station_mainapp_audioupload");
-		//screen.get("#station_mainapp_audiouploadbutton").on("mouseup","station_mainapp_audioupload","onFileAudioUpload", this);
-		//model.onPropertiesUpdate("/screen/upload/station_mainapp_audioupload","onAudioUploadState",this);
+		setUploadAudioSettings("station_mainapp_audioupload");
+		screen.get("#station_mainapp_audiouploadbutton").on("mouseup","station_mainapp_audioupload","onFileAudioUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_audioupload","onAudioUploadState",this);
 
-		
+		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
+
 		
 		screen.get(".mainapp_deletevideo").on("mouseup","onDeleteVideo", this);
 		screen.get(".station_mainapp_item").on("mouseup","onEditItem", this);
@@ -94,6 +96,16 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 		screen.get("#station_mainapp_item_editanswer3").on("change","onAnswer3Change", this);
 		screen.get("#station_mainapp_item_editanswer4").on("change","onAnswer4Change", this);	
 		screen.get("#station_mainapp_item_editcorrectanswer").on("change","onCorrectAnswerChange", this);	
+	}
+	
+	public void onDeleteItem(Screen s,JSONObject data) {
+		String confirm = (String)data.get("station_mainapp_deleteitemconfirm");
+		if (confirm.equals("yes")) {
+			model.deleteNode("@item");
+			selecteditem = null;
+			selectedquestion = null;
+			fillPage();
+		}
 	}
 	
 	public void onQuestionStarttimeChange(Screen s, JSONObject data) {
@@ -152,6 +164,7 @@ public class InteractiveVideoMainAppController extends Html5Controller{
 		String itemid = (String)data.get("id");
 		itemid = itemid.substring(20);
 		selecteditem = itemid;
+		selectedquestion = null;
 		fillPage();
 	}
 	

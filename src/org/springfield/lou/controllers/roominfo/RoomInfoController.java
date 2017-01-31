@@ -101,6 +101,8 @@ public class RoomInfoController extends Html5Controller {
     		exhibitionnode.setProperty("timeframe",(String)data.get("roominfo_timeframe"));
     		exhibitionnode.setProperty("stationselect","none");
     		exhibitionnode.setProperty("languageselect","none");
+
+    		exhibitionnode.setProperty("availablelanguages","en");
     		exhibitionnode.setProperty("state","off");
     		boolean insertresult = model.putNode("@exhibitions",exhibitionnode);
 			if (insertresult) {

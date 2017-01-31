@@ -46,6 +46,15 @@
 			 	</div>
 		{{/images}}
 	</div>
+		<button id="station_mainapp_deleteitem">delete item</button>
+	<select id="station_mainapp_deleteitemconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
 	</div>
+
+	
+	
 	{{/selecteditem}}
 

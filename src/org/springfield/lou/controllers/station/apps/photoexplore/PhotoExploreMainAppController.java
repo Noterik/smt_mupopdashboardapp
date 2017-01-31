@@ -58,6 +58,8 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		screen.get("#station_mainapp_newitem_imageuploadbutton").on("mouseup","station_mainapp_newitem_imageupload","onFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_newitem_imageupload","onUploadState",this);
 		screen.get("#station_mainapp_edititem_renderoptions").on("change","onRenderOptionChange", this);
+		
+		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
 	}
 	
 	public void onRenderOptionChange(Screen s,JSONObject data) {
@@ -83,7 +85,15 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		selecteditem = itemid;
 		fillPage();
 	}
-		
+	
+	public void onDeleteItem(Screen s,JSONObject data) {
+		String confirm = (String)data.get("station_mainapp_deleteitemconfirm");
+		if (confirm.equals("yes")) {
+			model.deleteNode("@item");
+			selecteditem = null;
+			fillPage();
+		}
+	}
 	
 	private void addImages(JSONObject data) {
 		FSList imagesList = model.getList("@itemimages");

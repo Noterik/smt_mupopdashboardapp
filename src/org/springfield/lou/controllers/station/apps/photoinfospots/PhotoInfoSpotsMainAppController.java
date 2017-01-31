@@ -76,7 +76,8 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		setUploadMainSettings("station_mainapp_item_editurlupload");
 		screen.get("#station_mainapp_item_editurluploadbutton").on("mouseup","station_mainapp_item_editurlupload","onFileMainImageUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editurlupload","onUploadMainImageState",this);
-		
+		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
+	
 		screen.get("#station_mainapp_edititem_renderoptions").on("change","onRenderOptionChange", this);
 		screen.get("#station_mainapp_item_newmask").on("mouseup","station_mainapp_item_newmaskname","onNewItemMask", this);
 		screen.get(".station_mainapp_maskselected").on("mouseup","onEditItemMask", this);
@@ -107,6 +108,16 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		selectedmask = itemmaskid;
 		fillPage();
 	}
+	
+	public void onDeleteItem(Screen s,JSONObject data) {
+		String confirm = (String)data.get("station_mainapp_deleteitemconfirm");
+		if (confirm.equals("yes")) {
+			model.deleteNode("@item");
+			selecteditem = null;
+			fillPage();
+		}
+	}
+		
 	
 	public void onNewItemMask(Screen s,JSONObject data) {
 		String newid=(String)data.get("station_mainapp_item_newmaskname");
@@ -141,20 +152,12 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 				} else {
 					node.setProperty("classname","station_mainapp_mask");	
 				}
-				System.out.println("MASKNODE="+node.asXML());
 				resultitems.addNode(node);
 			}
 		}
 		data.put("masks",resultitems.toJSONObject("en","classname,maskurl,audiourl"));
 	}
 	
-	/*
-	private void addImages(JSONObject data) {
-		FSList imagesList = model.getList("@itemimages");
-		JSONObject images = imagesList.toJSONObject("en","url");
-		data.put("images",images);
-	}
-	*/
 	
 	   private void addImageRenderOptions(JSONObject data,String current) {
 		    if (current==null || current.equals("")) {
