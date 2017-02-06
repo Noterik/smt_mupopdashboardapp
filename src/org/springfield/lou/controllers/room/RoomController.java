@@ -21,6 +21,8 @@ import org.springfield.lou.controllers.roomselector.RoomSelectorController;
 import org.springfield.lou.controllers.station.StationController;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
+import org.springfield.mojo.interfaces.ServiceInterface;
+import org.springfield.mojo.interfaces.ServiceManager;
 
 public class RoomController extends Html5Controller {
 	
@@ -107,6 +109,11 @@ public class RoomController extends Html5Controller {
 		data.put("username",model.getProperty("@username")); // add username so we can display it
 		data.put("exhibitionid",model.getProperty("@exhibitionid")); // add exhibition idea for use in forms
 		
+		String pasteurl = model.getProperty("/browser['clipboard']/copystationurl");
+		if (pasteurl!=null && !pasteurl.equals("")) {
+			data.put("pastevalid","true");
+		}
+		
 		exhibitionnode = model.getNode("@exhibition"); // get the exhibition node
 		if (exhibitionnode!=null) {	// do we have a valid one
 			String exhibition_on = exhibitionnode.getProperty("state");
@@ -131,6 +138,8 @@ public class RoomController extends Html5Controller {
  		screen.get("#room_roomselectorbutton").on("mouseup","onRoomSelectorButton", this); // if user wants to change room tell us
  		screen.get("#room_exhibitionsettingsbutton").on("mouseup","onExhibitionSettingsButton", this);
  		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this); // if user wants to add a new station tell us
+		screen.get("#room_pastestationbutton").on("mouseup","onPasteStationButton", this); // if user wants to paste a station
+
  		screen.get("#room_roomsettingsbutton").on("mouseup","onRoomSettingsButton", this); // if user wants to edit the room tell us
  		screen.get("#room_exhibitiononbutton").on("mouseup","onExhibitionOnButton", this); // if user wants to edit the room tell us
  		screen.get("#room_exhibitionoffbutton").on("mouseup","onExhibitionOffButton", this); // if user wants to edit the room tell us
@@ -225,6 +234,37 @@ public class RoomController extends Html5Controller {
     public void onAddStationButton(Screen s,JSONObject data) {
     	model.setProperty(newstationpath, "true"); // tell other controllers we are talking new station !
     	screen.get(selector).append("div","station",new StationController()); // create the station controller as overlay
+    }
+    
+
+    public void onPasteStationButton(Screen s,JSONObject data) {
+    	System.out.println("PASTE STATION CALLED");
+    	String pasteurl = model.getProperty("/browser['clipboard']/copystationurl");
+    	System.out.println("input="+pasteurl);	
+    	if (pasteurl.endsWith("/properties")) pasteurl=pasteurl.substring(0,pasteurl.length()-11);
+       	System.out.println("input="+pasteurl);
+       	String tourl = model.getNode("@exhibition").getPath();
+    	if (tourl.endsWith("/properties")) tourl=tourl.substring(0,tourl.length()-11);
+    	tourl = tourl+"/station/"+new Date().getTime();
+       	System.out.println("dest="+tourl);
+       	
+		ServiceInterface smithers = ServiceManager.getService("smithers");
+		if (smithers==null) {
+			return;
+		}
+
+		String body = "<fsxml mimetype=\"application/fscommand\" id=\"copy\">";
+		body+="<properties>";
+		body+="<source>"+pasteurl+"</source>";
+		body+="<destination>"+tourl+"</destination>";
+		body+="<params>-r</params>";
+		body+="</properties>";
+		body+="</fsxml>";
+		String result = smithers.post(tourl,body,"application/fscommand");
+		System.out.println("R="+result);	
+    	
+    	model.setProperty("/browser['clipboard']/copystationurl","");
+    	fillPage();
     }
     
     /**

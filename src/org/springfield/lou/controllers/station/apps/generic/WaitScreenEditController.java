@@ -49,7 +49,15 @@ public class WaitScreenEditController extends Html5Controller{
 		model.onPropertiesUpdate("/screen/upload/station_waitscreen_imageupload","onUploadState",this);
 		screen.get(".waitscreen_deleteimage").on("mouseup","onDeleteImage", this);
 		screen.get("#station_waitscreen_delete").on("mouseup","station_waitscreen_deleteconfirm","onDeleteStation", this);
+		screen.get("#station_waitscreen_copy").on("mouseup","onCopyStation", this);
 		}
+	
+	public void onCopyStation(Screen s,JSONObject data) {
+		System.out.println("onCopy to clipboard called");
+		String copyurl = model.getNode("@station").getPath();
+		model.setProperty("/browser['clipboard']/copystationurl",copyurl);
+		System.out.println("cliboard="+model.getProperty("/browser['clipboard']/copystationurl"));
+	}
 	
 	public void onDeleteStation(Screen s,JSONObject data) {
 		String confirm = (String)data.get("station_waitscreen_deleteconfirm");

@@ -59,6 +59,12 @@
 	left:25%;
 }
 
+#station_waitscreen_copy {
+	position: absolute;
+	top:90%;
+	right:25%;
+}
+
 
 #station_waitscreen_images {
 	position: absolute;

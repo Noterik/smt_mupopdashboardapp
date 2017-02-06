@@ -45,3 +45,5 @@
 		<option value="no">no
 		<option value="yes">yes
 	</select>
+	
+	<button id="station_waitscreen_copy">copy to clipboard</button>
