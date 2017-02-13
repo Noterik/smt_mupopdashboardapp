@@ -155,7 +155,7 @@ public class RoomController extends Html5Controller {
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room",roomid); // filter out the ones based on room property
 
-			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url"); // convert it to json format
+			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url,paired"); // convert it to json format
 		} else {
 			return new JSONObject(); // return empty json object if no stations found
 		}	
@@ -168,7 +168,7 @@ public class RoomController extends Html5Controller {
 		FSList stations = model.getList("@stations");
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room","offline"); 
-			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url");
+			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url,paired");
 		} else {
 			return new JSONObject();
 		}	
@@ -245,7 +245,8 @@ public class RoomController extends Html5Controller {
        	System.out.println("input="+pasteurl);
        	String tourl = model.getNode("@exhibition").getPath();
     	if (tourl.endsWith("/properties")) tourl=tourl.substring(0,tourl.length()-11);
-    	tourl = tourl+"/station/"+new Date().getTime();
+    	String newid = ""+new Date().getTime();
+    	tourl = tourl+"/station/"+newid;
        	System.out.println("dest="+tourl);
        	
 		ServiceInterface smithers = ServiceManager.getService("smithers");
@@ -262,6 +263,16 @@ public class RoomController extends Html5Controller {
 		body+="</fsxml>";
 		String result = smithers.post(tourl,body,"application/fscommand");
 		System.out.println("R="+result);	
+		
+		// lets set the station id so we can use it even if we are in a room
+		model.setProperty("@stationid",newid);
+		model.setProperty("@station/room", model.getProperty("@roomid"));
+		String newname = "copy of "+model.getProperty("/browser['clipboard']/copystationname");
+		model.setProperty("@station/labelid",getNewStationName()); // generate a id best we can 
+		model.setProperty("@station/name",newname);
+		model.setProperty("@station/x","50");
+		model.setProperty("@station/y","85");
+		model.setProperty("@station/paired","*");
     	
     	model.setProperty("/browser['clipboard']/copystationurl","");
     	fillPage();
@@ -321,12 +332,15 @@ public class RoomController extends Html5Controller {
     
     public void onExhibitionOnButton(Screen s,JSONObject data) {
     	model.setProperty("@exhibition/state","on");
+	    model.notify("@exhibition","change");
     	updateHidsOn();
+    	
     	fillPage();
     }
     
     public void onExhibitionOffButton(Screen s,JSONObject data) {
     	model.setProperty("@exhibition/state","off");
+	    model.notify("@exhibition","change");
     	updateHidsOff();
     	fillPage();
     }
@@ -370,6 +384,24 @@ public class RoomController extends Html5Controller {
   
     }
     
+    private String getNewStationName() {
+    	int result = 0;
+    	// get the list from domain so see if we are on a number idea we can use.
+		FSList stations = model.getList("@stations");
+		if (stations!=null && stations.size()>0) { // if we have stations already lets find the highest number
+			for(Iterator<FsNode> iter = stations.getNodes().iterator() ; iter.hasNext(); ) {
+				FsNode node = (FsNode)iter.next();	
+				try {
+					int newvalue = Integer.parseInt(node.getProperty("labelid")); // parse the number and store if valid
+					if (newvalue>result) {
+						result = newvalue; // valid number remember if its higher than the last one
+					}
+				} catch(Exception e) { // forget exceptions we assume many are not numbers
+				}
+			}
+		}
+		return ""+(result+1); // take the highest number add one so its new and return it 
+    }
    
  	 
 }

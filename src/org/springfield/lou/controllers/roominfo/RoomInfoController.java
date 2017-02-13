@@ -65,11 +65,8 @@ public class RoomInfoController extends Html5Controller {
 	
     public void onNewRoomShapeButton(Screen s,JSONObject data) {
     	currentshape = ((String)data.get("id")).substring(18);
-    	System.out.println("SET SHAPE="+currentshape);
-		model.setProperty("@room/shape",currentshape);
-    	System.out.println("SET SHAPE DONE="+currentshape);
-		System.out.println("R="+model.getProperty("@room/shape"));
-		fillPage();
+ 		model.setProperty("@room/shape",currentshape);
+ 		fillPage();
     }
 	
     public void onCancelButton(Screen s,JSONObject data) {

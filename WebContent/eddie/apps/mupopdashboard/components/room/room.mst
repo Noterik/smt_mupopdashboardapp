@@ -41,6 +41,7 @@
 			<div id="room_stationdot{{id}}" class="room_stationdot" />
 			<div id="room_station{{id}}" class="room_stationid">{{labelid}}</div>
 			<div id="room_station{{id}}" class="room_stationname">{{name}}</div>
+			<div id="room_station{{id}}" class="room_stationpairing">{{paired}}</div>
 		</div>
 	{{/nodes}}
 {{/stations}}
@@ -50,6 +51,7 @@
 			<div id="room_station{{id}}" class="room_stationdot"/>
 			<div id="room_station{{id}}" class="room_stationid">{{labelid}}</div>
 			<div id="room_station{{id}}" class="room_stationname">{{name}}</div>
+			<div id="room_station{{id}}" class="room_stationpairing">{{paired}}</div>
 		</div>
 	{{/nodes}}
 {{/offline}}

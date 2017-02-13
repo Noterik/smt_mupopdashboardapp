@@ -78,12 +78,23 @@
 	z-index: 1001;
 }
 
-.room_stationname {
+.room_stationpairing {
 	text-align: center;
-  	font-size:8pt;
+  	font-size:1.2vh;
 	position: absolute;
 	color:#bbbbbb;
-	bottom: 30%;
+	bottom: 5%;
+	left: 0%;
+	width: 100%;
+	z-index: 1001;
+}
+
+.room_stationname {
+	text-align: center;
+  	font-size:1.2vh;
+	position: absolute;
+	color:#bbbbbb;
+	bottom: 22%;
 	left: 0%;
 	width: 100%;
 	z-index: 1001;

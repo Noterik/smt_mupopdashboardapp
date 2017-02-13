@@ -55,8 +55,8 @@ public class WaitScreenEditController extends Html5Controller{
 	public void onCopyStation(Screen s,JSONObject data) {
 		System.out.println("onCopy to clipboard called");
 		String copyurl = model.getNode("@station").getPath();
+		model.setProperty("/browser['clipboard']/copystationname",model.getNode("@station").getProperty("name"));
 		model.setProperty("/browser['clipboard']/copystationurl",copyurl);
-		System.out.println("cliboard="+model.getProperty("/browser['clipboard']/copystationurl"));
 	}
 	
 	public void onDeleteStation(Screen s,JSONObject data) {

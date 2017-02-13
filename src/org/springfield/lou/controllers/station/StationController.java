@@ -116,6 +116,7 @@ public class StationController extends Html5Controller {
 		}
 
     	
+		System.out.println("SENDING SHARED PAIR NOTIFY");
 		model.notify("/shared['mupop']/hid['"+oldvalue+"']","unpaired");
 		model.notify("/shared['mupop']/hid['"+newvalue+"']","paired");
     	fillPage(); // we need to rewrite this page
