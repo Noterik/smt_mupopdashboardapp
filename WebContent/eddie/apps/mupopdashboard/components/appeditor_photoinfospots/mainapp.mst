@@ -23,6 +23,13 @@
 	{{#url}}
 		<img id="station_mainapp_item_editurluploadpreview" src="{{url}}">
 	{{/url}}
+	
+	<div id="station_mainapp_item_editaudiourllabel">voice over</div>
+	<input type="file" id="station_mainapp_item_editaudiourlupload" size="20" />
+	<button id="station_mainapp_item_editaudiourluploadbutton">upload</button>
+	{{#voiceover}}
+		<a href="{{voiceover}}" id="station_mainapp_item_editaudiourluploadpreview" target="_new">play</a>
+	{{/voiceover}}
 
 	
 	<table id="station_mainapp_item_masks">

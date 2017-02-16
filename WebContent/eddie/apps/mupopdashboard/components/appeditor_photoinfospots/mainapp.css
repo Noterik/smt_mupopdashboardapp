@@ -55,11 +55,40 @@
 	left: 45%;
 }
 
+
 #station_mainapp_item_editurluploadpreview {
 	position: absolute;
 	border: solid 1px silver;
 	top: 5%;
 	left: 60%;
+	height: 20%;
+}
+
+
+#station_mainapp_item_editaudiourllabel {
+	position: absolute;
+	top: 15%;
+	left: 5%;
+}
+
+#station_mainapp_item_editaudiourlupload {
+	position: absolute;
+	top: 15%;
+	left: 20%;
+}
+
+#station_mainapp_item_editaudiourluploadbutton {
+	position: absolute;
+	top: 15%;
+	left: 45%;
+}
+
+
+#station_mainapp_item_editaudiourluploadpreview {
+	position: absolute;
+	color: white;
+	top: 12%;
+	left: 75%;
 	height: 20%;
 }
 
