@@ -184,6 +184,13 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_trivia">
+		<template>appeditor_trivia/appeditor_trivia.mst</template>
+		<style>appeditor_trivia/appeditor_trivia.css</style>
+		<controller id="TriviaController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_subeditor_waitscreen">
 		<template>appeditor_generic/waitscreen/waitscreen.mst</template>
 		<style>appeditor_generic/waitscreen/waitscreen.css</style>
@@ -210,6 +217,13 @@
 		<template>appeditor_interactivevideo/mainapp.mst</template>
 		<style>appeditor_interactivevideo/mainapp.css</style>
 		<controller id="InteractiveVideoMainAppController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_subeditor_mainapp_trivia">
+		<template>appeditor_trivia/mainapp.mst</template>
+		<style>appeditor_trivia/mainapp.css</style>
+		<controller id="TriviaMainAppController">
 		</controller>
 	</view>
 	
