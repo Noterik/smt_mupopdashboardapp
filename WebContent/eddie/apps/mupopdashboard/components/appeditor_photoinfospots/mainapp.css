@@ -37,6 +37,30 @@
 	height:45%;
 }
 
+#station_mainapp_item_editscalelabel {
+	position: absolute;
+	top: 5%;
+	left: 80%;
+}
+
+#station_mainapp_item_editscale {
+	position: absolute;
+	top: 5%;
+	left: 85%;
+}
+
+#station_mainapp_item_editoriginlabel {
+	position: absolute;
+	top: 15%;
+	left: 80%;
+}
+
+#station_mainapp_item_editorigin {
+	position: absolute;
+	top: 15%;
+	left: 85%;
+}
+
 #station_mainapp_item_editurllabel {
 	position: absolute;
 	top: 5%;

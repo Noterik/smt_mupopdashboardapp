@@ -61,6 +61,8 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 				data.put("voiceover",voiceover);
 			}
 			data.put("url",model.getProperty("@item/url"));
+			data.put("scale",model.getProperty("@item/scale"));
+			data.put("origin",model.getProperty("@item/origin"));
 			data.put("voiceover",model.getProperty("@item/voiceover"));
 		}
 		//addImageRenderOptions(data,model.getProperty("@item/renderoption"));
@@ -103,12 +105,27 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 
 		
 		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
-	
+
+		screen.get("#station_mainapp_item_editscale").on("change","onScaleChange", this);
+		screen.get("#station_mainapp_item_editorigin").on("change","onOriginChange", this);
+		
 		screen.get("#station_mainapp_edititem_renderoptions").on("change","onRenderOptionChange", this);
 		screen.get("#station_mainapp_item_newmask").on("mouseup","station_mainapp_item_newmaskname","onNewItemMask", this);
 		screen.get(".station_mainapp_maskselected").on("mouseup","onEditItemMask", this);
 		screen.get(".station_mainapp_mask").on("mouseup","onEditItemMask", this);
 	
+	}
+	
+	public void onScaleChange(Screen s,JSONObject data) {
+		model.setProperty("@item/scale",(String)data.get("value"));
+		fillPage();
+		model.notify("@station","changed"); 
+	}
+	
+	public void onOriginChange(Screen s,JSONObject data) {
+		model.setProperty("@item/origin",(String)data.get("value"));
+		fillPage();
+		model.notify("@station","changed"); 
 	}
 	
 	public void onRenderOptionChange(Screen s,JSONObject data) {

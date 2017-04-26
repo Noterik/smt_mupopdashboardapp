@@ -112,6 +112,14 @@
 	</div>
 	
 	<div id="station_mainapp_questions">
+		{{#questions}}
+		 	{{#nodes}}
+		 		<button id="question_{{id}}" class="station_mainapp_question">
+		 		{{id}}
+		 		</button>
+		 	{{/nodes}}
+		{{/questions}}
+		<button id="station_mainapp_item_newquestion" class="station_mainapp_question">add</button>
 	</div>
 
 	

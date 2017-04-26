@@ -199,6 +199,19 @@
 	border: solid 1px silver;
 }
 
+.station_mainapp_question {
+	background-color: #cccccc;
+	float: left;
+	top: 1%;
+	width: 10%;
+	height: 98%;
+	border: solid 1px silver;
+}
+
+.station_mainapp_question:hover {
+	background-color: #888888;
+}
+
 
 
 #station_mainapp_audiouploadlabel {

@@ -31,6 +31,10 @@
 		<a href="{{voiceover}}" id="station_mainapp_item_editaudiourluploadpreview" target="_new">play</a>
 	{{/voiceover}}
 
+	<div id="station_mainapp_item_editscalelabel">scale</div>
+	<input id="station_mainapp_item_editscale" size="10" value="{{scale}}" />
+	<div id="station_mainapp_item_editoriginlabel">origin</div>
+	<input id="station_mainapp_item_editorigin" size="10" value="{{origin}}" />
 	
 	<table id="station_mainapp_item_masks">
 	<tr>

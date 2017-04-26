@@ -115,6 +115,8 @@ public class TriviaMainAppController extends Html5Controller{
 			data.put("goto", "");	
 		}
 		
+		addItemQuestions(data);
+		
 		screen.get(selector).render(data);
 		screen.get("#station_mainapp_itemsettings_level").on("change","onLevelChange", this);
 		screen.get("#station_mainapp_itemsettings_maxsame").on("change","onMaxSameChange", this);
@@ -128,6 +130,12 @@ public class TriviaMainAppController extends Html5Controller{
 		screen.get(".station_mainapp_itemselected").on("mouseup","onEditItem", this);
 		screen.get("#station_mainapp_newitem").on("mouseup","station_mainapp_newitemname","onNewItem", this);
 
+		screen.get("#station_mainapp_item_newquestion").on("mouseup","station_mainapp_item_newquestionname","onNewItemQuestion", this);
+
+		screen.get(".station_mainapp_question").on("mouseup","onItemQuestionSelected", this);
+
+		
+		
 		setImageSettings("station_mainapp_imageupload");
 		screen.get("#station_mainapp_imageuploadbutton").on("mouseup","station_mainapp_imageupload","onImageFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_imageupload","onImageUploadState",this);
@@ -138,6 +146,9 @@ public class TriviaMainAppController extends Html5Controller{
 	
 	}
 	
+	public void onItemQuestionSelected(Screen s,JSONObject data) {
+			System.out.println("SELECT QUESTION="+data.toJSONString());
+	}
 	
 	public void onLevelChange(Screen s,JSONObject data) {
 		model.setProperty("@item/level",(String)data.get("value"));
@@ -222,6 +233,35 @@ public class TriviaMainAppController extends Html5Controller{
 		System.out.println("upload of main image wanted");
 	}
 	
+	public void onNewItemQuestion(Screen s,JSONObject data) {
+		String newid = getNewQuestionId();
+		System.out.println("New item question id="+newid);
+		FsNode newitemquestion = new FsNode("question",newid);
+		model.setProperty("@contentrole","mainapp");
+		Boolean result=model.putNode("@item", newitemquestion);
+		if (result) {
+			fillPage();
+		}
+	}
+	
+	private void addItemQuestions(JSONObject data) {
+		model.setProperty("@contentrole","mainapp");
+		System.out.println("E="+model.getNode("@item"));
+		FSList questionsList = model.getList("@item/question");
+		
+		FSList resultquestions = new FSList();
+		List<FsNode> nodes = questionsList.getNodes();
+		if (nodes != null) {
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = (FsNode) iter.next();
+				resultquestions.addNode(node);
+			}
+		}
+		JSONObject questions = resultquestions.toJSONObject("en","url,classname");
+		data.put("questions",questions);
+	}
+
+	
 	public void onImageUploadState(ModelEvent e) {
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
@@ -249,6 +289,26 @@ public class TriviaMainAppController extends Html5Controller{
 		model.setProperty("@upload/fileext","png,jpeg,jpg");
 		model.setProperty("@upload/checkupload","true");
 	}
+	
+    private String getNewQuestionId() {
+    	int result = 0;
+    	// get the list from domain so see if we are on a number idea we can use.
+		FSList questions = model.getList("@item/question");
+		if (questions!=null && questions.size()>0) { // if we have stations already lets find the highest number
+			for(Iterator<FsNode> iter = questions.getNodes().iterator() ; iter.hasNext(); ) {
+				FsNode node = (FsNode)iter.next();	
+				try {
+					int newvalue = Integer.parseInt(node.getId()); // parse the number and store if valid
+					if (newvalue>result) {
+						result = newvalue; // valid number remember if its higher than the last one
+					}
+				} catch(Exception e) { // forget exceptions we assume many are not numbers
+				}
+			}
+		}
+		return ""+(result+1); // take the highest number add one so its new and return it 
+    }
+
 	
 	
 	
