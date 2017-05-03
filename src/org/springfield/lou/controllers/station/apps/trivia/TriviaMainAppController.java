@@ -47,7 +47,6 @@ public class TriviaMainAppController extends Html5Controller{
 	
 	
 	private void fillPage() {
-
 		JSONObject data = new JSONObject();
 		addItems(data);
 		System.out.println("SELECTEDITEM="+selecteditem);
@@ -147,7 +146,11 @@ public class TriviaMainAppController extends Html5Controller{
 	}
 	
 	public void onItemQuestionSelected(Screen s,JSONObject data) {
-			System.out.println("SELECT QUESTION="+data.toJSONString());
+		System.out.println("SELECT QUESTION="+data.toJSONString());
+		String id = ((String)data.get("id")).substring(9);
+		System.out.println("ID="+id);
+		model.setProperty("@itemquestionid",id);
+		screen.get("#screen").append("div","appeditor_triviaquestion",new TriviaQuestionController());
 	}
 	
 	public void onLevelChange(Screen s,JSONObject data) {
@@ -179,7 +182,7 @@ public class TriviaMainAppController extends Html5Controller{
 	}
 	
 	public void onNewItem(Screen s,JSONObject data) {
-		String newid=(String)data.get("station_mainapp_newitemname");
+		String newid = getNewItemId();
 		FsNode newitem = new FsNode("item",newid);
 		model.setProperty("@contentrole","mainapp");
 		Boolean result=model.putNode("@items", newitem);
@@ -294,6 +297,25 @@ public class TriviaMainAppController extends Html5Controller{
     	int result = 0;
     	// get the list from domain so see if we are on a number idea we can use.
 		FSList questions = model.getList("@item/question");
+		if (questions!=null && questions.size()>0) { // if we have stations already lets find the highest number
+			for(Iterator<FsNode> iter = questions.getNodes().iterator() ; iter.hasNext(); ) {
+				FsNode node = (FsNode)iter.next();	
+				try {
+					int newvalue = Integer.parseInt(node.getId()); // parse the number and store if valid
+					if (newvalue>result) {
+						result = newvalue; // valid number remember if its higher than the last one
+					}
+				} catch(Exception e) { // forget exceptions we assume many are not numbers
+				}
+			}
+		}
+		return ""+(result+1); // take the highest number add one so its new and return it 
+    }
+    
+    private String getNewItemId() {
+    	int result = 0;
+    	// get the list from domain so see if we are on a number idea we can use.
+		FSList questions = model.getList("@items");
 		if (questions!=null && questions.size()>0) { // if we have stations already lets find the highest number
 			for(Iterator<FsNode> iter = questions.getNodes().iterator() ; iter.hasNext(); ) {
 				FsNode node = (FsNode)iter.next();	

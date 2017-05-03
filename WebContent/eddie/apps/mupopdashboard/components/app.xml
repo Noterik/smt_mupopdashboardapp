@@ -227,6 +227,14 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_triviaquestion">
+		<template>appeditor_trivia/question.mst</template>
+		<style>appeditor_trivia/question.css</style>
+		<controller id="TriviaQuestionController">
+		</controller>
+	</view>
+
+
 	<view id="#appeditor_subeditor_contentselect">
 		<template>appeditor_generic/contentselect/contentselect.mst</template>
 		<style>appeditor_generic/contentselect/contentselect.css</style>
