@@ -191,6 +191,13 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_whatwethink">
+		<template>appeditor_whatwethink/appeditor_whatwethink.mst</template>
+		<style>appeditor_whatwethink/appeditor_whatwethink.css</style>
+		<controller id="WhatWeThinkController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_subeditor_waitscreen">
 		<template>appeditor_generic/waitscreen/waitscreen.mst</template>
 		<style>appeditor_generic/waitscreen/waitscreen.css</style>
@@ -227,12 +234,27 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_subeditor_mainapp_whatwethink">
+		<template>appeditor_whatwethink/mainapp.mst</template>
+		<style>appeditor_whatwethink/mainapp.css</style>
+		<controller id="WhatWeThinkMainAppController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_triviaquestion">
 		<template>appeditor_trivia/question.mst</template>
 		<style>appeditor_trivia/question.css</style>
 		<controller id="TriviaQuestionController">
 		</controller>
 	</view>
+	
+	<view id="#appeditor_whatwethinkquestion">
+		<template>appeditor_whatwethink/question.mst</template>
+		<style>appeditor_whatwethink/question.css</style>
+		<controller id="WhatWeThinkQuestionController">
+		</controller>
+	</view>
+
 
 
 	<view id="#appeditor_subeditor_contentselect">

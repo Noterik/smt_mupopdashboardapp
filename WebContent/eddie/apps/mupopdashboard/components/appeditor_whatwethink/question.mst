@@ -1,0 +1,18 @@
+	<div id="station_mainapp_item_editquestiontitlelabel">question</div>
+	<input  id="station_mainapp_item_editquestiontitle" value="{{questiontitle}}" size="80" />
+				
+	<div id="station_mainapp_item_editanswer1label">Answer1</div>
+	<input  id="station_mainapp_item_editanswer1" value="{{answer1}}" size="80" />
+				
+	<div id="station_mainapp_item_editanswer2label">Answer2</div>
+	<input  id="station_mainapp_item_editanswer2" value="{{answer2}}" size="80" />
+
+
+	<button id="station_mainapp_deletequestion">delete question</button>
+	<select id="station_mainapp_deletequestionconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
+	<button id="station_mainapp_done">done</button>
+	

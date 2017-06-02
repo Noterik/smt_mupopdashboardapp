@@ -1,0 +1,133 @@
+	<table id="station_mainapp_items">
+	<tr>
+	{{#items}}
+		 	{{#nodes}}
+		 			<td id="station_mainapp_item{{id}}" class="{{classname}}">
+		 				{{id}}
+		 			</td>
+			{{/nodes}}
+			<td>
+		 		<button id="station_mainapp_newitem">add item</button>
+		 	</td>
+	{{/items}}
+	</tr>
+	</table>
+	
+	{{#selecteditem}}
+	<div id="station_mainapp_edititem">
+
+
+	<div id="station_mainapp_imageuploadlabel">image</div>
+	<input type="file" id="station_mainapp_imageupload" size="20" />
+	<button id="station_mainapp_imageuploadbutton">upload</button>
+	{{#imageurl}}
+		<img id="station_mainapp_imageuploadpreview" src="{{imageurl}}">
+	{{/imageurl}}
+	
+	<div id="station_mainapp_itemsettings">
+		<div id="station_mainapp_itemsettings_this_label">current</div>
+		<div id="station_mainapp_itemsettings_level_label">level</div>
+		<select id="station_mainapp_itemsettings_level">
+			<option value="{{level}}">{{level}}
+			<option value="1">1
+			<option value="2">2
+			<option value="3">3
+			<option value="4">4
+			<option value="5">5
+			<option value="6">6
+			<option value="7">7
+			<option value="8">8
+			<option value="9">9
+		</select>
+		<div id="station_mainapp_itemsettings_maxsame_label">maxsame</div>
+		<select id="station_mainapp_itemsettings_maxsame">
+			<option value="{{maxsame}}">{{maxsame}}
+			<option value="1">1
+			<option value="2">2
+			<option value="3">3
+			<option value="4">4
+			<option value="5">5
+			<option value="6">6
+			<option value="7">7
+			<option value="8">8
+			<option value="9">9
+		</select>
+		<div id="station_mainapp_itemsettings_timeout_label">timeout</div>
+		<select id="station_mainapp_itemsettings_timeout">
+			<option value="{{timeout}}">{{timeout}}
+			<option value="5">5
+			<option value="6">6
+			<option value="7">7
+			<option value="8">8
+			<option value="9">9
+			<option value="10">10
+			<option value="11">11
+			<option value="12">12
+			<option value="13">13
+			<option value="14">14
+			<option value="15">15
+		</select>
+		<div id="station_mainapp_itemsettings_set_label">set</div>
+		<select id="station_mainapp_itemsettings_set">
+			<option value="{{set}}">{{set}}
+			<option value="people">people
+			<option value="places">places
+			<option value="locations">locations
+			<option value="events">events
+			<option value="things">things
+		</select>
+		
+		<div id="station_mainapp_itemsettings_next_label">next</div>
+		
+		<div id="station_mainapp_itemsettings_nextlevel_label">level</div>
+		<select id="station_mainapp_itemsettings_nextlevel">
+			<option value="{{nextlevel}}">{{nextlevel}}
+			<option value="1">1
+			<option value="2">2
+			<option value="3">3
+			<option value="4">4
+			<option value="5">5
+			<option value="6">6
+			<option value="7">7
+			<option value="8">8
+			<option value="9">9
+		</select>
+		
+		<div id="station_mainapp_itemsettings_nextset_label">set</div>
+		<select id="station_mainapp_itemsettings_nextset">
+			<option value="{{nextset}}">{{nextset}}
+			<option value="people">people
+			<option value="places">places
+			<option value="locations">locations
+			<option value="events">events
+			<option value="things">things
+		</select>
+		
+		<div id="station_mainapp_itemsettings_goto_label">direct goto</div>
+		<input id="station_mainapp_itemsettings_goto" size="10" value="{{goto}}" />
+		
+		<button id="station_mainapp_itemsettings_copy">copy</button>
+		<button id="station_mainapp_itemsettings_paste">paste</button>
+		
+	</div>
+	
+	<div id="station_mainapp_questions">
+		{{#questions}}
+		 	{{#nodes}}
+		 		<button id="question_{{id}}" class="station_mainapp_question">
+		 		{{id}}
+		 		</button>
+		 	{{/nodes}}
+		{{/questions}}
+		<button id="station_mainapp_item_newquestion" class="station_mainapp_question">add</button>
+	</div>
+
+	
+	<button id="station_mainapp_deleteitem">delete item</button>
+	<select id="station_mainapp_deleteitemconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
+	</div>
+	{{/selecteditem}}

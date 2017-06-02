@@ -1,0 +1,22 @@
+<table id="appeditor_interactivevideotable">
+	<tr>
+		{{#waitscreentab}}<th id="waitscreen" class="appmenu">waitscreen</th>{{/waitscreentab}}
+		{{^waitscreentab}}<td id="waitscreen" class="appmenu">waitscreen</td>{{/waitscreentab}}
+		
+		{{#contentselecttab}}<th id="contentselect" class="appmenu">content select</th>{{/contentselecttab}}
+		{{^contentselecttab}}<td id="contentselect" class="appmenu">content select</td>{{/contentselecttab}}
+		
+		{{#mainapptab}}<th id="mainapp" class="appmenu">main app</th>{{/mainapptab}}
+		{{^mainapptab}}<td id="mainapp" class="appmenu">main app</td>{{/mainapptab}}
+		
+		{{#feedbacktab}}<th id="mode" class="appmenu">feedbacktab</th>{{/feedbacktab}}
+		{{^feedbacktab}}<td id="mode" class="appmenu">feedbacktab</td>{{/feedbacktab}}
+
+	</tr>
+</table>
+<div id="subeditor">
+</div>
+
+{{#feedbacktab}}
+feedback
+{{/feedbacktab}}	

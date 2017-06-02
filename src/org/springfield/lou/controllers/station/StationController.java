@@ -37,6 +37,7 @@ import org.springfield.lou.controllers.station.apps.interactivevideo.Interactive
 import org.springfield.lou.controllers.station.apps.photoexplore.PhotoExploreEditController;
 import org.springfield.lou.controllers.station.apps.photoinfospots.PhotoInfoSpotsEditController;
 import org.springfield.lou.controllers.station.apps.trivia.TriviaEditController;
+import org.springfield.lou.controllers.station.apps.whatwethink.WhatWeThinkEditController;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
 
@@ -89,7 +90,8 @@ public class StationController extends Html5Controller {
     				screen.get("#station_appspace").append("div","appeditor_interactivevideo",new InteractiveVideoEditController());
     			} else if (currentapp.equals("trivia")) {
     				screen.get("#station_appspace").append("div","appeditor_trivia",new TriviaEditController());
-
+    			} else if (currentapp.equals("whatwethink")) {
+    				screen.get("#station_appspace").append("div","appeditor_whatwethink",new WhatWeThinkEditController());
     			}
     		}
 		screen.get("#station_formarea").draggable(); // make the window draggable for fun (its a overlay)
@@ -210,6 +212,10 @@ public class StationController extends Html5Controller {
 		node = new FsNode("apps","6");
 		node.setProperty("name","trivia");
 		node.setProperty("labelname","Trivia");
+		list.addNode(node);
+		node = new FsNode("apps","7");
+		node.setProperty("name","whatwethink");
+		node.setProperty("labelname","WhatWeThink");
 		list.addNode(node);
 		return list.toJSONObject("en","name,labelname");
     }
