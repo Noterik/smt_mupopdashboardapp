@@ -6,6 +6,9 @@
 				
 	<div id="station_mainapp_item_editanswer2label">Answer2</div>
 	<input  id="station_mainapp_item_editanswer2" value="{{answer2}}" size="80" />
+	
+	<div id="station_mainapp_item_editcalclabel">calc</div>
+	<input  id="station_mainapp_item_editcalc" value="{{calc}}" size="120" />
 
 
 	<button id="station_mainapp_deletequestion">delete question</button>

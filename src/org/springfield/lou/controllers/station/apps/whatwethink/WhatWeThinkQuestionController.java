@@ -58,9 +58,7 @@ public class WhatWeThinkQuestionController extends Html5Controller{
 		data.put("questiontitle", model.getProperty("@itemquestion/question"));
 		data.put("answer1", model.getProperty("@itemquestion/answer1"));
 		data.put("answer2", model.getProperty("@itemquestion/answer2"));
-		data.put("answer3", model.getProperty("@itemquestion/answer3"));
-		data.put("answer4", model.getProperty("@itemquestion/answer4"));
-		data.put("correctanswer", model.getProperty("@itemquestion/correctanswer"));
+		data.put("calc", model.getProperty("@itemquestion/calc"));
 		screen.get(selector).render(data);
 
 		screen.get("#station_mainapp_questiontype").on("change","onQuestionType", this);
@@ -69,9 +67,7 @@ public class WhatWeThinkQuestionController extends Html5Controller{
 		screen.get("#station_mainapp_item_editquestiontitle").on("change","onQuestionChange", this);
 		screen.get("#station_mainapp_item_editanswer1").on("change","onAnswer1Change", this);
 		screen.get("#station_mainapp_item_editanswer2").on("change","onAnswer2Change", this);
-		screen.get("#station_mainapp_item_editanswer3").on("change","onAnswer3Change", this);
-		screen.get("#station_mainapp_item_editanswer4").on("change","onAnswer4Change", this);	
-		screen.get("#station_mainapp_item_editcorrectanswer").on("change","onCorrectAnswerChange", this);
+		screen.get("#station_mainapp_item_editcalc").on("change","onCalcChange", this);
 	}
 	
 	public void onQuestionType(Screen s,JSONObject data) {
@@ -92,18 +88,10 @@ public class WhatWeThinkQuestionController extends Html5Controller{
 		model.setProperty("@itemquestion/answer2",(String)data.get("value"));
 	}
 	
-	public void onAnswer3Change(Screen s, JSONObject data) {
-		model.setProperty("@itemquestion/answer3",(String)data.get("value"));
+	public void onCalcChange(Screen s, JSONObject data) {
+		System.out.println("CALC="+data.toJSONString());
+		model.setProperty("@itemquestion/calc",(String)data.get("value"));
 	}
-	
-	public void onAnswer4Change(Screen s, JSONObject data) {
-		model.setProperty("@itemquestion/answer4",(String)data.get("value"));
-	}
-	
-	public void onCorrectAnswerChange(Screen s, JSONObject data) {
-		model.setProperty("@itemquestion/correctanswer",(String)data.get("value"));
-	}
-
 	
 	public void onDone(Screen s,JSONObject data) {
 		screen.get(selector).remove();
