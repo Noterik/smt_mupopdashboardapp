@@ -59,6 +59,9 @@ public class WhatWeThinkQuestionController extends Html5Controller{
 		data.put("answer1", model.getProperty("@itemquestion/answer1"));
 		data.put("answer2", model.getProperty("@itemquestion/answer2"));
 		data.put("calc", model.getProperty("@itemquestion/calc"));
+		data.put("feedbackmain", model.getProperty("@itemquestion/feedbackmain"));
+		data.put("feedbackphone", model.getProperty("@itemquestion/feedbackphone"));
+
 		screen.get(selector).render(data);
 
 		screen.get("#station_mainapp_questiontype").on("change","onQuestionType", this);
@@ -68,6 +71,8 @@ public class WhatWeThinkQuestionController extends Html5Controller{
 		screen.get("#station_mainapp_item_editanswer1").on("change","onAnswer1Change", this);
 		screen.get("#station_mainapp_item_editanswer2").on("change","onAnswer2Change", this);
 		screen.get("#station_mainapp_item_editcalc").on("change","onCalcChange", this);
+		screen.get("#station_mainapp_item_editfeedbackmain").on("change","onFeedbackMainChange", this);
+		screen.get("#station_mainapp_item_editfeedbackphone").on("change","onFeedbackPhoneChange", this);
 	}
 	
 	public void onQuestionType(Screen s,JSONObject data) {
@@ -89,8 +94,15 @@ public class WhatWeThinkQuestionController extends Html5Controller{
 	}
 	
 	public void onCalcChange(Screen s, JSONObject data) {
-		System.out.println("CALC="+data.toJSONString());
 		model.setProperty("@itemquestion/calc",(String)data.get("value"));
+	}
+	
+	public void onFeedbackMainChange(Screen s, JSONObject data) {
+		model.setProperty("@itemquestion/feedbackmain",(String)data.get("value"));
+	}
+	
+	public void onFeedbackPhoneChange(Screen s, JSONObject data) {
+		model.setProperty("@itemquestion/feedbackphone",(String)data.get("value"));
 	}
 	
 	public void onDone(Screen s,JSONObject data) {

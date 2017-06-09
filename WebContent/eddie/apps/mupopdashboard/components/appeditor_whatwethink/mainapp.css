@@ -311,6 +311,31 @@
 	left: 20%;
 }
 
+#station_mainapp_item_editfeedbackmainlabel {
+	position: absolute;
+	top: 65%;
+	left: 5%;
+}
+
+#station_mainapp_item_editfeedbackmain {
+	position: absolute;
+	top: 65%;
+	left: 20%;
+}
+
+#station_mainapp_item_editfeedbackphonelabel {
+	position: absolute;
+	top: 75%;
+	left: 5%;
+}
+
+#station_mainapp_item_editfeedbackphone {
+	position: absolute;
+	top: 75%;
+	left: 20%;
+}
+
+
 
 
 

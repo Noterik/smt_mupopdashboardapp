@@ -1,15 +1,31 @@
 	<div id="station_mainapp_item_editquestiontitlelabel">question</div>
 	<input  id="station_mainapp_item_editquestiontitle" value="{{questiontitle}}" size="80" />
 				
-	<div id="station_mainapp_item_editanswer1label">Answer1</div>
+	<div id="station_mainapp_item_editanswer1label">Answer A</div>
 	<input  id="station_mainapp_item_editanswer1" value="{{answer1}}" size="80" />
 				
-	<div id="station_mainapp_item_editanswer2label">Answer2</div>
+	<div id="station_mainapp_item_editanswer2label">Answer B</div>
 	<input  id="station_mainapp_item_editanswer2" value="{{answer2}}" size="80" />
 	
 	<div id="station_mainapp_item_editcalclabel">calc</div>
 	<input  id="station_mainapp_item_editcalc" value="{{calc}}" size="120" />
+	
 
+	<div id="station_mainapp_item_editfeedbackmainlabel">feedback main</div>
+	<select id="station_mainapp_item_editfeedbackmain">
+		<option value="{{feedbackmain}}">{{feedbackmain}}
+		<option value="overview">overview
+		<option value="detail">detail
+		<option value="ad">ad
+	</select>
+	
+	<div id="station_mainapp_item_editfeedbackphonelabel">feedback phone</div>
+	<select id="station_mainapp_item_editfeedbackphone">
+		<option value="{{feedbackphone}}">{{feedbackphone}}
+		<option value="overview">overview
+		<option value="detail">detail
+		<option value="ad">ad
+	</select>
 
 	<button id="station_mainapp_deletequestion">delete question</button>
 	<select id="station_mainapp_deletequestionconfirm">
