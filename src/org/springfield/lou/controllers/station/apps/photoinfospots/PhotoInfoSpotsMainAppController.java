@@ -56,14 +56,14 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 			model.setProperty("@itemid",selecteditem);
 			FsNode item=model.getNode("@item");
 			data.put("selecteditem", item.getId());
-			String voiceover = model.getProperty("@item/voiceover");
+			String voiceover = model.getProperty("@item/en_voiceover");
 			if (voiceover!=null && !voiceover.equals("")) {
 				data.put("voiceover",voiceover);
 			}
 			data.put("url",model.getProperty("@item/url"));
 			data.put("scale",model.getProperty("@item/scale"));
 			data.put("origin",model.getProperty("@item/origin"));
-			data.put("voiceover",model.getProperty("@item/voiceover"));
+			data.put("voiceover",model.getProperty("@item/en_voiceover"));
 		}
 		//addImageRenderOptions(data,model.getProperty("@item/renderoption"));
 		//addImages(data);
@@ -76,7 +76,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 			FsNode itemmask=model.getNode("@itemmask");
 			System.out.println("MASKNODE="+itemmask.asXML());
 			data.put("maskurl", itemmask.getProperty("maskurl"));
-			data.put("audiourl", itemmask.getProperty("audiourl"));
+			data.put("audiourl", itemmask.getProperty("en_audiourl"));
 			data.put("selecteditemmask", itemmask.getId());
 		}
 		
@@ -299,7 +299,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
 		if (progress!=null && progress.equals("100")) {
-    		model.setProperty("@item/voiceover",ps.getProperty("url"));
+    		model.setProperty("@item/en_voiceover",ps.getProperty("url"));
     		model.notify("@station","changed"); 
     		fillPage();
 		}
@@ -314,7 +314,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
 		if (progress!=null && progress.equals("100")) {
-    		model.setProperty("@itemmask/audiourl",ps.getProperty("url"));
+    		model.setProperty("@itemmask/en_audiourl",ps.getProperty("url"));
     		model.notify("@station","changed"); 
     		fillPage();
     		
