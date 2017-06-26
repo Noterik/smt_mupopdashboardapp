@@ -205,6 +205,7 @@ public class WaitScreenEditController extends Html5Controller{
 
 
 	public void onUploadState(ModelEvent e) {
+		System.out.println("UPLOAD IMAGE");
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
@@ -246,7 +247,7 @@ public class WaitScreenEditController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
-		model.setProperty("@upload/fileext","png");
+		model.setProperty("@upload/fileext","jpg,gif,png");
 		model.setProperty("@upload/checkupload","true");
 	}
 	
