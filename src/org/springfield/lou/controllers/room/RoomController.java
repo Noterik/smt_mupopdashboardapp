@@ -157,7 +157,9 @@ public class RoomController extends Html5Controller {
  		screen.get("#room_roomselectorbutton").on("mouseup","onRoomSelectorButton", this); // if user wants to change room tell us
  		screen.get("#room_exhibitionsettingsbutton").on("mouseup","onExhibitionSettingsButton", this);
  		screen.get("#room_addstationbutton").on("mouseup","onAddStationButton", this); // if user wants to add a new station tell us
-		screen.get("#room_pastestationbutton").on("mouseup","onPasteStationButton", this); // if user wants to paste a station
+		screen.get("#room_showstationsbutton").on("mouseup","onShowStationsButton", this); // show all stations we have created
+ 		screen.get("#room_showscreensbutton").on("mouseup","onShowScreensButton", this); // show all the screens we can access
+ 		screen.get("#room_pastestationbutton").on("mouseup","onPasteStationButton", this); // if user wants to paste a station
 
  		screen.get("#room_roomsettingsbutton").on("mouseup","onRoomSettingsButton", this); // if user wants to edit the room tell us
  		screen.get("#room_exhibitiononbutton").on("mouseup","onExhibitionOnButton", this); // if user wants to edit the room tell us
@@ -165,6 +167,8 @@ public class RoomController extends Html5Controller {
 
  		model.onPropertyUpdate("/screen['vars']/roomid","onRoomChange",this); // watch for room change events probably done my RoomSelectorController
 	}
+	
+	
 	
 	/**
 	 * add the active stations data to the json object for display
@@ -253,6 +257,15 @@ public class RoomController extends Html5Controller {
     public void onAddStationButton(Screen s,JSONObject data) {
     	model.setProperty(newstationpath, "true"); // tell other controllers we are talking new station !
     	screen.get(selector).append("div","station",new StationController()); // create the station controller as overlay
+    }
+    
+    public void onShowStationsButton(Screen s,JSONObject data) {
+    	System.out.println("SHOW STATIONS CALLED");
+    }
+    
+    
+    public void onShowScreensButton(Screen s,JSONObject data) {
+    	System.out.println("SHOW SCREENS CALLED");
     }
     
 

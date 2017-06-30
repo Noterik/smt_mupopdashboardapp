@@ -29,6 +29,8 @@
 	<button id="room_roomselectorbutton">Room : {{room}}</button>
 	<button id="room_roomsettingsbutton">Room settings</button>
 	<button id="room_addstationbutton">Add station</button>
+	<button id="room_showstationsbutton">Show stations</button>
+		<button id="room_showscreensbutton">Show screens</button>
 	{{#pastevalid}}
 	<button id="room_pastestationbutton">Paste station</button>
 	{{/pastevalid}}
