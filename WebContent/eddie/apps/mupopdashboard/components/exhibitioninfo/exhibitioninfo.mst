@@ -24,6 +24,7 @@
 		<button id="exhibitioninfo_deletehidbutton">delete</button>
 	</div>
 	
+	<!--
 	<div id="exhibitioninfo_languageselectlabel">languageselector</div>
 	<select id="exhibitioninfo_languageselect">
 		{{#languageselect}}
@@ -32,7 +33,9 @@
 		 {{/nodes}}
 		{{/languageselect}}
 	</select>
+	-->
 	
+	<!--
 	<div id="exhibitioninfo_stationselectlabel">stationselector</div>
 	<select id="exhibitioninfo_stationselect">
 		{{#stationselect}}
@@ -41,7 +44,9 @@
 		 {{/nodes}}
 		{{/stationselect}}
 	</select>
+	-->
 	
+	<!--
 	<div id="exhibitioninfo_showurllabel">Show url in stationselect</div>
 	<select id="exhibitioninfo_showurl">
 		{{#urlchange}}
@@ -50,7 +55,9 @@
 		 {{/nodes}}
 		{{/urlchange}}
 	</select>
+	-->
 	
+	<!--
 	<div id="exhibitioninfo_stylelabel">Exhibition style</div>
 	<select id="exhibitioninfo_style">
 		{{#style}}
@@ -59,7 +66,9 @@
 		 {{/nodes}}
 		{{/style}}
 	</select>
+	-->
 	
+	<!--
 	<div id="exhibitioninfo_audiochecklabel">AudioCheck</div>
 	<select id="exhibitioninfo_audiocheck">
 		{{#audiocheck}}
@@ -73,7 +82,9 @@
 	{{#audiochecksample}}
 		<a id="exhibitioninfo_audiouploadpreview" target="_new" href="{{audiochecksample}}">play</a> 
 	{{/audiochecksample}}
+	-->
 	
+	<!--
 	<div id="exhibitioninfo_languagelabel">Exhibition Language</div>
 	<select id="exhibitioninfo_language">
 		{{#language}}
@@ -84,6 +95,7 @@
 	</select>
 	<div id="exhibitioninfo_availablelanguageslabel">Available languages</div>
 	<input id="exhibitioninfo_availablelanguages" size="20" value="{{availablelanguages}}" />
+	-->
 	
 	<div id="exhibitioninfo_deletelabel">Delete this exhibition</div>
 	<button id="exhibitioninfo_delete">delete</button>

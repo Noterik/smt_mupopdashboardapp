@@ -1,0 +1,19 @@
+	<div id="station_setting_stylelabel">Station style</div>
+	<select id="station_setting_style">
+		{{#style}}
+		 {{#nodes}}
+		 	<option value="{{name}}">{{name}}
+		 {{/nodes}}
+		{{/style}}
+	</select>
+	
+	<div id="station_setting_deletelabel">Delete this station</div>
+	<button id="station_setting_delete">delete</button>
+	<select id="station_setting_deleteconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
+	<button id="station_setting_copy">copy to clipboard</button>
+	
+

@@ -1,0 +1,38 @@
+#station_setting_stylelabel {
+	position:absolute;
+	left: 20px;
+	top: 50px;
+}
+
+#station_setting_style {
+	position:absolute;
+	left: 140px;
+	top: 50px;
+}
+
+
+#station_setting_deletelabel {
+	position: absolute;
+	top:90%;
+	left:5%;
+}
+
+
+
+#station_setting_delete {
+	position: absolute;
+	top:90%;
+	left:18%;
+}
+
+#station_setting_deleteconfirm {
+	position: absolute;
+	top:90%;
+	left:25%;
+}
+
+#station_setting_copy {
+	position: absolute;
+	top:90%;
+	right:25%;
+}

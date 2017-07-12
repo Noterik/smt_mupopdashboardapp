@@ -27,6 +27,7 @@ import org.springfield.fs.FsPropertySet;
 import org.springfield.lou.controllers.Html5Controller;
 import org.springfield.lou.controllers.roominfo.RoomInfoController;
 import org.springfield.lou.controllers.station.apps.generic.ContentSelectEditController;
+import org.springfield.lou.controllers.station.apps.generic.SettingScreenEditController;
 import org.springfield.lou.controllers.station.apps.generic.WaitScreenEditController;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
@@ -65,7 +66,9 @@ public class PhotoExploreEditController extends Html5Controller{
 	}
 	
 	private void fillSubPage(String tab) {
-		if (tab.equals("waitscreen")) {
+		if (tab.equals("setting")) {
+			screen.get("#subeditor").append("div","appeditor_subeditor_setting",new SettingScreenEditController());
+		} else if (tab.equals("waitscreen")) {
 			screen.get("#subeditor").append("div","appeditor_subeditor_waitscreen",new WaitScreenEditController());
 		} else if (tab.equals("contentselect")) {
 			screen.get("#subeditor").append("div","appeditor_subeditor_contentselect",new ContentSelectEditController());

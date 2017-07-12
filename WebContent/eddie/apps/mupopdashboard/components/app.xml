@@ -200,6 +200,13 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_subeditor_setting">
+		<template>appeditor_generic/setting/setting.mst</template>
+		<style>appeditor_generic/setting/setting.css</style>
+		<controller id="SettingScreenEditController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_subeditor_waitscreen">
 		<template>appeditor_generic/waitscreen/waitscreen.mst</template>
 		<style>appeditor_generic/waitscreen/waitscreen.css</style>

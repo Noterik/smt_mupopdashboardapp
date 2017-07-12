@@ -1,5 +1,8 @@
 <table id="appeditor_photoinfospotstable">
 	<tr>
+		{{#settingtab}}<th id="setting" class="appmenu">settings</th>{{/settingtab}}
+		{{^settingtab}}<td id="setting" class="appmenu">settings</td>{{/settingtab}}
+	
 		{{#waitscreentab}}<th id="waitscreen" class="appmenu">waitscreen</th>{{/waitscreentab}}
 		{{^waitscreentab}}<td id="waitscreen" class="appmenu">waitscreen</td>{{/waitscreentab}}
 		
