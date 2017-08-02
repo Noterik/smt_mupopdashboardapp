@@ -33,6 +33,7 @@
 		<contentrole>/screen['vars']/contentrole</contentrole>
 		<languagecode>/screen['vars']/languagecode</languagecode>
 		
+		
 		<upload>/screen['upload']/target['@uploadid']</upload>
 	
 	 	<exhibitions>/domain['mupop']/user['@username']/exhibition</exhibitions>
@@ -58,6 +59,7 @@
 		<itemimages>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/image</itemimages>
 		<itemmask>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']/content['@contentrole']/item['@itemid']/mask['@itemmaskid']</itemmask>
 
+		<hidsalive>/shared['hidsalive']</hidsalive>
 		
 	</model>
 	
@@ -127,6 +129,13 @@
 		<template>station/station.mst</template>
 		<style>station/station.css</style>
 		<controller id="StationController">
+		</controller>
+	</view>
+	
+	<view id="#screens">
+		<template>screens/screens.mst</template>
+		<style>screens/screens.css</style>
+		<controller id="ScreensController">
 		</controller>
 	</view>
 	

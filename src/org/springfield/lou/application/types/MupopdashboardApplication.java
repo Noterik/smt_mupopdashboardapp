@@ -34,6 +34,7 @@ import org.springfield.lou.controllers.*;
 import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.dashboard.login.LoginController;
 import org.springfield.lou.homer.LazyHomer;
+import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.*;
 import org.springfield.lou.servlet.LouServlet;
 
@@ -46,12 +47,14 @@ public class MupopdashboardApplication extends Html5Application {
  	public MupopdashboardApplication(String id) {
 		super(id); 
 		this.setSessionRecovery(true);
+
 	}
  	
  	/**
  	 * new screen attached to the application
  	 */
     public void onNewScreen(Screen s) {
+
     		s.setLanguageCode("en"); // set detault langauge to English
 			s.get("#screen").attach(new ScreenController()); // add the main ScreenController (mostly for eddie)
 			s.get("#content").append("div","dashboard",new DashboardController()); // Start our main Controller
@@ -67,6 +70,12 @@ public class MupopdashboardApplication extends Html5Application {
 			scr.getModel().notify("/app['timers']","10");
 		}
 	
+	}
+	
+	public void onAliveMessage(ModelEvent e) {
+		FsNode node = e.getTargetFsNode();
+		String message = node.getProperty("message");
+		System.out.println("WHOOOO ALIVE EVENT IN MANAGER");
 	}
     
 

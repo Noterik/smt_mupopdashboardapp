@@ -1,0 +1,15 @@
+<div id="screens_selector">
+</div>
+<div id="screens_listarea">
+	<table id="screens_screenlist">
+		</tr>
+			{{#nodes}}
+			<tr id="s0_{{id}}" class="selectablerow">
+				<td id="s1_{{id}}">{{id}}</td><td id="s2_{{id}}">{{username}}</td>
+				<td id="s3_{{id}}">{{exhibitionname}}</td><td id="s4_{{id}}">{{stationname}}</td>
+				<td id="s5_{{id}}">{{appname}}</td><td id="s6_{{id}}">{{codeselect}}</td><td width="5%" class="state-{{state}}">{{state}}</td>	
+			</tr>
+			{{/nodes}}
+	</table>
+</div>
+<button id="screens_donebutton">done</button>

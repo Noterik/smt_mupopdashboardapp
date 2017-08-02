@@ -189,7 +189,7 @@ public class StationController extends Html5Controller {
      * temp list might be programmable in the future for example per client
      */
     private JSONObject getAppList(String currentapp) {
-		FSList list =new FSList();
+		FSList list = new FSList();
 		FsNode node = new FsNode("apps","1");
 		node.setProperty("name",currentapp.toLowerCase());
 		node.setProperty("labelname",currentapp);

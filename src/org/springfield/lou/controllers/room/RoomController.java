@@ -37,6 +37,7 @@ import org.springfield.lou.controllers.dashboard.DashboardController;
 import org.springfield.lou.controllers.exhibitioninfo.ExhibitionInfoController;
 import org.springfield.lou.controllers.roominfo.RoomInfoController;
 import org.springfield.lou.controllers.roomselector.RoomSelectorController;
+import org.springfield.lou.controllers.screens.ScreensController;
 import org.springfield.lou.controllers.station.StationController;
 import org.springfield.lou.model.ModelEvent;
 import org.springfield.lou.screen.Screen;
@@ -102,6 +103,14 @@ public class RoomController extends Html5Controller {
 		FsNode node = e.getTargetFsNode();
 		String message = node.getProperty("message");
 		alivestations.put(message,node);
+		/*
+    	FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getProperty("message")); // auto create because of bug !
+    	hidalive.setProperty("lastseen",""+new Date().getTime());
+    	hidalive.setProperty("stationid",node.getProperty("stationid"));
+    	hidalive.setProperty("exhibitionid",node.getProperty("exhibitionid"));
+    	hidalive.setProperty("username",node.getProperty("username"));
+		System.out.println("ALIVE="+hidalive.asXML());
+		*/
 	}
 	
 	/**
@@ -266,6 +275,8 @@ public class RoomController extends Html5Controller {
     
     public void onShowScreensButton(Screen s,JSONObject data) {
     	System.out.println("SHOW SCREENS CALLED");
+    	screen.get(selector).remove();
+		screen.get("#content").append("div","screens",new ScreensController()); 
     }
     
 

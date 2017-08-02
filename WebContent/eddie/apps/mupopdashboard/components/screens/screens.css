@@ -1,0 +1,40 @@
+#screens {
+	position:absolute;
+	padding: 5px;
+  	border: solid 1px silver;
+  	color:#ffffff;
+  	background-color:#336;
+  	font-size:13pt;
+  	top: 10%;
+	left: 10%;
+	right: 10%;
+	height: 80%;
+}
+
+#screens_listarea {
+	width: 100%;
+}
+
+#screens_screenlist {
+	width: 100%;
+}
+
+
+#screens_donebutton {
+	position:absolute;
+	left: 50%;
+	bottom: 0%;
+}
+	
+	
+.state-up {
+  	color: white;
+  	background-color: green;
+}
+
+
+.state-down {
+  	color: white;
+  	background-color: red;
+}
+
