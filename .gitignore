@@ -90,3 +90,9 @@
 *.jar
 
 *.war
+
+src/org/springfield/lou/controllers/station/apps/photoinfospots/PhotoInfoSpotsMainAppController.java
+
+*.jar
+
+*.war

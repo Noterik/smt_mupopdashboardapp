@@ -317,7 +317,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
     		model.setProperty("@itemmask/en_audiourl",ps.getProperty("url"));
     		model.notify("@station","changed"); 
     		fillPage();
-    		
 		}
 	}
 
