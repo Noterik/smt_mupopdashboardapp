@@ -181,6 +181,13 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_slideshow">
+		<template>appeditor_slideshow/appeditor_slideshow.mst</template>
+		<style>appeditor_slideshow/appeditor_slideshow.css</style>
+		<controller id="SlideShowController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_photoinfospots">
 		<template>appeditor_photoinfospots/appeditor_photoinfospots.mst</template>
 		<style>appeditor_photoinfospots/appeditor_photoinfospots.css</style>
@@ -226,6 +233,20 @@
 	<view id="#appeditor_subeditor_mainapp_photoexplore">
 		<template>appeditor_photoexplore/mainapp.mst</template>
 		<style>appeditor_photoexplore/mainapp.css</style>
+		<controller id="PhotoExploreMainAppController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_subeditor_mainapp_slideshow">
+		<template>appeditor_slideshow/mainapp.mst</template>
+		<style>appeditor_slideshow/mainapp.css</style>
+		<controller id="SlideShowMainAppController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_subeditor_mainapp_slideshow">
+		<template>appeditor_slideshow/mainapp.mst</template>
+		<style>appeditor_slide/mainapp.css</style>
 		<controller id="PhotoExploreMainAppController">
 		</controller>
 	</view>

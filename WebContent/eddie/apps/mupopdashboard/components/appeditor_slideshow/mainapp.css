@@ -1,0 +1,92 @@
+#station_mainapp_items {
+	position: absolute;
+	top: 10%;
+	padding: 0%;
+	left: 3%;
+	height: 5%;
+	width:94%;
+}
+
+#station_mainapp_edititem {
+	position: absolute;
+	border: solid 1px silver;
+	top: 18%;
+	left: 3%;
+	width:94%;
+	height:75%;
+}
+
+#station_mainapp_edititem_audiouploadlabel {
+	position: absolute;
+	top: 5%;
+	left: 20px;
+}
+
+#station_mainapp_edititem_audioupload {
+	position: absolute;
+	top: 5%;
+	left: 150px;
+}
+
+#station_mainapp_edititem_audiouploadbutton {
+	position: absolute;
+	top: 5%;
+	left: 350px;
+}
+
+#station_mainapp_edititem_audiouploadpreview {
+	position: absolute;
+	color: white;
+	top: 5%;
+	left: 450px;
+}
+
+
+#station_mainapp_edititem_renderoptionslabel {
+	position: absolute;
+	top: 20%;
+	left: 20px;
+}
+
+#station_mainapp_edititem_renderoptions {
+	position: absolute;
+	top: 20%;
+	left: 200px;
+}
+
+
+
+#station_mainapp_edititem_images {
+	position: absolute;
+	border: solid 1px silver;
+	top: 40%;
+	left: 10%;
+	width:80%;
+}
+
+#station_mainapp_deleteitem {
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
+
+#station_mainapp_deleteitemconfirm {
+	position: absolute;
+	border: solid 1px silver;
+	bottom: 5%;
+	left: 15%;
+}
+
+
+.station_mainapp_edititem_image {
+	position: relative;
+	display:inline-block;
+	border: solid 1px silver;
+	width:100px;
+}
+
+.station_mainapp_itemselected {
+	background-color: #888888;
+}
+
+

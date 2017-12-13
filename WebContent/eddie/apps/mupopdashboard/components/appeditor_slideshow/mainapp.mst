@@ -1,0 +1,60 @@
+	<table id="station_mainapp_items">
+	<tr>
+	{{#items}}
+		 	{{#nodes}}
+		 			<td id="station_mainapp_item{{id}}" class="{{classname}}">
+		 				{{id}}
+		 			</td>
+			{{/nodes}}
+			<td>
+				<input id="station_mainapp_newitemname" value="" />
+		 		<button id="station_mainapp_newitem">new item</button>
+		 	</td>
+	{{/items}}
+	</tr>
+	</table>
+	
+    {{#selecteditem}}
+	<div id="station_mainapp_edititem">
+		<div id="station_mainapp_edititem_audiouploadlabel">voiceover audio</div>
+		<input type="file" id="station_mainapp_edititem_audioupload" size="20" />
+		<button id="station_mainapp_edititem_audiouploadbutton">upload</button>
+		{{#voiceover}}
+			<a id="station_mainapp_edititem_audiouploadpreview" target="_new" href="{{voiceover}}">play</a> 
+		{{/voiceover}}
+		
+		<div id="station_mainapp_edititem_renderoptionslabel">Render Options</div>
+			<select id="station_mainapp_edititem_renderoptions">
+			{{#renderoptions}}
+		 		{{#nodes}}
+		 			<option value="{{name}}">{{name}}
+				{{/nodes}}
+			{{/renderoptions}}
+		</select>
+		
+		<div id="station_mainapp_edititem_images">
+		{{#images}}
+			 	{{#nodes}}
+		 				<div id="station_mainapp_edititem_image{{id}}" class="station_mainapp_edititem_image">
+		 					<image width="100" height="100" src="{{url}}" />
+		 					<button id="{{id}}" class="station_mainapp_edititem_deleteimage">delete</button>
+		 				</div>
+				{{/nodes}}
+				<div id="station_mainapp_edititem_image_imagenew" class="station_mainapp_edititem_image">
+					<input type="file" id="station_mainapp_newitem_imageupload" size="20" />
+			 		<button id="station_mainapp_newitem_imageuploadbutton">upload</button>
+			 	</div>
+		{{/images}}
+	</div>
+
+	<select id="station_mainapp_deleteitemconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
+	</div>
+
+	
+	
+	{{/selecteditem}}
+
