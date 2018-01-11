@@ -36,6 +36,7 @@ import org.springfield.lou.controllers.roominfo.RoomInfoController;
 import org.springfield.lou.controllers.station.apps.interactivevideo.InteractiveVideoEditController;
 import org.springfield.lou.controllers.station.apps.photoexplore.PhotoExploreEditController;
 import org.springfield.lou.controllers.station.apps.photoinfospots.PhotoInfoSpotsEditController;
+import org.springfield.lou.controllers.station.apps.photozoom.PhotoZoomEditController;
 import org.springfield.lou.controllers.station.apps.slideshow.SlideShowEditController;
 import org.springfield.lou.controllers.station.apps.trivia.TriviaEditController;
 import org.springfield.lou.controllers.station.apps.whatwethink.WhatWeThinkEditController;
@@ -87,6 +88,8 @@ public class StationController extends Html5Controller {
     				screen.get("#station_appspace").append("div","appeditor_photoexplore",new PhotoExploreEditController());
     			} else if (currentapp.equals("photoinfospots")) {
     				screen.get("#station_appspace").append("div","appeditor_photoinfospots",new PhotoInfoSpotsEditController());
+    			} else if (currentapp.equals("photozoom")) {
+    				screen.get("#station_appspace").append("div","appeditor_photozoom",new PhotoZoomEditController());
     			} else if (currentapp.equals("interactivevideo")) {
     				screen.get("#station_appspace").append("div","appeditor_interactivevideo",new InteractiveVideoEditController());
     			} else if (currentapp.equals("trivia")) {
@@ -223,6 +226,10 @@ public class StationController extends Html5Controller {
 		node = new FsNode("apps","8");
 		node.setProperty("name","slideshow");
 		node.setProperty("labelname","SlideShow");
+		list.addNode(node);
+		node = new FsNode("apps","9");
+		node.setProperty("name","photozoom");
+		node.setProperty("labelname","PhotoZoom");
 		list.addNode(node);
 		return list.toJSONObject("en","name,labelname");
     }

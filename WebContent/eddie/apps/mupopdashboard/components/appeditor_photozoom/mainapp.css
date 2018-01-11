@@ -1,0 +1,193 @@
+#station_mainapp_items {
+	position: absolute;
+	top: 10%;
+	padding: 0%;
+	left: 3%;
+	height: 5%;
+	width:94%;
+}
+
+#station_mainapp_edititem {
+	position: absolute;
+	border: solid 1px silver;
+	top: 18%;
+	left: 3%;
+	width:94%;
+	height:70%;
+}
+
+#station_mainapp_item_masks {
+	position: absolute;
+	top: 30%;
+	height: 5%;
+	left: 3%;
+	width:94%;
+}
+
+.station_mainapp_maskselected {
+	background-color: #888888;
+}
+
+#station_mainapp_item_editmask {
+	position: absolute;
+	border: solid 1px silver;
+	top: 40%;
+	left: 3%;
+	width:94%;
+	height:45%;
+}
+
+#station_mainapp_item_editscalelabel {
+	position: absolute;
+	top: 5%;
+	left: 80%;
+}
+
+#station_mainapp_item_editscale {
+	position: absolute;
+	top: 5%;
+	left: 85%;
+}
+
+#station_mainapp_item_editoriginlabel {
+	position: absolute;
+	top: 15%;
+	left: 80%;
+}
+
+#station_mainapp_item_editorigin {
+	position: absolute;
+	top: 15%;
+	left: 85%;
+}
+
+#station_mainapp_item_editurllabel {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+}
+
+#station_mainapp_item_editurlupload {
+	position: absolute;
+	top: 5%;
+	left: 20%;
+}
+
+#station_mainapp_item_editurluploadbutton {
+	position: absolute;
+	top: 5%;
+	left: 45%;
+}
+
+
+#station_mainapp_item_editurluploadpreview {
+	position: absolute;
+	border: solid 1px silver;
+	top: 5%;
+	left: 60%;
+	height: 20%;
+}
+
+
+#station_mainapp_item_editaudiourllabel {
+	position: absolute;
+	top: 15%;
+	left: 5%;
+}
+
+#station_mainapp_item_editaudiourlupload {
+	position: absolute;
+	top: 15%;
+	left: 20%;
+}
+
+#station_mainapp_item_editaudiourluploadbutton {
+	position: absolute;
+	top: 15%;
+	left: 45%;
+}
+
+
+#station_mainapp_item_editaudiourluploadpreview {
+	position: absolute;
+	color: white;
+	top: 12%;
+	left: 75%;
+	height: 20%;
+}
+
+
+#station_mainapp_item_editmaskurllabel {
+	position: absolute;
+	top: 10%;
+	left: 5%;
+}
+
+#station_mainapp_item_editmaskurlupload {
+	position: absolute;
+	top: 10%;
+	left: 20%;
+}
+
+#station_mainapp_item_editmaskurluploadbutton {
+	position: absolute;
+	top: 10%;
+	left: 45%;
+}
+
+#station_mainapp_item_editmaskurluploadpreview {
+	position: absolute;
+	border: solid 1px silver;
+	top: 10%;
+	left: 60%;
+	height: 30%;
+}
+
+
+#station_mainapp_item_editmaskaudiolabel {
+	position: absolute;
+	top: 50%;
+	left: 5%;
+}
+
+#station_mainapp_item_editmaskaudioupload {
+	position: absolute;
+	top: 50%;
+	left: 20%;
+}
+
+#station_mainapp_item_editmaskaudiouploadbutton {
+	position: absolute;
+	top: 50%;
+	left: 45%;
+}
+
+#station_mainapp_item_editmaskaudiouploadpreview {
+	position: absolute;
+	top: 50%;
+	left: 65%;
+	color: white;
+}
+
+
+
+
+#station_mainapp_deleteitem {
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
+
+#station_mainapp_deleteitemconfirm {
+	position: absolute;
+	border: solid 1px silver;
+	bottom: 5%;
+	left: 15%;
+}
+
+
+
+.station_mainapp_itemselected {
+	background-color: #888888;
+}
+

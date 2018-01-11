@@ -1,0 +1,62 @@
+#appeditor_photozoomtable {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 5%;
+}
+
+#appeditor_content_url_label {
+	position: absolute;
+	top: 60px;
+	left: 100px;
+}
+
+#appeditor_content_fileupload {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+}
+
+#appeditor_content_uploadbutton {
+	position: absolute;
+	top: 100px;
+	left: 300px;
+}
+
+#appeditor_content_fileupload_feedback {
+	position: absolute;
+	top: 130px;
+	left: 100px;
+}
+
+#appeditor_content_preview {
+	position: absolute;
+	top: 160px;
+	left: 100px;
+	width: 200px;
+	height: 200px;
+}
+
+
+
+#appeditor_stationurl {
+	position: absolute;
+	color: #ffffff;
+	top: 60px;
+	left: 100px;
+}
+
+#appeditor_mobileurl {
+	position: absolute;
+	color: #ffffff;
+	top: 80px;
+	left: 100px;
+}
+
+
+#appeditor_content_url {
+	position: absolute;
+	top: 60px;
+	left: 200px;
+}
