@@ -5,14 +5,15 @@
 		{{/nodes}}
 	</select>
 	
-	<div id="station_contentselect_prefixlabel">Prefix</div>
-	<select id="station_contentselect_prefix">
-		{{#prefix}}
-		 	{{#nodes}}
-		 		<option value="{{name}}">{{name}}
-			{{/nodes}}
-		{{/prefix}}
-	</select>
+	<div id="station_contentselect_edititem_audiouploadlabel">voiceover audio</div>
+	<input type="file" id="station_contentselect_edititem_audioupload" size="20" />
+	<button id="station_contentselect_edititem_audiouploadbutton">upload</button>
+	<div id="station_contentselect_edititem_audiouploadpreview">
+	{{#voiceover}}
+		<a id="station_contentselect_edititem_audiouploadpreview2" target="_new" href="{{voiceover}}">play</a> 
+	{{/voiceover}}
+	</div>
+	
 	
 	
 	<div id="station_contentselect_images">

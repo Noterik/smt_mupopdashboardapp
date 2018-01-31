@@ -39,16 +39,20 @@ public class ContentSelectEditController extends Html5Controller{
 	public void attach(String sel) {
 		selector = sel;
 		fillPage();
+		System.out.println("AUDIO COVERFLOW="+model.getProperty("@content/voiceover"));
 	}
 	
 	
 	private void fillPage() {
 		String currentapp = model.getProperty("@station/contentselect");
-		String prefixdir = model.getProperty("@station/contentselect_content");
-		model.setProperty("@contentrole",prefixdir);
+		model.setProperty("@contentrole","contentselect");
+		model.setProperty("@station/contentselect_content","contentselect"); // kinda of hack
 		JSONObject data = getcontentselectAppList(currentapp);  // read the available aps to json
-		addcontentselectPrefixList(data,prefixdir);
 		addImages(data);
+		String voiceover = model.getProperty("@content/voiceover");
+		if (voiceover!=null && !voiceover.equals("")) {
+			data.put("voiceover",voiceover);
+		}
 
 		screen.get(selector).render(data);
 		screen.get("#station_contentselect_appname").on("change","onAppNameChange", this);
@@ -59,7 +63,12 @@ public class ContentSelectEditController extends Html5Controller{
 		model.onPropertiesUpdate("/screen/upload/station_contentselect_imageupload","onUploadState",this);
 		screen.get(".contentselect_deleteimage").on("mouseup","onDeleteImage", this);
 		screen.get("#contentselect_wantedselect").on("change","onWantedSelect", this);
-		}
+		setUploadAudioSettings("station_contentselect_edititem_audioupload");
+		screen.get("#station_contentselect_edititem_audiouploadbutton").on("mouseup","station_contentselect_edititem_audioupload","onAudioFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_contentselect_edititem_audioupload","onAudioUploadState",this);
+
+		
+	}
 	
 
 	
@@ -96,27 +105,6 @@ public class ContentSelectEditController extends Html5Controller{
 		data.put("images",images);
 	}
 	
-	   private void addcontentselectPrefixList(JSONObject data,String current) {
-		    if (current==null || current.equals("")) {
-		    	current = "contentselect";
-		    }
-			FSList list =new FSList();
-			FsNode node = new FsNode("prefix","1");
-			node.setProperty("name",current.toLowerCase());
-			list.addNode(node);
-			node = new FsNode("prefix","2");
-			node.setProperty("name","waitscreen");
-			list.addNode(node);
-			node = new FsNode("prefix","3");
-			node.setProperty("name","contentselect");
-			list.addNode(node);
-			node = new FsNode("prefix","4");
-			node.setProperty("name","mainapp");
-			list.addNode(node);
-			data.put("prefix",list.toJSONObject("en","name"));
-	    }
-
-
 	
     private JSONObject getcontentselectAppList(String currentapp) {
     	if (currentapp==null) currentapp="none";
@@ -136,7 +124,17 @@ public class ContentSelectEditController extends Html5Controller{
 		return list.toJSONObject("en","name,labelname");
     }
     
-
+	public void onAudioUploadState(ModelEvent e) {
+		System.out.println("UPLOAD DONE");
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		String progress = ps.getProperty("progress");
+		if (progress!=null && progress.equals("100")) {
+			model.setProperty("@content/voiceover",ps.getProperty("url"));
+			fillPage();
+		}
+	
+	}
 
 	public void onUploadState(ModelEvent e) {
 		FsPropertySet ps = (FsPropertySet)e.target;
@@ -170,6 +168,10 @@ public class ContentSelectEditController extends Html5Controller{
 		System.out.println("FILE UPLOAD !!"+data.toJSONString());
 	}
 	
+	public void onAudioFileUpload(Screen s,JSONObject data) {
+		System.out.println("AUDIO FILE UPLOAD !!"+data.toJSONString());
+	}
+	
 	private void setUploadSettings(String upid) {
 		model.setProperty("@uploadid",upid);
 		model.setProperty("@upload/method","s3amazon");		
@@ -181,6 +183,20 @@ public class ContentSelectEditController extends Html5Controller{
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
 		model.setProperty("@upload/fileext","png,jpg,jpeg");
+		model.setProperty("@upload/checkupload","true");
+	}
+	
+	private void setUploadAudioSettings(String upid) {
+		model.setProperty("@uploadid",upid);
+		model.setProperty("@upload/method","s3amazon");		
+		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/bucketname","springfield-storage");
+		model.setProperty("@upload/destpath","mupop/audios/");
+		model.setProperty("@upload/destname_prefix","upload_");
+		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/destname_type","epoch");
+		model.setProperty("@upload/filetype","audio");
+		model.setProperty("@upload/fileext","m4a,mp3");
 		model.setProperty("@upload/checkupload","true");
 	}
 	

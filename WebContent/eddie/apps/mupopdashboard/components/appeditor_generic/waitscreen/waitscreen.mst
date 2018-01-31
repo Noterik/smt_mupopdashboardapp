@@ -5,14 +5,6 @@
 		{{/nodes}}
 	</select>
 	
-	<div id="station_waitscreen_prefixlabel">Prefix</div>
-	<select id="station_waitscreen_prefix">
-		{{#prefix}}
-		 	{{#nodes}}
-		 		<option value="{{name}}">{{name}}
-			{{/nodes}}
-		{{/prefix}}
-	</select>
 	
 	<div id="station_waitscreen_titlelabel">Title</div>
 	<input id="station_waitscreen_title" value="{{title}}" />

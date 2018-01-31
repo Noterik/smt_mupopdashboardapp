@@ -7,6 +7,33 @@
 		{{/style}}
 	</select>
 	
+	<div id="station_setting_waitscreenlogolabel">Waitscreen logo override</div>
+	<input type="file" id="station_setting_waitscreenlogoupload" size="20" />
+	<button id="station_setting_waitscreenlogouploadbutton">upload</button>
+	<div id="station_setting_waitscreenlogouploadpreview">
+	{{#waitscreenlogo}}
+		<img id="waitscreenlogopreview" src="{{waitscreenlogo}}">
+	{{/waitscreenlogo}}
+	</div>
+	
+	<div id="station_setting_applogoleftlabel">App logo (left) override</div>
+	<input type="file" id="station_setting_applogoleftupload" size="20" />
+	<button id="station_setting_applogoleftuploadbutton">upload</button>
+	<div id="station_setting_applogoleftuploadpreview">
+	{{#applogoleft}}
+			<img id="applogoleftpreview" src="{{applogoleft}}">
+	{{/applogoleft}}
+	</div>
+	
+	<div id="station_setting_applogorightlabel">App logo (right) override</div>
+	<input type="file" id="station_setting_applogorightupload" size="20" />
+	<button id="station_setting_applogorightuploadbutton">upload</button>
+	<div id="station_setting_applogorightuploadpreview">
+	{{#applogoright}}
+			<img id="applogorightpreview" src="{{applogoright}}">
+	{{/applogoright}}
+	</div>
+	
 	<div id="station_setting_deletelabel">Delete this station</div>
 	<button id="station_setting_delete">delete</button>
 	<select id="station_setting_deleteconfirm">

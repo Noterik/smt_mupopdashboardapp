@@ -44,22 +44,21 @@ public class WaitScreenEditController extends Html5Controller{
 	
 	private void fillPage() {
 		String currentapp = model.getProperty("@station/waitscreen");
-		String prefixdir = model.getProperty("@station/waitscreen_content");
 		String languagecode = model.getProperty("@languagecode");
 		if (languagecode==null) {
 			languagecode = "en";
 			model.setProperty("@languagecode","en");
 		}
-		model.setProperty("@contentrole",prefixdir);
+		model.setProperty("@contentrole","waitscreen");
+		model.setProperty("@station/waitscreen_content","waitscreen"); // kinda of hack
+		
 		JSONObject data = getWaitScreenAppList(currentapp);  // read the available aps to json
-		addWaitScreenPrefixList(data,prefixdir);
 		addWaitScreenLanguagesList(data,languagecode);
 		addImages(data);
 		data.put("title", model.getProperty("@station/"+languagecode+"_title"));
 
 		screen.get(selector).render(data);
 		screen.get("#station_waitscreen_appname").on("change","onAppNameChange", this);
-		screen.get("#station_waitscreen_prefix").on("change","onPrefixChange", this);
 		screen.get("#station_waitscreen_language").on("change","onLanguageChange", this);
 		screen.get("#station_waitscreen_title").on("change","onTitleChange", this);
 		
@@ -95,6 +94,7 @@ public class WaitScreenEditController extends Html5Controller{
 		}
 	}
 	
+	
 	public void onPrefixChange(Screen s,JSONObject data) {
 		model.setProperty("@station/waitscreen_content",(String)data.get("value"));
 		fillPage();
@@ -113,26 +113,6 @@ public class WaitScreenEditController extends Html5Controller{
 		data.put("images",images);
 	}
 	
-	   private void addWaitScreenPrefixList(JSONObject data,String current) {
-		    if (current==null || current.equals("")) {
-		    	current = "waitscreen";
-		    }
-			FSList list =new FSList();
-			FsNode node = new FsNode("prefix","1");
-			node.setProperty("name",current.toLowerCase());
-			list.addNode(node);
-			node = new FsNode("prefix","2");
-			node.setProperty("name","waitscreen");
-			list.addNode(node);
-			node = new FsNode("prefix","3");
-			node.setProperty("name","contentselect");
-			list.addNode(node);
-			node = new FsNode("prefix","4");
-			node.setProperty("name","mainapp");
-			list.addNode(node);
-			data.put("prefix",list.toJSONObject("en","name"));
-	    }
-	   
 	   private void addWaitScreenLanguagesList(JSONObject data,String currentcode) {
 		    String current="";
 		    if (currentcode==null || currentcode.equals("") || currentcode.equals("en")) {

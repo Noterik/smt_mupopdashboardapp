@@ -46,12 +46,8 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	
 	
 	private void fillPage() {
-
 		JSONObject data = new JSONObject();
 		addItems(data);
-
-		
-		
 		if (selecteditem!=null) {
 			model.setProperty("@contentrole","mainapp");
 			model.setProperty("@itemid",selecteditem);
@@ -207,6 +203,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		String progress = ps.getProperty("progress");
 		if (progress!=null && progress.equals("100")) {
 			model.setProperty("@item/voiceover",ps.getProperty("url"));
+			fillPage();
 		}
 	
 	}

@@ -1,3 +1,33 @@
+#station_contentselect_edititem_audiouploadlabel {
+	position: absolute;
+	top: 20%;
+	left: 50px;
+}
+
+#station_contentselect_edititem_audioupload {
+	position: absolute;
+	top: 20%;
+	left: 180px;
+}
+
+#station_contentselect_edititem_audiouploadbutton {
+	position: absolute;
+	top: 20%;
+	left: 380px;
+}
+
+#station_contentselect_edititem_audiouploadpreview {
+	position: absolute;
+	color: white;
+	top: 20%;
+	left: 480px;
+}
+
+#station_contentselect_edititem_audiouploadpreview2 {
+	color: white;
+}
+
+
 #station_contentselect_appnamelabel {
 	position: absolute;
 	top:10%;

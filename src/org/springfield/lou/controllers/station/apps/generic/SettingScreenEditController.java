@@ -45,12 +45,42 @@ public class SettingScreenEditController extends Html5Controller{
 		JSONObject data = new JSONObject();
 		String currentstyle = model.getProperty("@station/style");	
 		addStyleList(data,currentstyle);
+		
+		String waitscreenlogo = model.getProperty("@content/waitscreenlogo");
+		if (waitscreenlogo!=null && !waitscreenlogo.equals("")) {
+			data.put("waitscreenlogo",waitscreenlogo);
+		}
+		
+		String applogoleft = model.getProperty("@station/content['contentselect']/applogoleft");
+		if (applogoleft!=null && !applogoleft.equals("")) {
+			data.put("applogoleft",applogoleft);
+		}
+		
+		String applogoright = model.getProperty("@station/content['contentselect']/applogoright");
+		if (applogoright!=null && !applogoright.equals("")) {
+			data.put("applogoright",applogoright);
+		}
+		
 		screen.get(selector).render(data);
 		//screen.get("#station_waitscreen_appname").on("change","onAppNameChange", this);
 		screen.get("#station_setting_style").on("change","onStyleChange", this);
 		screen.get("#station_setting_delete").on("mouseup","station_setting_deleteconfirm","onDeleteStation", this);
 		screen.get("#station_setting_copy").on("mouseup","onCopyStation", this);
 
+		setUploadSettings("station_setting_waitscreenlogoupload");
+		screen.get("#station_setting_waitscreenlogouploadbutton").on("mouseup","station_setting_waitscreenlogoupload","onFile1Upload", this);
+		model.onPropertiesUpdate("/screen/upload/station_setting_waitscreenlogoupload","onUpload1State",this);
+
+		setUploadSettings("station_setting_applogoleftupload");
+		screen.get("#station_setting_applogoleftuploadbutton").on("mouseup","station_setting_applogoleftupload","onFile2Upload", this);
+		model.onPropertiesUpdate("/screen/upload/station_setting_applogoleftupload","onUpload2State",this);
+
+		setUploadSettings("station_setting_applogorightupload");
+		screen.get("#station_setting_applogorightuploadbutton").on("mouseup","station_setting_applogorightupload","onFile3Upload", this);
+		model.onPropertiesUpdate("/screen/upload/station_setting_applogorightupload","onUpload3State",this);
+
+		
+		
 	}
 	
 	public void onCopyStation(Screen s,JSONObject data) {
@@ -91,6 +121,66 @@ public class SettingScreenEditController extends Html5Controller{
 		list.addNode(node);
 		data.put("style",list.toJSONObject("en","name"));
     }
+    
+	public void onUpload1State(ModelEvent e) {
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		String progress = ps.getProperty("progress");
+		if (progress!=null && progress.equals("100")) {
+			model.setProperty("@content/waitscreenlogo",ps.getProperty("url"));
+			fillPage();
+		}
+	}
 	
+	public void onUpload2State(ModelEvent e) {
+		System.out.println("UPLOAD2");
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		String progress = ps.getProperty("progress");
+		if (progress!=null && progress.equals("100")) {
+			model.setProperty("@station/content['contentselect']/applogoleft",ps.getProperty("url"));
+			fillPage();
+		}
+	}
+	
+	public void onUpload3State(ModelEvent e) {
+		FsPropertySet ps = (FsPropertySet)e.target;
+		String action = ps.getProperty("action");
+		String progress = ps.getProperty("progress");
+		if (progress!=null && progress.equals("100")) {
+			model.setProperty("@station/content['contentselect']/applogoright",ps.getProperty("url"));
+			fillPage();
+		}
+	}
+	
+	
+    
+	public void onFile1Upload(Screen s,JSONObject data) {
+		System.out.println("FILE UPLOAD 1 !!"+data.toJSONString());
+	}
+	
+	public void onFile2Upload(Screen s,JSONObject data) {
+		System.out.println("FILE UPLOAD 2 !!"+data.toJSONString());
+	}
+	
+	public void onFile3Upload(Screen s,JSONObject data) {
+		System.out.println("FILE UPLOAD 3 !!"+data.toJSONString());
+	}
+	
+	private void setUploadSettings(String upid) {
+		model.setProperty("@uploadid",upid);
+		model.setProperty("@upload/method","s3amazon");		
+		model.setProperty("@upload/storagehost","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/bucketname","springfield-storage");
+		model.setProperty("@upload/destpath","mupop/images/");
+		model.setProperty("@upload/destname_prefix","upload_");
+		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
+		model.setProperty("@upload/destname_type","epoch");
+		model.setProperty("@upload/filetype","image");
+		model.setProperty("@upload/fileext","png,jpg,jpeg,PNG,JPG,JPEG");
+		model.setProperty("@upload/checkupload","true");
+	}
+	
+
 	
 }
