@@ -174,6 +174,13 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_photozoom">
+		<template>appeditor_photozoom/appeditor_photozoom.mst</template>
+		<style>appeditor_photozoom/appeditor_photozoom.css</style>
+		<controller id="PhotoZoomController">
+		</controller>
+	</view>
+	
 	<view id="#appeditor_photoexplore">
 		<template>appeditor_photoexplore/appeditor_photoexplore.mst</template>
 		<style>appeditor_photoexplore/appeditor_photoexplore.css</style>
@@ -192,6 +199,13 @@
 		<template>appeditor_photoinfospots/appeditor_photoinfospots.mst</template>
 		<style>appeditor_photoinfospots/appeditor_photoinfospots.css</style>
 		<controller id="PhotoInfoSpotsController">
+		</controller>
+	</view>
+	
+	<view id="#appeditor_photozoom">
+		<template>appeditor_photozoom/appeditor_photozoom.mst</template>
+		<style>appeditor_photozoom/appeditor_photozoom.css</style>
+		<controller id="PhotoZoomController">
 		</controller>
 	</view>
 	
@@ -258,6 +272,12 @@
 		</controller>
 	</view>
 	
+	<view id="#appeditor_subeditor_mainapp_photozoom">
+		<template>appeditor_photozoom/mainapp.mst</template>
+		<style>appeditor_photozoom/mainapp.css</style>
+		<controller id="PhotoZoomMainAppController">
+		</controller>
+	</view>
 	
 	<view id="#appeditor_subeditor_mainapp_interactivevideo">
 		<template>appeditor_interactivevideo/mainapp.mst</template>
