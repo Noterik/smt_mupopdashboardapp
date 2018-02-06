@@ -83,7 +83,26 @@ public class RoomController extends Html5Controller {
 			List<FsNode> nodes = list.getNodes();
 			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
 				FsNode node = iter.next();
+				System.out.println("NODEID="+node.getId()+" paired with="+node.getProperty("paired"));
+				
 				String hid = node.getProperty("paired");
+				
+				FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getProperty("paired"));
+				if (hidalive!=null) {
+					String pairedid = hidalive.getProperty("stationid");
+					if (!node.getId().equals(pairedid)) {
+						System.out.println("NEED TO UNPAIR THIS");
+						hid="wrongpair";
+						System.out.println("C="+model.getProperty("@exhibition/station['"+node.getId()+"']/paired"));
+						model.setProperty("@exhibition/station['"+node.getId()+"']/paired","* not paired *");
+					} else {
+						//System.out.println("CORRECT PAIRING");	
+					}
+				}
+				
+	
+				
+				
 				if (alivestations.get(hid)!=null) {
 					screen.get("#room_stationdot"+node.getId()).css("background-color","#009900");
 				} else if (hid.indexOf("*")==-1) {
@@ -103,14 +122,6 @@ public class RoomController extends Html5Controller {
 		FsNode node = e.getTargetFsNode();
 		String message = node.getProperty("message");
 		alivestations.put(message,node);
-		/*
-    	FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getProperty("message")); // auto create because of bug !
-    	hidalive.setProperty("lastseen",""+new Date().getTime());
-    	hidalive.setProperty("stationid",node.getProperty("stationid"));
-    	hidalive.setProperty("exhibitionid",node.getProperty("exhibitionid"));
-    	hidalive.setProperty("username",node.getProperty("username"));
-		System.out.println("ALIVE="+hidalive.asXML());
-		*/
 	}
 	
 	/**

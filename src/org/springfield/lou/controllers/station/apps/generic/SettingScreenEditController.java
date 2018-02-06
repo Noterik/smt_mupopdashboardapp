@@ -46,7 +46,7 @@ public class SettingScreenEditController extends Html5Controller{
 		String currentstyle = model.getProperty("@station/style");	
 		addStyleList(data,currentstyle);
 		
-		String waitscreenlogo = model.getProperty("@content/waitscreenlogo");
+		String waitscreenlogo = model.getProperty("@station/content['waitscreen']/waitscreenlogo");
 		if (waitscreenlogo!=null && !waitscreenlogo.equals("")) {
 			data.put("waitscreenlogo",waitscreenlogo);
 		}
@@ -127,7 +127,7 @@ public class SettingScreenEditController extends Html5Controller{
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
 		if (progress!=null && progress.equals("100")) {
-			model.setProperty("@content/waitscreenlogo",ps.getProperty("url"));
+			model.setProperty("@station/content['waitscreen']/waitscreenlogo",ps.getProperty("url"));
 			fillPage();
 		}
 	}
