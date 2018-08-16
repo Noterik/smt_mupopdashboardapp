@@ -1,0 +1,570 @@
+#station_mainapp_videos {
+	position: absolute;
+	border: solid 1px silver;
+	top: 30%;
+	left: 10%;
+	width:80%;
+}
+
+.mainapp_video {
+	position: relative;
+	display:inline-block;
+	border: solid 1px silver;
+}
+
+#station_mainapp_items {
+	position: absolute;
+	top: 10%;
+	left: 3%;
+	width:94%;
+}
+
+#station_mainapp_edititem {
+	position: absolute;
+	border: solid 1px silver;
+	top: 18%;
+	left: 3%;
+	width:94%;
+	height:75%;
+}
+
+#station_mainapp_item_questions {
+	position: absolute;
+	top: 15%;
+	left: 3%;
+	width:94%;
+}
+
+#station_mainapp_item_editquestion {
+	position: absolute;
+	border: solid 1px silver;
+	top: 26%;
+	left: 3%;
+	width:94%;
+	height:57%;
+}
+
+#station_mainapp_slidenext_label {
+	position: absolute;
+	top: 8px;
+	left: 200px;
+}
+
+#station_mainapp_slidenext {
+	position: absolute;
+	top: 8px;
+	left: 250px;
+}
+
+
+#station_mainapp_slideset_label {
+	position: absolute;
+	top: 8px;
+	left: 330px;
+}
+
+#station_mainapp_slideset {
+	position: absolute;
+	top: 8px;
+	left: 375px;
+}
+
+#station_mainapp_random_label {
+	position: absolute;
+	top: 36px;
+	left: 30px;	
+}
+
+#station_mainapp_random {
+	position: absolute;
+	top: 35px;
+	left: 100px;	
+}
+
+#station_mainapp_goto_label {
+	position: absolute;
+	top: 36px;
+	left: 170px;	
+}
+
+#station_mainapp_goto {
+	position: absolute;
+	top: 35px;
+	left: 212px;	
+}
+
+
+#station_mainapp_slidetimeout_label {
+	position: absolute;
+	top: 8px;
+	left: 505px;
+}
+
+#station_mainapp_slidetimeout {
+	position: absolute;
+	top: 8px;
+	left: 570px;
+}
+
+#station_mainapp_slideimageuploadlabel {
+	position: absolute;
+	bottom: 240px;
+	left: 127px;
+}
+
+#station_mainapp_slidevideouploadlabel {
+	position: absolute;
+	bottom: 240px;
+	left: 127px;
+}
+
+#station_mainapp_slideimageupload {
+	position: absolute;
+	bottom: 215px;
+	left: 124px;
+}
+
+
+#station_mainapp_slideimageuploadbutton {
+	position: absolute;
+	bottom: 190px;
+	left: 124px;
+}
+
+#station_mainapp_slidevideouploadpreview {
+	position: absolute;
+	color: white;
+	bottom: 185px;
+	left: 10px;
+	max-width: 100px;
+	max-height: 80px;
+}
+
+#station_mainapp_slidevideoupload {
+	position: absolute;
+	bottom: 215px;
+	left: 124px;
+}
+
+
+#station_mainapp_slidevideouploadbutton {
+	position: absolute;
+	bottom: 190px;
+	left: 124px;
+}
+
+#station_mainapp_slideimageuploadpreview {
+	position: absolute;
+	color: white;
+	bottom: 185px;
+	left: 10px;
+	max-width: 100px;
+	max-height: 80px;
+}
+
+#station_mainapp_slidevideouploadpreview {
+	position: absolute;
+	color: white;
+	bottom: 185px;
+	left: 10px;
+	max-width: 100px;
+	max-height: 80px;
+}
+
+#station_mainapp_itemsettings {
+	position: absolute;
+	top: 5%;
+	left: 40%;
+	width: 55%;
+	height: 75%;
+	border: solid 1px silver;
+}
+
+#station_mainapp_itemsettings_this_label {
+	position: absolute;
+	top: 5%;
+	left: 45%;
+}
+
+#station_mainapp_itemsettings_level_label {
+	position: absolute;
+	top: 15%;
+	left: 5%;
+}
+
+#station_mainapp_itemsettings_level {
+	position: absolute;
+	top: 15%;
+	left: 15%;
+}
+
+#station_mainapp_itemsettings_maxsame_label {
+	position: absolute;
+	top: 15%;
+	left: 35%;
+}
+
+#station_mainapp_itemsettings_maxsame {
+	position: absolute;
+	top: 15%;
+	left: 50%;
+}
+
+#station_mainapp_itemsettings_timeout_label {
+	position: absolute;
+	top: 15%;
+	left: 70%;
+}
+
+#station_mainapp_itemsettings_timeout {
+	position: absolute;
+	top: 15%;
+	left: 85%;
+}
+
+#station_mainapp_itemsettings_set_label {
+	position: absolute;
+	top: 25%;
+	left: 5%;
+}
+
+#station_mainapp_itemsettings_set {
+	position: absolute;
+	top: 25%;
+	left: 15%;
+}
+
+#station_mainapp_itemsettings_next_label {
+	position: absolute;
+	top: 55%;
+	left: 45%;
+}
+
+#station_mainapp_itemsettings_nextlevel_label {
+	position: absolute;
+	top: 65%;
+	left: 5%;
+}
+
+#station_mainapp_itemsettings_nextlevel {
+	position: absolute;
+	top: 65%;
+	left: 15%;
+}
+
+#station_mainapp_itemsettings_nextset_label {
+	position: absolute;
+	top: 75%;
+	left: 5%;
+}
+
+#station_mainapp_itemsettings_nextset {
+	position: absolute;
+	top: 75%;
+	left: 15%;
+}
+
+#station_mainapp_itemsettings_goto_label {
+	position: absolute;
+	top: 65%;
+	left: 45%;
+}
+
+#station_mainapp_itemsettings_goto {
+	position: absolute;
+	top: 65%;
+	left: 62%;
+}
+
+#station_mainapp_itemsettings_copy {
+	position: absolute;
+	top: 90%;
+	left: 75%;
+}
+
+#station_mainapp_itemsettings_paste {
+	position: absolute;
+	top: 90%;
+	left: 85%;
+}
+
+
+#station_mainapp_slides {
+	position: absolute;
+	top: 5%;
+	left: 33%;
+	width: 65%;
+	height: 10%;
+	border: solid 1px silver;
+}
+
+#station_mainapp_slidesettings {
+	position: absolute;
+	top: 15%;
+	left: 33%;
+	width: 65%;
+	height: 80%;
+	border: solid 1px silver;	
+}
+
+.station_mainapp_slide {
+	background-color: #cccccc;
+	float: left;
+	top: 1%;
+	width: 10%;
+	height: 98%;
+	border: solid 1px silver;
+}
+
+.station_mainapp_slide_selected {
+	background-color: #888888;
+	float: left;
+	top: 1%;
+	width: 10%;
+	height: 98%;
+	border: solid 1px silver;
+}
+
+#station_mainapp_item_newslide {
+	background-color: #cccccc;
+	float: left;
+	top: 1%;
+	width: 10%;
+	height: 98%;
+	border: solid 1px silver;	
+}
+
+#station_mainapp_slidetype_label {
+	position: absolute;
+	top: 8px;
+	left: 10px;
+}
+
+#station_mainapp_slidetype {
+	position: absolute;
+	top: 8px;
+	left: 60px;
+}
+
+#station_mainapp_slidequestion_label {
+    position: absolute;
+	bottom: 158px;
+	left: 8px;
+}
+
+#station_mainapp_slidequestion {
+    position: absolute;
+	bottom: 158px;
+	left: 125px;
+}
+
+
+#station_mainapp_slideanswer1_label {
+    position: absolute;
+	bottom: 128px;
+	left: 8px;
+}
+
+#station_mainapp_slideanswer1 {
+    position: absolute;
+	bottom: 128px;
+	left: 125px;
+}
+
+#station_mainapp_slideanswer2_label {
+    position: absolute;
+	bottom: 98px;
+	left: 8px;
+}
+
+#station_mainapp_slideanswer2 {
+    position: absolute;
+	bottom: 98px;
+	left: 125px;
+}
+
+#station_mainapp_slideanswer3_label {
+    position: absolute;
+	bottom: 68px;
+	left: 8px;
+}
+
+#station_mainapp_slideanswer3 {
+    position: absolute;
+	bottom: 68px;
+	left: 125px;
+}
+
+
+#station_mainapp_slideanswer4_label {
+    position: absolute;
+	bottom: 38px;
+	left: 8px;
+}
+
+#station_mainapp_slideanswer4 {
+    position: absolute;
+	bottom: 38px;
+	left: 125px;
+}
+
+#station_mainapp_slidecorrectanswer_label {
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+}
+
+#station_mainapp_slidecorrectanswer{
+	position: absolute;
+	bottom: 8px;
+	left: 125px;
+}
+
+
+
+
+#station_mainapp_audiouploadlabel {
+	position: absolute;
+	top: 5%;
+	left: 53%;
+}
+
+#station_mainapp_audioupload {
+	position: absolute;
+	top: 5%;
+	left: 60%;
+}
+
+#station_mainapp_audiouploadbutton {
+	position: absolute;
+	top: 5%;
+	left: 80%;
+}
+
+#station_mainapp_audiouploadpreview {
+	position: absolute;
+	color: white;
+	top: 5%;
+	left: 90%;
+}
+
+#station_mainapp_item_editquestionstarttimelabel {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+}
+
+#station_mainapp_item_editquestionstarttime {
+	position: absolute;
+	top: 5%;
+	left: 20%;
+}
+
+#station_mainapp_item_editquestiondurationlabel {
+	position: absolute;
+	top: 15%;
+	left: 5%;
+}
+
+#station_mainapp_item_editquestionduration {
+	position: absolute;
+	top: 15%;
+	left: 20%;
+}
+
+#station_mainapp_item_editquestiontitlelabel {
+	position: absolute;
+	top: 25%;
+	left: 5%;
+}
+
+#station_mainapp_item_editquestiontitle {
+	position: absolute;
+	top: 25%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer1label {
+	position: absolute;
+	top: 35%;
+	left: 5%;
+}
+
+#station_mainapp_item_editanswer1 {
+	position: absolute;
+	top: 35%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer2label {
+	position: absolute;
+	top: 45%;
+	left: 5%;
+}
+
+#station_mainapp_item_editanswer2 {
+	position: absolute;
+	top: 45%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer3label {
+	position: absolute;
+	top: 55%;
+	left: 5%;
+}
+
+#station_mainapp_item_editanswer3 {
+	position: absolute;
+	top: 55%;
+	left: 20%;
+}
+
+
+#station_mainapp_item_editanswer4 {
+	position: absolute;
+	top: 65%;
+	left: 20%;
+}
+
+#station_mainapp_item_editanswer4label {
+	position: absolute;
+	top: 65%;
+	left: 5%;
+}
+
+#station_mainapp_item_editcorrectanswer {
+	position: absolute;
+	top: 75%;
+	left: 20%;
+}
+
+#station_mainapp_item_editcorrectanswerlabel {
+	position: absolute;
+	top: 75%;
+	left: 5%;
+}
+
+
+
+
+#station_mainapp_deleteitem {
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
+
+#station_mainapp_deleteitemconfirm {
+	position: absolute;
+	border: solid 1px silver;
+	bottom: 5%;
+	left: 15%;
+}
+
+.station_mainapp_itemselected {
+	background-color: #888888;
+}
+
+.station_mainapp_slideselected {
+	background-color: #888888;
+}

@@ -1,0 +1,322 @@
+	<table id="station_mainapp_items">
+	<tr>
+	{{#items}}
+		 	{{#nodes}}
+		 			<td id="station_mainapp_item{{id}}" class="{{classname}}">
+		 				{{id}}
+		 			</td>
+			{{/nodes}}
+			<td>
+		 		<button id="station_mainapp_newitem">add quiz</button>
+		 	</td>
+	{{/items}}
+	</tr>
+	</table>
+	
+	{{#selecteditem}}
+	<div id="station_mainapp_edititem">
+
+
+	
+	<div id="station_mainapp_slides">
+		{{#slides}}
+		 	{{#nodes}}
+		 		<button id="slide_{{id}}" class="{{classname}}">
+		 		{{id}}
+		 		</button>
+		 	{{/nodes}}
+		{{/slides}}
+		<button id="station_mainapp_item_newslide">add</button>
+	</div>
+	<div id="station_mainapp_slidesettings">
+		{{#image}}
+			<div id="station_mainapp_slidetype_label">type</div>
+			<select id="station_mainapp_slidetype">
+			<option value="image">image
+			<option value="imagequestion">imagequestion
+			<option value="video">video
+			<option value="videoquestion">videoquestion
+			<option value="highscore">highscore
+			</select>
+			
+			<div id="station_mainapp_slideimageuploadlabel">image</div>
+			<input type="file" id="station_mainapp_slideimageupload" size="20" />
+			<button id="station_mainapp_slideimageuploadbutton">upload</button>
+			
+			<div id="station_mainapp_slideset_label">set</div>
+			<select id="station_mainapp_slideset">
+			<option value="{{slideset}}">{{slideset}}
+			<option value="normal">normal
+			<option value="randomstart">randomstart
+			</select>
+			
+			<div id="station_mainapp_slidenext_label">next</div>
+			<select id="station_mainapp_slidenext">
+			<option value="{{slidenext}}">{{slidenext}}
+			{{#nextoptions}}
+			{{#nodes}}
+					<option value="{{value}}">{{value}}
+			{{/nodes}}
+			{{/nextoptions}}
+			</select>
+			
+			<div id="station_mainapp_slidetimeout_label">timeout</div>
+			<select id="station_mainapp_slidetimeout">
+			<option value="{{slidetimeout}}">{{slidetimeout}}
+			<option value="4">4
+			<option value="6">6
+			<option value="8">8
+			<option value="10">10
+			<option value="12">12
+			<option value="14">14
+			<option value="16">16
+			<option value="18">18
+			<option value="20">20
+			<option value="22">22
+			<option value="24">24
+			<option value="26">26
+			<option value="28">28
+			<option value="30">30		
+			</select>
+			
+			{{#slideimageurl}}
+				<img id="station_mainapp_slideimageuploadpreview" src="{{slideimageurl}}">
+			{{/slideimageurl}}
+		{{/image}}
+		{{#imagequestion}}
+			<div id="station_mainapp_slidetype_label">type</div>
+			<select id="station_mainapp_slidetype">
+			<option value="imagequestion">imagequestion
+			<option value="image">image
+			<option value="video">video
+			<option value="videoquestion">videoquestion
+			<option value="highscore">highscore
+			</select>
+			
+			
+			<div id="station_mainapp_slideimageuploadlabel">image</div>
+			<input type="file" id="station_mainapp_slideimageupload" size="20" />
+			<button id="station_mainapp_slideimageuploadbutton">upload</button>
+			
+			<div id="station_mainapp_slidenext_label">next</div>
+			<select id="station_mainapp_slidenext">
+			<option value="{{slidenext}}">{{slidenext}}
+			{{#nextoptions}}
+			{{#nodes}}
+					<option value="{{value}}">{{value}}
+			{{/nodes}}
+			{{/nextoptions}}
+			</select>
+			
+			<div id="station_mainapp_slideset_label">set</div>
+			<select id="station_mainapp_slideset">
+			<option value="{{slideset}}">{{slideset}}
+			<option value="normal">normal
+			<option value="randomstart">randomstart
+			</select>
+			
+			<div id="station_mainapp_slidetimeout_label">timeout</div>
+			<select id="station_mainapp_slidetimeout">
+			<option value="{{slidetimeout}}">{{slidetimeout}}
+			<option value="4">4
+			<option value="6">6
+			<option value="8">8
+			<option value="10">10
+			<option value="12">12
+			<option value="14">14
+			<option value="16">16
+			<option value="18">18
+			<option value="20">20
+			<option value="22">22
+			<option value="24">24
+			<option value="26">26
+			<option value="28">28
+			<option value="30">30		
+			</select>
+			
+			{{#slideimageurl}}
+				<img id="station_mainapp_slideimageuploadpreview" src="{{slideimageurl}}">
+			{{/slideimageurl}}
+			
+			
+			<div id="station_mainapp_slidequestion_label">question</div>
+			<input  id="station_mainapp_slidequestion" value="{{slidequestion}}" size="50" />			
+			<div id="station_mainapp_slideanswer1_label">Answer1</div>
+			<input  id="station_mainapp_slideanswer1" value="{{slideanswer1}}" size="50" />	
+			<div id="station_mainapp_slideanswer2_label">Answer2</div>
+			<input  id="station_mainapp_slideanswer2" value="{{slideanswer2}}" size="50" />
+			<div id="station_mainapp_slideanswer3_label">Answer3</div>
+			<input  id="station_mainapp_slideanswer3" value="{{slideanswer3}}" size="50" />
+			<div id="station_mainapp_slideanswer4_label">Answer4</div>
+			<input  id="station_mainapp_slideanswer4" value="{{slideanswer4}}" size="50" />
+			<div id="station_mainapp_slidecorrectanswer_label">Correct Answer</div>
+			<input  id="station_mainapp_slidecorrectanswer" value="{{slidecorrectanswer}}" size="1" />
+		{{/imagequestion}}
+		{{#video}}
+			<div id="station_mainapp_slidetype_label">type</div>
+			<select id="station_mainapp_slidetype">
+			<option value="video">video
+			<option value="imagequestion">imagequestion
+			<option value="image">image
+			<option value="videoquestion">videoquestion
+			<option value="highscore">highscore
+			</select>
+			
+			<div id="station_mainapp_slidevideouploadlabel">video</div>
+			<input type="file" id="station_mainapp_slidevideoupload" size="20" />
+			<button id="station_mainapp_slidevideouploadbutton">upload</button>
+			
+			<div id="station_mainapp_slidenext_label">next</div>
+			<select id="station_mainapp_slidenext">
+			<option value="{{slidenext}}">{{slidenext}}
+			{{#nextoptions}}
+			{{#nodes}}
+					<option value="{{value}}">{{value}}
+			{{/nodes}}
+			{{/nextoptions}}
+			</select>
+			
+			<div id="station_mainapp_slideset_label">set</div>
+			<select id="station_mainapp_slideset">
+			<option value="{{slideset}}">{{slideset}}
+			<option value="normal">normal
+			<option value="randomstart">randomstart
+			</select>
+			
+			<div id="station_mainapp_slidetimeout_label">timeout</div>
+			<select id="station_mainapp_slidetimeout">
+			<option value="{{slidetimeout}}">{{slidetimeout}}
+			<option value="4">4
+			<option value="6">6
+			<option value="8">8
+			<option value="10">10
+			<option value="12">12
+			<option value="14">14
+			<option value="16">16
+			<option value="18">18
+			<option value="20">20
+			<option value="22">22
+			<option value="24">24
+			<option value="26">26
+			<option value="28">28
+			<option value="30">30		
+			</select>
+			
+			{{#slidevideourl}}
+				<video id="station_mainapp_slidevideouploadpreview" controls autoplay width="160" height="120">
+ 					 <source src="{{slidevideourl}}" type="video/mp4">
+i				</video>
+			{{/slidevideourl}}
+			
+		{{/video}}
+		{{#videoquestion}}
+			<div id="station_mainapp_slidetype_label">type</div>
+			<select id="station_mainapp_slidetype">
+			<option value="videoquestion">videoquestion
+			<option value="video">video
+			<option value="imagequestion">imagequestion
+			<option value="image">image
+			<option value="highscore">highscore
+			</select>
+			
+			<div id="station_mainapp_slidenext_label">next</div>
+			<select id="station_mainapp_slidenext">
+			<option value="{{slidenext}}">{{slidenext}}
+			{{#nextoptions}}
+			{{#nodes}}
+					<option value="{{value}}">{{value}}
+			{{/nodes}}
+			{{/nextoptions}}
+			</select>
+			
+			<div id="station_mainapp_slideset_label">set</div>
+			<select id="station_mainapp_slideset">
+			<option value="{{slideset}}">{{slideset}}
+			<option value="normal">normal
+			<option value="randomstart">randomstart
+			</select>
+			
+			<div id="station_mainapp_slidetimeout_label">timeout</div>
+			<select id="station_mainapp_slidetimeout">
+			<option value="{{slidetimeout}}">{{slidetimeout}}
+			<option value="4">4
+			<option value="6">6
+			<option value="8">8
+			<option value="10">10
+			<option value="12">12
+			<option value="14">14
+			<option value="16">16
+			<option value="18">18
+			<option value="20">20
+			<option value="22">22
+			<option value="24">24
+			<option value="26">26
+			<option value="28">28
+			<option value="30">30		
+			</select>
+			
+			<div id="station_mainapp_slidevideouploadlabel">video</div>
+			<input type="file" id="station_mainapp_slidevideoupload" size="20" />
+			<button id="station_mainapp_slidevideouploadbutton">upload</button>
+			{{#slidevideourl}}
+				<video id="station_mainapp_slidevideouploadpreview" controls autoplay width="160" height="120">
+ 					 <source src="{{slidevideourl}}" type="video/mp4">
+				</video>
+			{{/slidevideourl}}
+			
+			<div id="station_mainapp_slidequestion_label">question</div>
+			<input  id="station_mainapp_slidequestion" value="{{slidequestion}}" size="50" />			
+			<div id="station_mainapp_slideanswer1_label">Answer1</div>
+			<input  id="station_mainapp_slideanswer1" value="{{slideanswer1}}" size="50" />	
+			<div id="station_mainapp_slideanswer2_label">Answer2</div>
+			<input  id="station_mainapp_slideanswer2" value="{{slideanswer2}}" size="50" />
+			<div id="station_mainapp_slideanswer3_label">Answer3</div>
+			<input  id="station_mainapp_slideanswer3" value="{{slideanswer3}}" size="50" />
+			<div id="station_mainapp_slideanswer4_label">Answer4</div>
+			<input  id="station_mainapp_slideanswer4" value="{{slideanswer4}}" size="50" />
+			<div id="station_mainapp_slidecorrectanswer_label">Correct Answer</div>
+			<input  id="station_mainapp_slidecorrectanswer" value="{{slidecorrectanswer}}" size="1" />
+		{{/videoquestion}}
+		{{#highscore}}
+			<div id="station_mainapp_slidetype_label">type</div>
+			<select id="station_mainapp_slidetype">
+			<option value="highscore">highscore
+			<option value="videoquestion">videoquestion
+			<option value="video">video
+			<option value="imagequestion">imagequestion
+			<option value="image">image
+			</select>
+		{{/highscore}}
+		
+	</div>
+	
+	<div id="station_mainapp_random_label">random</div>
+	<select id="station_mainapp_random">
+		<option value="{{random}}">{{random}}
+		<option value="0">0
+		<option value="1">1
+		<option value="2">2
+		<option value="3">3
+		<option value="4">4
+	</select>
+	
+	<div id="station_mainapp_goto_label">goto</div>
+	<select id="station_mainapp_goto">
+		<option value="{{goto}}">{{goto}}
+		<option value="">
+		{{#gotooptions}}
+		{{#nodes}}
+			<option value="{{value}}">{{value}}
+		{{/nodes}}
+		{{/gotooptions}}
+	</select>
+
+	
+	<button id="station_mainapp_deleteitem">delete item</button>
+	<select id="station_mainapp_deleteitemconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
+	</div>
+	{{/selecteditem}}

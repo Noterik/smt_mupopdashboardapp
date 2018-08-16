@@ -121,6 +121,10 @@ public class ContentSelectEditController extends Html5Controller{
 		node.setProperty("name","coverflow");
 		node.setProperty("labelname","coverflow");
 		list.addNode(node);
+		node = new FsNode("apps","4");
+		node.setProperty("name","selectionmap");
+		node.setProperty("labelname","selectionmap");
+		list.addNode(node);
 		return list.toJSONObject("en","name,labelname");
     }
     

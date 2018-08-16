@@ -1,0 +1,34 @@
+	<div id="station_mainapp_item_editquestiontitlelabel">question</div>
+	<input  id="station_mainapp_item_editquestiontitle" value="{{questiontitle}}" size="80" />
+				
+	<div id="station_mainapp_item_editanswer1label">Answer1</div>
+	<input  id="station_mainapp_item_editanswer1" value="{{answer1}}" size="80" />
+				
+	<div id="station_mainapp_item_editanswer2label">Answer2</div>
+	<input  id="station_mainapp_item_editanswer2" value="{{answer2}}" size="80" />
+				
+	<div id="station_mainapp_item_editanswer3label">Answer3</div>
+	<input  id="station_mainapp_item_editanswer3" value="{{answer3}}" size="80" />
+				
+	<div id="station_mainapp_item_editanswer4label">Answer4</div>
+	<input  id="station_mainapp_item_editanswer4" value="{{answer4}}" size="80" />
+				
+	<div id="station_mainapp_item_editcorrectanswerlabel">Correct Answer</div>
+	<input  id="station_mainapp_item_editcorrectanswer" value="{{correctanswer}}" size="1" />
+
+	<select id="station_mainapp_questiontype">
+		<option value="{{questiontype}}">{{questiontype}}
+		<option value="plain">plain
+		<option value="defocus">defocus
+		<option value="rotate">rotate
+	</select>
+
+
+	<button id="station_mainapp_deletequestion">delete item</button>
+	<select id="station_mainapp_deletequestionconfirm">
+		<option value="no">no
+		<option value="yes">yes
+	</select>
+	
+	<button id="station_mainapp_done">done</button>
+	
