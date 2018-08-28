@@ -119,14 +119,24 @@ public class QuizMainAppController extends Html5Controller{
 			data.put("goto", "");	
 		}
 		
+		String egot = model.getProperty("@item/endgoto");
+		if (egot!=null && !egot.equals("")) {
+			data.put("endgoto", egot);
+		} else {
+			model.setProperty("@item/endgoto","");
+			data.put("endgoto", "");	
+		}
+		
 		
 		addItemSlides(data);
 		// now add all the selected Item options
 		
 		if (!model.getNode("@item").getId().equals("one")) { // temp hack
-			addItemSettings(data);
-			addNextOptions(data);
-			addGotoOptions(data);
+			if (selectedslidenode!=null) {
+				addItemSettings(data);
+				addNextOptions(data);
+				addGotoOptions(data);
+			}
 		}
 		
 		screen.get(selector).render(data);
@@ -149,7 +159,8 @@ public class QuizMainAppController extends Html5Controller{
 		screen.get("#station_mainapp_slidetimeout").on("change","onSlideTimeoutChange", this);
 		screen.get("#station_mainapp_slideset").on("change","onSlideSetChange", this);
 		screen.get("#station_mainapp_random").on("change","onRandomChange", this);	
-		screen.get("#station_mainapp_goto").on("change","onGotoChange", this);	
+		screen.get("#station_mainapp_goto").on("change","onGotoChange", this);
+		screen.get("#station_mainapp_endgoto").on("change","onEndGotoChange", this);
 	
 		screen.get(".station_mainapp_item").on("mouseup","onEditItem", this);
 		screen.get(".station_mainapp_itemselected").on("mouseup","onEditItem", this);
@@ -212,6 +223,10 @@ public class QuizMainAppController extends Html5Controller{
 	
 	public void onGotoChange(Screen s,JSONObject data) {
 		model.setProperty("@item/goto",(String)data.get("value"));
+	}
+	
+	public void onEndGotoChange(Screen s,JSONObject data) {
+		model.setProperty("@item/endgoto",(String)data.get("value"));
 	}
 	
 	public void onRandomChange(Screen s,JSONObject data) {
@@ -297,7 +312,7 @@ public class QuizMainAppController extends Html5Controller{
 		FSList itemsList = model.getList("@item/slide");
 		FSList resultitems = new FSList();
 		List<FsNode> nodes = itemsList.getNodes();
-		System.out.println(nodes);
+		System.out.println("SELECTEDNODE="+selectedslidenode);
 		if (selectedslidenode.getProperty("next")==null || !selectedslidenode.getProperty("next").equals("next")) {
 			FsNode resultnode = new FsNode("value","next");
 			resultnode.setProperty("value","next");
@@ -445,6 +460,13 @@ public class QuizMainAppController extends Html5Controller{
 				if (answer4==null) { data.put("slidecorrectanswer","");} else {data.put("slidecorrectanswer",correctanswer);}
 				if (videourl==null) { data.put("slidevideourl","");} else {data.put("slidevideourl",videourl);}	
 				if (next==null) { data.put("slidenext","");} else {data.put("slidenext",next);}	
+				if (timeout==null) { data.put("slidetimeout","");} else {data.put("slidetimeout",timeout);}
+			} else if (type.equals("highscore")) {
+				String next = selectedslidenode.getProperty("next");
+				String timeout = selectedslidenode.getProperty("timeout");
+				String set = selectedslidenode.getProperty("set");
+				if (set==null) { data.put("slideset","normal");} else {data.put("slideset",set);}
+				if (next==null) { data.put("slidenext","");} else {data.put("slidenext",next);}
 				if (timeout==null) { data.put("slidetimeout","");} else {data.put("slidetimeout",timeout);}
 			}
 		}

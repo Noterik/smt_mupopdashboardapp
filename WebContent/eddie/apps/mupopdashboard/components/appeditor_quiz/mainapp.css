@@ -90,7 +90,19 @@
 #station_mainapp_goto {
 	position: absolute;
 	top: 35px;
-	left: 212px;	
+	left: 246px;	
+}
+
+#station_mainapp_endgoto_label {
+	position: absolute;
+	top: 70px;
+	left: 20px;	
+}
+
+#station_mainapp_endgoto {
+	position: absolute;
+	top: 70px;
+	left: 100px;	
 }
 
 

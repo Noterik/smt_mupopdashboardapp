@@ -286,6 +286,42 @@ i				</video>
 			<option value="imagequestion">imagequestion
 			<option value="image">image
 			</select>
+			
+			<div id="station_mainapp_slidenext_label">next</div>
+			<select id="station_mainapp_slidenext">
+			<option value="{{slidenext}}">{{slidenext}}
+			{{#nextoptions}}
+			{{#nodes}}
+					<option value="{{value}}">{{value}}
+			{{/nodes}}
+			{{/nextoptions}}
+			</select>
+			
+			<div id="station_mainapp_slideset_label">set</div>
+			<select id="station_mainapp_slideset">
+			<option value="{{slideset}}">{{slideset}}
+			<option value="normal">normal
+			<option value="randomstart">randomstart
+			</select>
+			
+			<div id="station_mainapp_slidetimeout_label">timeout</div>
+			<select id="station_mainapp_slidetimeout">
+			<option value="{{slidetimeout}}">{{slidetimeout}}
+			<option value="4">4
+			<option value="6">6
+			<option value="8">8
+			<option value="10">10
+			<option value="12">12
+			<option value="14">14
+			<option value="16">16
+			<option value="18">18
+			<option value="20">20
+			<option value="22">22
+			<option value="24">24
+			<option value="26">26
+			<option value="28">28
+			<option value="30">30		
+			</select>
 		{{/highscore}}
 		
 	</div>
@@ -300,9 +336,20 @@ i				</video>
 		<option value="4">4
 	</select>
 	
-	<div id="station_mainapp_goto_label">goto</div>
+	<div id="station_mainapp_goto_label">start goto</div>
 	<select id="station_mainapp_goto">
 		<option value="{{goto}}">{{goto}}
+		<option value="">
+		{{#gotooptions}}
+		{{#nodes}}
+			<option value="{{value}}">{{value}}
+		{{/nodes}}
+		{{/gotooptions}}
+	</select>
+	
+	<div id="station_mainapp_endgoto_label">end goto</div>
+	<select id="station_mainapp_endgoto">
+		<option value="{{endgoto}}">{{endgoto}}
 		<option value="">
 		{{#gotooptions}}
 		{{#nodes}}
