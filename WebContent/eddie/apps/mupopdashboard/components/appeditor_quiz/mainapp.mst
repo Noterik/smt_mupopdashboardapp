@@ -61,23 +61,18 @@
 			</select>
 			
 			<div id="station_mainapp_slidetimeout_label">timeout</div>
-			<select id="station_mainapp_slidetimeout">
-			<option value="{{slidetimeout}}">{{slidetimeout}}
-			<option value="4">4
-			<option value="6">6
-			<option value="8">8
-			<option value="10">10
-			<option value="12">12
-			<option value="14">14
-			<option value="16">16
-			<option value="18">18
-			<option value="20">20
-			<option value="22">22
-			<option value="24">24
-			<option value="26">26
-			<option value="28">28
-			<option value="30">30		
-			</select>
+			<input type="number" min="0" max="86400" list="defaultTimeouts" id="station_mainapp_slidetimeout" value="{{slidetimeout}}">
+			
+			<datalist id="defaultTimeouts">
+				<option value="5">
+				<option value="10">
+				<option value="15">
+				<option value="20">
+				<option value="25">
+				<option value="30">
+				<option value="45">
+				<option value="60">
+			</datalist>
 			
 			{{#slideimageurl}}
 				<img id="station_mainapp_slideimageuploadpreview" src="{{slideimageurl}}">
@@ -116,23 +111,18 @@
 			</select>
 			
 			<div id="station_mainapp_slidetimeout_label">timeout</div>
-			<select id="station_mainapp_slidetimeout">
-			<option value="{{slidetimeout}}">{{slidetimeout}}
-			<option value="4">4
-			<option value="6">6
-			<option value="8">8
-			<option value="10">10
-			<option value="12">12
-			<option value="14">14
-			<option value="16">16
-			<option value="18">18
-			<option value="20">20
-			<option value="22">22
-			<option value="24">24
-			<option value="26">26
-			<option value="28">28
-			<option value="30">30		
-			</select>
+			<input type="number" min="0" max="86400" list="defaultTimeouts" id="station_mainapp_slidetimeout" value="{{slidetimeout}}">
+			
+			<datalist id="defaultTimeouts">
+				<option value="5">
+				<option value="10">
+				<option value="15">
+				<option value="20">
+				<option value="25">
+				<option value="30">
+				<option value="45">
+				<option value="60">
+			</datalist>
 			
 			{{#slideimageurl}}
 				<img id="station_mainapp_slideimageuploadpreview" src="{{slideimageurl}}">
@@ -184,23 +174,18 @@
 			</select>
 			
 			<div id="station_mainapp_slidetimeout_label">timeout</div>
-			<select id="station_mainapp_slidetimeout">
-			<option value="{{slidetimeout}}">{{slidetimeout}}
-			<option value="4">4
-			<option value="6">6
-			<option value="8">8
-			<option value="10">10
-			<option value="12">12
-			<option value="14">14
-			<option value="16">16
-			<option value="18">18
-			<option value="20">20
-			<option value="22">22
-			<option value="24">24
-			<option value="26">26
-			<option value="28">28
-			<option value="30">30		
-			</select>
+			<input type="number" min="0" max="86400" list="defaultTimeouts" id="station_mainapp_slidetimeout" value="{{slidetimeout}}">
+			
+			<datalist id="defaultTimeouts">
+				<option value="5">
+				<option value="10">
+				<option value="15">
+				<option value="20">
+				<option value="25">
+				<option value="30">
+				<option value="45">
+				<option value="60">
+			</datalist>
 			
 			{{#slidevideourl}}
 				<video id="station_mainapp_slidevideouploadpreview" controls autoplay width="160" height="120">
@@ -237,23 +222,18 @@ i				</video>
 			</select>
 			
 			<div id="station_mainapp_slidetimeout_label">timeout</div>
-			<select id="station_mainapp_slidetimeout">
-			<option value="{{slidetimeout}}">{{slidetimeout}}
-			<option value="4">4
-			<option value="6">6
-			<option value="8">8
-			<option value="10">10
-			<option value="12">12
-			<option value="14">14
-			<option value="16">16
-			<option value="18">18
-			<option value="20">20
-			<option value="22">22
-			<option value="24">24
-			<option value="26">26
-			<option value="28">28
-			<option value="30">30		
-			</select>
+			<input type="number" min="0" max="86400" list="defaultTimeouts" id="station_mainapp_slidetimeout" value="{{slidetimeout}}">
+			
+			<datalist id="defaultTimeouts">
+				<option value="5">
+				<option value="10">
+				<option value="15">
+				<option value="20">
+				<option value="25">
+				<option value="30">
+				<option value="45">
+				<option value="60">
+			</datalist>
 			
 			<div id="station_mainapp_slidevideouploadlabel">video</div>
 			<input type="file" id="station_mainapp_slidevideoupload" size="20" />
@@ -305,23 +285,18 @@ i				</video>
 			</select>
 			
 			<div id="station_mainapp_slidetimeout_label">timeout</div>
-			<select id="station_mainapp_slidetimeout">
-			<option value="{{slidetimeout}}">{{slidetimeout}}
-			<option value="4">4
-			<option value="6">6
-			<option value="8">8
-			<option value="10">10
-			<option value="12">12
-			<option value="14">14
-			<option value="16">16
-			<option value="18">18
-			<option value="20">20
-			<option value="22">22
-			<option value="24">24
-			<option value="26">26
-			<option value="28">28
-			<option value="30">30		
-			</select>
+			<input type="number" min="0" max="86400" list="defaultTimeouts" id="station_mainapp_slidetimeout" value="{{slidetimeout}}">
+			
+			<datalist id="defaultTimeouts">
+				<option value="5">
+				<option value="10">
+				<option value="15">
+				<option value="20">
+				<option value="25">
+				<option value="30">
+				<option value="45">
+				<option value="60">
+			</datalist>
 		{{/highscore}}
 		
 	</div>
