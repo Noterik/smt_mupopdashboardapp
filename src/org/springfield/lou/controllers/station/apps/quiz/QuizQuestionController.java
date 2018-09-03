@@ -53,6 +53,7 @@ public class QuizQuestionController extends Html5Controller {
 		if (qtype==null || qtype.equals("")) {
 			model.setProperty("@itemquestion/type","plain");
 		}
+		
 		data.put("questiontype",qtype);
 		data.put("questiontitle", model.getProperty("@itemquestion/question"));
 		data.put("answer1", model.getProperty("@itemquestion/answer1"));
@@ -75,7 +76,6 @@ public class QuizQuestionController extends Html5Controller {
 	
 	public void onQuestionType(Screen s,JSONObject data) {
 		String value = (String)data.get("value");
-		System.out.println("VALUE="+value);
 		model.setProperty("@itemquestion/type",value);
 	}
 	
