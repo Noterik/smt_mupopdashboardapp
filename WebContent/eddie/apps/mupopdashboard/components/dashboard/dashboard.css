@@ -70,6 +70,7 @@ td.on { background: #bbb;}
 	position: absolute;
 	width: 100%;
 	height: 100%;
+	overflow: scroll;
 }
 
 #dashboard_exhbitionlist {
