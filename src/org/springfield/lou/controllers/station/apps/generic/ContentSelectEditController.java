@@ -21,6 +21,7 @@ package org.springfield.lou.controllers.station.apps.generic;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.springfield.fs.FSList;
@@ -32,6 +33,8 @@ import org.springfield.lou.screen.Screen;
 
 public class ContentSelectEditController extends Html5Controller{
 	
+	private boolean uploaddone = false;
+	
 	public ContentSelectEditController() {
 		
 	}
@@ -39,7 +42,6 @@ public class ContentSelectEditController extends Html5Controller{
 	public void attach(String sel) {
 		selector = sel;
 		fillPage();
-		System.out.println("AUDIO COVERFLOW="+model.getProperty("@content/voiceover"));
 	}
 	
 	
@@ -58,18 +60,35 @@ public class ContentSelectEditController extends Html5Controller{
 		screen.get("#station_contentselect_appname").on("change","onAppNameChange", this);
 		screen.get("#station_contentselect_prefix").on("change","onPrefixChange", this);
 		
-		setUploadSettings("station_contentselect_imageupload");
-		screen.get("#station_contentselect_imageuploadbutton").on("mouseup","station_contentselect_imageupload","onFileUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_contentselect_imageupload","onUploadState",this);
-		screen.get(".contentselect_deleteimage").on("mouseup","onDeleteImage", this);
+		
+		
+		
+		setUploadSettings("station_contentselect_image_upload");
+		screen.get("#station_contentselect_image_submithidden").on("mouseup","station_contentselect_image_upload","onFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_contentselect_image_upload","onUploadState",this);
+
+		
+		screen.get(".station_contentselect_deleteimage").on("mouseup","onDeleteImage", this);
 		screen.get("#contentselect_wantedselect").on("change","onWantedSelect", this);
-		setUploadAudioSettings("station_contentselect_edititem_audioupload");
-		screen.get("#station_contentselect_edititem_audiouploadbutton").on("mouseup","station_contentselect_edititem_audioupload","onAudioFileUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_contentselect_edititem_audioupload","onAudioUploadState",this);
+
+		setUploadAudioSettings("station_contentselect_audio_upload");
+		screen.get("#station_contentselect_audio_submithidden").on("mouseup","station_contentselect_audio_upload","onAudioFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_contentselect_audio_upload","onAudioUploadState",this);
+
+		screen.get("#station_contentselect_audio_deletebutton").on("mouseup","onDeleteAudio", this);
+		
+		//setUploadAudioSettings("station_contentselect_edititem_audioupload");
+		//screen.get("#station_contentselect_edititem_audiouploadbutton").on("mouseup","station_contentselect_edititem_audioupload","onAudioFileUpload", this);
+		//model.onPropertiesUpdate("/screen/upload/station_contentselect_edititem_audioupload","onAudioUploadState",this);
 
 		
 	}
 	
+	public void onDeleteAudio(Screen s,JSONObject data) {
+		System.out.println("DELETE VOICE OVER");
+		model.setProperty("@content/voiceover","");
+		fillPage();
+	}
 
 	
 	public void onDeleteImage(Screen s,JSONObject data) {
@@ -130,6 +149,8 @@ public class ContentSelectEditController extends Html5Controller{
     
 	public void onAudioUploadState(ModelEvent e) {
 		System.out.println("UPLOAD DONE");
+		//if (1==1) return;
+		
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
@@ -144,32 +165,41 @@ public class ContentSelectEditController extends Html5Controller{
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
-		if (progress!=null && progress.equals("100")) {
-			//screen.get("#appeditor_content_preview").html("<image width=\"100%\" height=\"100%\" src=\""+ps.getProperty("url")+"\" />");
-			//System.out.println("UPLOAD DONE SHOULD CREATE NODE !");
-    		FsNode imagenode = new FsNode("image",""+new Date().getTime());
-    		imagenode.setProperty("url",ps.getProperty("url"));
+		System.out.println("ACTION="+action);
+		System.out.println("PROGRESS="+progress);
+
+		
+		if (progress!=null) {
+			screen.get("#station_contentselect_image_progress").css("width",progress+"%");
+			screen.get("#station_contentselect_image_progress").html("&nbsp"+progress+"%");
+			if (progress!=null && progress.equals("100") && !uploaddone) {
+				uploaddone=true;
+				FsNode imagenode = new FsNode("image",""+new Date().getTime());
+				imagenode.setProperty("url",ps.getProperty("url"));
+				imagenode.setProperty("wantedselect",getAutoName());
     		
-    		// check if we already have a contentrole if not set it to contentselect
-    		String contentrole = model.getProperty("@contentrole");
-    		if (contentrole==null || contentrole.equals("")) {
-    			model.setProperty("@station/contentselect_content","contentselect");
-    			model.setProperty("@contentrole","contentselect");
+				// check if we already have a contentrole if not set it to contentselect
+				String contentrole = model.getProperty("@contentrole");
+				if (contentrole==null || contentrole.equals("")) {
+					model.setProperty("@station/contentselect_content","contentselect");
+					model.setProperty("@contentrole","contentselect");
+				}
+				boolean result = model.putNode("@content",imagenode);
+				if (!result) {
+					System.out.println("COUNT NOT INSERT IMAGE");
+				} else {
+					model.notify("@station","changed"); 
+					fillPage();
     		}
-    		boolean result = model.putNode("@content",imagenode);
-    		if (!result) {
-    			System.out.println("COUNT NOT INSERT IMAGE");
-    		} else {
-    			model.notify("@station","changed"); 
-    			fillPage();
-    		}
-    		
+    		fillPage();
+			}
 		}
 	
 	}
 
 	public void onFileUpload(Screen s,JSONObject data) {
 		System.out.println("FILE UPLOAD !!"+data.toJSONString());
+		uploaddone = false;
 	}
 	
 	public void onAudioFileUpload(Screen s,JSONObject data) {
@@ -186,7 +216,7 @@ public class ContentSelectEditController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
-		model.setProperty("@upload/fileext","png,jpg,jpeg");
+		model.setProperty("@upload/fileext","png,jpg,jpeg,gif,JPG,PNG,GIF,JPEG");
 		model.setProperty("@upload/checkupload","true");
 	}
 	
@@ -200,8 +230,53 @@ public class ContentSelectEditController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","audio");
-		model.setProperty("@upload/fileext","m4a,mp3");
+		model.setProperty("@upload/fileext","m4a,mp3,M4A,MP3");
 		model.setProperty("@upload/checkupload","true");
+	}
+	
+	private String getAutoName() {
+		FSList list = model.getList("@content/image");
+		int curi = 0;
+		if (list!=null) {
+			List<FsNode> nodes = list.getNodes();
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				String nw = node.getProperty("wantedselect");
+				System.out.println("NODE="+nw);
+				if (nw!=null) {
+					int nwi = wordToNumber(nw);
+					if (nwi>curi) curi = nwi;
+				}
+			}
+		}
+		return numberToWord(curi+1);
+	}
+	
+	private String numberToWord(int nmber) {
+		if (nmber==1) return "one";
+		if (nmber==2) return "two";
+		if (nmber==3) return "three";
+		if (nmber==4) return "four";
+		if (nmber==5) return "five";
+		if (nmber==6) return "fix";
+		if (nmber==7) return "seven";
+		if (nmber==8) return "eight";
+		if (nmber==9) return "nine";
+		if (nmber==10) return "ten";
+		return "unknown";
+	}
+	
+	private int wordToNumber(String word) {
+		if (word.equals("one")) return 1;
+		if (word.equals("two")) return 2;
+		if (word.equals("three")) return 3;
+		if (word.equals("four")) return 4;
+		if (word.equals("five")) return 5;
+		if (word.equals("six")) return 6;
+		if (word.equals("seven")) return 7;
+		if (word.equals("eight")) return 8;
+		if (word.equals("nine")) return 9;
+		return -1;
 	}
 	
 }

@@ -94,42 +94,40 @@ public class ScreensController extends Html5Controller {
 					newnode.setProperty("username","noterik"); // this doesn't make me happy
 				}
 			}
+			
+	    	FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getId()); // auto create if not there !
+	       	try {
+		    		long lastseen = Long.parseLong(hidalive.getProperty("lastseen"));
+		    		if ((nowdate-lastseen)<20*1000) {
+		    			newnode.setProperty("state", "up");
+		    			newnode.setProperty("state-color", "green");
+		    		} else {
+		    			newnode.setProperty("state", "down");
+		    			newnode.setProperty("state-color", "red");	
+		    		}
+		    } catch(Exception e) {
+		    	//e.printStackTrace();
+    			newnode.setProperty("state", "down");
+    			newnode.setProperty("state-color", "red");	
+		    }
+
+			
+			
 			if (stationid!=null && !stationid.equals("")) {
 				FsNode enode = model.getNode("/domain['mupop']/user['"+username+"']/exhibition['"+exhibtionid+"']");
-				//System.out.println("ENODE="+enode);
 				if (enode!=null) {
-					//System.out.println("ENODE2="+enode.asXML());
 					String exname  = enode.getProperty("name")+"-"+enode.getProperty("location")+"-"+enode.getProperty("timeframe");
 					newnode.setProperty("exhibitionname",exname);
 					FsNode snode = model.getNode("/domain['mupop']/user['"+username+"']/exhibition['"+exhibtionid+"']/station['"+stationid+"']");
-					//System.out.println("SNODE="+snode);
 					if (snode!=null) {
-		    			newnode.setProperty("state", "down");
-		    			newnode.setProperty("state-color", "red");
 						String stname =  snode.getProperty("labelid")+"-"+snode.getProperty("name");
-						//System.out.println("ENODE3="+snode.asXML());	
 						newnode.setProperty("stationname",stname);
 						newnode.setProperty("appname",snode.getProperty("app"));
 						String codeselect = snode.getProperty("codeselect");
 						if (codeselect!=null && !codeselect.equals("")) {
 							newnode.setProperty("codeselect",codeselect);
 						}
-				    	FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getId()); // auto create if not there !
-
-				    	if (hidalive.getProperty("stationid")!=null && !hidalive.getProperty("stationid").equals("")) {
-					    	System.out.println("ALIVE NODE!="+hidalive.getProperty("stationid"));
-					    	try {
-					    		long lastseen = Long.parseLong(hidalive.getProperty("lastseen"));
-					    		if ((nowdate-lastseen)<10*1000) {
-					    			newnode.setProperty("state", "up");
-					    			newnode.setProperty("state-color", "green");
-					    		}
-					    	} catch(Exception e) {
-					    		e.printStackTrace();
-					    	}
-				    	}
-					}
-			    	
+					}	
 				}
 			}
 			results.addNode(newnode);

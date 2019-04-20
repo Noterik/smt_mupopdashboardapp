@@ -49,7 +49,7 @@ public class RoomController extends Html5Controller {
 	String newstationpath;
 	FsNode roomnode; 
 	FsNode exhibitionnode; 
-	Map<String,FsNode> alivestations = new HashMap<String, FsNode>();
+	static Map<String,FsNode> alivestations = new HashMap<String, FsNode>();
 	
 	
 	/**
@@ -76,6 +76,7 @@ public class RoomController extends Html5Controller {
 	
 	
 	public void onStationsCheck(ModelEvent e) {
+		long now = new Date().getTime();
 		try {
 		if (exhibitionnode==null || !exhibitionnode.getProperty("state").equals("on")) return;
 		FSList list = model.getList("@stations");
@@ -87,24 +88,36 @@ public class RoomController extends Html5Controller {
 				
 				String hid = node.getProperty("paired");
 				
+				/* not sure what i was thinking here !!!!
 				FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getProperty("paired"));
 				if (hidalive!=null) {
 					String pairedid = hidalive.getProperty("stationid");
+					System.out.println("N1="+node.getId()+" N2="+hidalive.asXML());
 					if (!node.getId().equals(pairedid)) {
-						//System.out.println("NEED TO UNPAIR THIS");
+						System.out.println("NEED TO UNPAIR THIS");
 						hid="wrongpair";
-						//System.out.println("C="+model.getProperty("@exhibition/station['"+node.getId()+"']/paired"));
+						System.out.println("C="+model.getProperty("@exhibition/station['"+node.getId()+"']/paired"));
 						model.setProperty("@exhibition/station['"+node.getId()+"']/paired","* not paired *");
 					} else {
-						//System.out.println("CORRECT PAIRING");	
+						System.out.println("CORRECT PAIRING");	
 					}
 				}
+				*/
 				
 	
 				
-				
-				if (alivestations.get(hid)!=null) {
-					screen.get("#room_stationdot"+node.getId()).css("background-color","#009900");
+				FsNode anode = alivestations.get(hid);
+				if (anode!=null) {
+					try {
+						long lastseen = Long.parseLong(anode.getProperty("lastseen"));
+						if ((now-lastseen)<20000) {
+							screen.get("#room_stationdot"+node.getId()).css("background-color","#009900");
+						} else {
+							screen.get("#room_stationdot"+node.getId()).css("background-color","#990000");
+						}
+					} catch(Exception e3) {
+						screen.get("#room_stationdot"+node.getId()).css("background-color","#990000");
+					}
 				} else if (hid.indexOf("*")==-1) {
 					screen.get("#room_stationdot"+node.getId()).css("background-color","#990000");	
 				} else {
@@ -112,7 +125,6 @@ public class RoomController extends Html5Controller {
 				}
 			}
 		}
-		alivestations = new HashMap<String, FsNode>();
 		} catch(Exception er) {
 			er.printStackTrace();
 		}
@@ -121,6 +133,7 @@ public class RoomController extends Html5Controller {
 	public void onAliveMessage(ModelEvent e) {
 		FsNode node = e.getTargetFsNode();
 		String message = node.getProperty("message");
+		System.out.println("ALIVE MSG="+message);
 		alivestations.put(message,node);
 	}
 	
@@ -158,6 +171,12 @@ public class RoomController extends Html5Controller {
 			String exhibition_on = exhibitionnode.getProperty("state");
 			
 			if (exhibition_on!=null && exhibition_on.equals("on")) data.put("exhibition_on","true");
+			String ec  = model.getProperty("@exhibitionusagecount");
+			if (ec!=null) {
+				data.put("exhibitionusagecount",ec);
+			} else {
+				data.put("exhibitionusagecount","0");
+			}
 			data.put("exhibition",exhibitionnode.getProperty("name")); // ifso set name in json
 			data.put("location",exhibitionnode.getProperty("location")); // ifso set location in json
 			data.put("timeframe",exhibitionnode.getProperty("timeframe")); // ifso set timeframe in json
@@ -197,8 +216,12 @@ public class RoomController extends Html5Controller {
 		FSList stations = model.getList("@stations"); // get stations from domain space
 		if (stations!=null && stations.size()>0) {
 			List<FsNode> nodes = stations.getNodesFiltered("room",roomid); // filter out the ones based on room property
-
-			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,labelid,name,x,y,room,url,paired"); // convert it to json format
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				System.out.println("STNODE="+node.asXML());
+			}
+			
+			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,stationusagecount,labelid,name,x,y,room,url,paired"); // convert it to json format
 		} else {
 			return new JSONObject(); // return empty json object if no stations found
 		}	

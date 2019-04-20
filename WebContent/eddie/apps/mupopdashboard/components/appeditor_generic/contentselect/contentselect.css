@@ -4,11 +4,39 @@
 	left: 50px;
 }
 
-#station_contentselect_edititem_audioupload {
+
+
+#station_contentselect_audio_uploadbutton {
 	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
 	top: 20%;
+	width: 80px;
+	height: 20px;
 	left: 180px;
+	text-align:center;
 }
+
+#station_contentselect_audio_uploadbutton:hover {
+	background-color: #666666;
+	color: #333333;
+}
+
+#station_contentselect_audio_deletebutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	top: 20%;
+	width: 80px;
+	height: 20px;
+	left: 280px;
+	text-align:center;
+}
+
+#station_contentselect_audio_deletebutton:hover {
+	background-color: #666666;
+	color: #333333;
+}	
 
 #station_contentselect_edititem_audiouploadbutton {
 	position: absolute;
@@ -19,8 +47,15 @@
 #station_contentselect_edititem_audiouploadpreview {
 	position: absolute;
 	color: white;
-	top: 20%;
-	left: 480px;
+	top: 19%;
+	height: 30px;
+	width: 200px;
+	left: 380px;
+}
+
+#station_contentselect_audio_control {
+	height: 30px;
+	width: 200px;	
 }
 
 #station_contentselect_edititem_audiouploadpreview2 {
@@ -53,6 +88,39 @@
 }
 
 
+#station_contentselect_image_previewbox {
+	background-color: #aaaaaa;
+	color: #555555;
+	text-align: center;
+	height: 127px;
+	top:0px;
+	vertical-align: middle;
+}
+
+#station_contentselect_image_previewbox:hover {
+	background-color: #666666;
+	color: #555555;
+	text-align: center;
+}
+
+#station_contentselect_image_uploadbutton {
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px;
+}
+
+.station_contentselect_deleteimage {
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px
+}
+
+.contentselect_wantedselect {
+	width:94%;
+}
+
 
 #station_contentselect_images {
 	position: absolute;
@@ -63,10 +131,36 @@
 }
 
 
-.contentselect_image {
+.station_contentselect_image {
 	position: relative;
 	display:inline-block;
 	border: solid 1px silver;
 	width:100px;
+}
+
+
+.station_contentselect_deleteimage:hover {
+	background-color: #777777;
+	color: #555555;
+	text-align: center;
+	height: 20px
+}
+
+#station_contentselect_image_uploadbutton:hover {
+	background-color: #777777;
+	color: #555555;
+	text-align: center;
+}
+
+#station_contentselect_image_progress {
+	position: absolute;
+	bottom: 22px;
+	height: 20px;
+	text-align: left;
+	text-shadow: 0px 0px #000000;
+	background-color: yellow;
+	color: black;
+	font-size: 15px;
+	left: 0px;
 }
 

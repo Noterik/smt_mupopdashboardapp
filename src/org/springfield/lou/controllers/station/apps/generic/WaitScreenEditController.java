@@ -32,17 +32,21 @@ import org.springfield.lou.screen.Screen;
 
 public class WaitScreenEditController extends Html5Controller{
 	
+	Boolean uploaddone = true;
+	
 	public WaitScreenEditController() {
 		
 	}
 	
 	public void attach(String sel) {
 		selector = sel;
+		System.out.println("ATTCH CALLED");
 		fillPage();
 	}
 	
 	
 	private void fillPage() {
+		System.out.println("FILLPAGE CALLED !!! ");
 		String currentapp = model.getProperty("@station/waitscreen");
 		String languagecode = model.getProperty("@languagecode");
 		if (languagecode==null) {
@@ -62,12 +66,11 @@ public class WaitScreenEditController extends Html5Controller{
 		screen.get("#station_waitscreen_language").on("change","onLanguageChange", this);
 		screen.get("#station_waitscreen_title").on("change","onTitleChange", this);
 		
-		setUploadSettings("station_waitscreen_imageupload");
-		screen.get("#station_waitscreen_imageuploadbutton").on("mouseup","station_waitscreen_imageupload","onFileUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_waitscreen_imageupload","onUploadState",this);
+		setUploadSettings("station_waitscreen_image_upload");
+		screen.get("#station_waitscreen_image_submithidden").on("mouseup","station_waitscreen_image_upload","onFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_waitscreen_image_upload","onUploadState",this);
+
 		screen.get(".waitscreen_deleteimage").on("mouseup","onDeleteImage", this);
-		//screen.get("#station_waitscreen_delete").on("mouseup","station_waitscreen_deleteconfirm","onDeleteStation", this);
-		//screen.get("#station_waitscreen_copy").on("mouseup","onCopyStation", this);
 		}
 	
 
@@ -170,12 +173,20 @@ public class WaitScreenEditController extends Html5Controller{
     
 
 
+    
+    
 	public void onUploadState(ModelEvent e) {
 		System.out.println("UPLOAD IMAGE");
+
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
-		if (progress!=null && progress.equals("100")) {
+		System.out.println("ACTION="+action);
+		System.out.println("PROGRESS="+progress);
+		if (progress!=null) {
+			screen.get("#station_waitscreen_image_pprogress").css("width",progress+"%");
+			screen.get("#station_waitscreen_image_pprogress").html("&nbsp"+progress+"%");
+			if (progress!=null && progress.equals("100") && !uploaddone) {
 			//screen.get("#appeditor_content_preview").html("<image width=\"100%\" height=\"100%\" src=\""+ps.getProperty("url")+"\" />");
 			//System.out.println("UPLOAD DONE SHOULD CREATE NODE !");
     		FsNode imagenode = new FsNode("image",""+new Date().getTime());
@@ -192,15 +203,22 @@ public class WaitScreenEditController extends Html5Controller{
     			System.out.println("COUNT NOT INSERT IMAGE");
     		} else {
     			model.notify("@station","changed"); 
+    			uploaddone = true;
     			fillPage();
     		}
-    		
+			fillPage();
+			}
+			if (uploaddone) {
+				screen.get("#station_waitscreen_image_pprogress").css("width","0%");
+				screen.get("#station_waitscreen_image_pprogress").html("");
+			}
 		}
-	
+
 	}
 
 	public void onFileUpload(Screen s,JSONObject data) {
 		System.out.println("FILE UPLOAD !!"+data.toJSONString());
+		uploaddone = false;
 	}
 	
 	private void setUploadSettings(String upid) {
@@ -213,8 +231,9 @@ public class WaitScreenEditController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
-		model.setProperty("@upload/fileext","jpg,gif,png");
+		model.setProperty("@upload/fileext","png,jpg,jpeg,gif,JPG,PNG,GIF,JPEG");
 		model.setProperty("@upload/checkupload","true");
 	}
+	
 	
 }

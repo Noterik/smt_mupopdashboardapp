@@ -134,7 +134,7 @@ public class StationController extends Html5Controller {
 	}
 	
     public void onPairedChange(Screen s,JSONObject data) {
-    //	System.out.println("PAIRED STATION CHANGE="+data.toJSONString());
+    	System.out.println("PAIRED STATION CHANGE="+data.toJSONString());
     	String oldvalue = model.getProperty("@station/paired");
     	String newvalue = (String)data.get("value");
     	model.setProperty("@station/paired",newvalue);
@@ -214,6 +214,7 @@ public class StationController extends Html5Controller {
 		node.setProperty("name","photoinfospots");
 		node.setProperty("labelname","PhotoInfoSpots");
 		list.addNode(node);
+		/*
 		node = new FsNode("apps","5");
 		node.setProperty("name","interactivevideo");
 		node.setProperty("labelname","InteractiveVideo");
@@ -238,6 +239,7 @@ public class StationController extends Html5Controller {
 		node.setProperty("name","quiz");
 		node.setProperty("labelname","Quiz");
 		list.addNode(node);
+		*/
 		return list.toJSONObject("en","name,labelname");
     }
     

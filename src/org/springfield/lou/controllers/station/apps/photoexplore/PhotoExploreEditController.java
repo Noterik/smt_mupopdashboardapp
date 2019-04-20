@@ -69,6 +69,7 @@ public class PhotoExploreEditController extends Html5Controller{
 		if (tab.equals("setting")) {
 			screen.get("#subeditor").append("div","appeditor_subeditor_setting",new SettingScreenEditController());
 		} else if (tab.equals("waitscreen")) {
+			screen.get("#appeditor_subeditor_waitscreen").remove();
 			screen.get("#subeditor").append("div","appeditor_subeditor_waitscreen",new WaitScreenEditController());
 		} else if (tab.equals("contentselect")) {
 			screen.get("#subeditor").append("div","appeditor_subeditor_contentselect",new ContentSelectEditController());

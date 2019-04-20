@@ -34,6 +34,7 @@ import org.springfield.lou.screen.Screen;
 public class PhotoExploreMainAppController extends Html5Controller{
 	
 	String selecteditem;
+	private boolean uploaddone = false;
 	
 	public PhotoExploreMainAppController() {
 		
@@ -74,7 +75,21 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_newitem_imageupload","onUploadState",this);
 		screen.get("#station_mainapp_edititem_renderoptions").on("change","onRenderOptionChange", this);
 		
-		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
+		//screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
+	
+		screen.get(".station_mainapp_edititem_deleteimage").on("mouseup","onDeleteImage", this);
+		
+	}
+	
+	public void onDeleteImage(Screen s,JSONObject data) {
+		System.out.println("DATA="+data.toJSONString());
+		String id=((String)data.get("id")).substring(19);
+		System.out.println("SID="+id);
+		Boolean result = model.deleteNode("@item/image/"+id);
+		if (result) {
+			fillPage();
+			model.notify("@station","changed"); 
+		}
 	}
 	
 	public void onRenderOptionChange(Screen s,JSONObject data) {
@@ -102,6 +117,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	}
 	
 	public void onDeleteItem(Screen s,JSONObject data) {
+		System.out.println("DELETE");
 		String confirm = (String)data.get("station_mainapp_deleteitemconfirm");
 		if (confirm.equals("yes")) {
 			model.deleteNode("@item");
@@ -173,7 +189,10 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
-		if (progress!=null && progress.equals("100")) {
+		//if (progress!=null && progress.equals("100")) {
+			
+		if (progress!=null && progress.equals("100") && !uploaddone) {
+			uploaddone=true;
 			//screen.get("#appeditor_content_preview").html("<image width=\"100%\" height=\"100%\" src=\""+ps.getProperty("url")+"\" />");
 			//System.out.println("UPLOAD DONE SHOULD CREATE NODE !");
     		FsNode imagenode = new FsNode("image",""+new Date().getTime());
@@ -195,6 +214,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 
 	public void onFileUpload(Screen s,JSONObject data) {
 		System.out.println("FILE UPLOAD !!"+data.toJSONString());
+		uploaddone = false;
 	}
 	
 	public void onAudioUploadState(ModelEvent e) {

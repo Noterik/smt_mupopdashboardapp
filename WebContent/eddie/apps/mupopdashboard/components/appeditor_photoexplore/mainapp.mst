@@ -37,7 +37,7 @@
 			 	{{#nodes}}
 		 				<div id="station_mainapp_edititem_image{{id}}" class="station_mainapp_edititem_image">
 		 					<image width="100" height="100" src="{{url}}" />
-		 					<button id="{{id}}" class="station_mainapp_edititem_deleteimage">delete</button>
+		 					<button id="mainapp_deleteimage{{id}}" class="station_mainapp_edititem_deleteimage">delete</button>
 		 				</div>
 				{{/nodes}}
 				<div id="station_mainapp_edititem_image_imagenew" class="station_mainapp_edititem_image">

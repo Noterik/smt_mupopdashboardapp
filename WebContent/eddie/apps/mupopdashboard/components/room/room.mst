@@ -15,12 +15,12 @@
 <div id="room_bottomarea" />
 <div id="room_rightarea">
 	{{#exhibition_on}}
-		<div id="room_exhibitionstate">Exhibition : on</div>
+		<div id="room_exhibitionstate">state : on (visits {{exhibitionusagecount}})</div>
 		<button id="room_exhibitiononbutton" disabled>on</button>
 		<button id="room_exhibitionoffbutton">off</button>
 	{{/exhibition_on}}
 	{{^exhibition_on}}
-		<div id="room_exhibitionstate" disabled>Exhibition : off</div>
+		<div id="room_exhibitionstate" disabled>state : off (visits {{exhibitionusagecount}})</div>
 		<button id="room_exhibitiononbutton">on</button>
 	 	<button id="room_exhibitionoffbutton" disabled>off</button>
 	{{/exhibition_on}}
@@ -35,6 +35,8 @@
 	<button id="room_pastestationbutton">Paste station</button>
 	{{/pastevalid}}
 	
+	
+	
 </div>
 
 {{#stations}}
@@ -42,7 +44,7 @@
 		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
 			<div id="room_stationdot{{id}}" class="room_stationdot" />
 			<div id="room_station{{id}}" class="room_stationid">{{labelid}}</div>
-			<div id="room_station{{id}}" class="room_stationname">{{name}}</div>
+			<div id="room_station{{id}}" class="room_stationname">{{name}} (visits {{stationusagecount}})</div>
 			<div id="room_station{{id}}" class="room_stationpairing">{{paired}}</div>
 		</div>
 	{{/nodes}}
