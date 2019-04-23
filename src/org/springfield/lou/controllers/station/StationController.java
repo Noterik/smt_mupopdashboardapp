@@ -73,6 +73,7 @@ public class StationController extends Html5Controller {
 			createNewStation();
 		} 
 			FsNode stationnode = model.getNode("@station");
+			//System.out.println("STATIONNODE="+stationnode.asXML());
     		if (stationnode==null) { // did we find the old station node ?
     			screen.get(selector).remove();
     		} else {
@@ -82,7 +83,7 @@ public class StationController extends Html5Controller {
     			data.put("stationlabel",stationnode.getProperty("labelid")); // load the labelid
     			data.put("stationpaired",stationnode.getProperty("paired"));
     			oldpaired = stationnode.getProperty("paired");
-    			System.out.println("CURAPP="+currentapp);
+    			//System.out.println("CURAPP="+currentapp);
     			data = addHids(data);
     			screen.get(selector).render(data); // send the data to client mustache render
     			if (currentapp.equals("photoexplore")) { // check for the 2 apps en jump if needed
@@ -134,10 +135,26 @@ public class StationController extends Html5Controller {
 	}
 	
     public void onPairedChange(Screen s,JSONObject data) {
-    	System.out.println("PAIRED STATION CHANGE="+data.toJSONString());
+    	//System.out.println("PAIRED STATION CHANGE="+data.toJSONString());
     	String oldvalue = model.getProperty("@station/paired");
     	String newvalue = (String)data.get("value");
     	model.setProperty("@station/paired",newvalue);
+    	
+    	
+		// we also need to remove it from the old one ! so look for the it in the new value it
+    	// in the hid table
+		FsNode oldnode =  model.getNode("/domain/mupop/config/hids/hid/"+newvalue);
+//		System.out.println("OLDNODE="+oldnode);
+		if (oldnode!=null) {
+	//		System.out.println("OLDNODE2="+oldnode.asXML());
+			String olduser = oldnode.getProperty("username");
+			String oldexhibitionid = oldnode.getProperty("exhibitionid");
+			String oldstationid =  oldnode.getProperty("stationid");
+			
+			// 		<station>/domain['mupop']/user['@username']/exhibition['@exhibitionid']/station['@stationid']</station>
+			model.setProperty("/domain['mupop']/user['"+olduser+"']/exhibition['"+oldexhibitionid+"']/station['"+oldstationid+"']/paired","* not paired *");
+		}
+    	
     	
 		model.setProperty("/domain/mupop/config/hids/hid/"+oldvalue+"/username","");
 		model.setProperty("/domain/mupop/config/hids/hid/"+oldvalue+"/exhibitionid","");
@@ -148,9 +165,7 @@ public class StationController extends Html5Controller {
 			model.setProperty("/domain/mupop/config/hids/hid/"+newvalue+"/exhibitionid",model.getProperty("@exhibitionid"));
 			model.setProperty("/domain/mupop/config/hids/hid/"+newvalue+"/stationid",model.getProperty("@stationid"));
 		}
-
-    	
-		System.out.println("SENDING SHARED PAIR NOTIFY");
+		//System.out.println("SENDING SHARED PAIR NOTIFY");
 		model.notify("/shared['mupop']/hid['"+oldvalue+"']","unpaired");
 		model.notify("/shared['mupop']/hid['"+newvalue+"']","paired");
     	fillPage(); // we need to rewrite this page
@@ -169,17 +184,43 @@ public class StationController extends Html5Controller {
     }
 	
     public void onNameChange(Screen s,JSONObject data) {
-    	System.out.println("NAME STATION CHANGE="+data.toJSONString());
+    	//System.out.println("NAME STATION CHANGE="+data.toJSONString());
     	model.setProperty("@station/name",(String)data.get("value"));
     }
 	
 	private JSONObject addHids(JSONObject data) {
 		FSList list = model.getList("/domain/mupop/config/hids/hid");
-		if (list!=null) {
-			JSONObject paired = list.toJSONObject("en","stationname");
+		FSList uplist = filterUpNodes(list);
+		if (uplist!=null) {
+			JSONObject paired = uplist.toJSONObject("en","stationname");
 			data.put("paired",paired);
 		}
 		return data;
+	}
+	
+	
+
+	private FSList filterUpNodes(FSList list) {
+		FSList resultlist = new FSList();
+		Long nowdate = new Date().getTime();
+		for(Iterator<FsNode> iter = list.getNodes().iterator() ; iter.hasNext(); ) {
+			FsNode node = iter.next();
+			FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getId()); // auto create if not there !
+			try {
+				long lastseen = Long.parseLong(hidalive.getProperty("lastseen"));
+				if ((nowdate-lastseen)<20*1000) {
+					resultlist.addNode(node);
+				} else {
+				//	newnode.setProperty("state", "down");
+				//	newnode.setProperty("state-color", "red");	
+				}
+		} catch(Exception e) {
+			//e.printStackTrace();
+			//newnode.setProperty("state", "down");
+			//newnode.setProperty("state-color", "red");	
+		}
+		}
+		return resultlist;
 	}
 	
 	/**

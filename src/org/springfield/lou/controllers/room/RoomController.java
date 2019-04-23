@@ -133,7 +133,6 @@ public class RoomController extends Html5Controller {
 	public void onAliveMessage(ModelEvent e) {
 		FsNode node = e.getTargetFsNode();
 		String message = node.getProperty("message");
-		System.out.println("ALIVE MSG="+message);
 		alivestations.put(message,node);
 	}
 	
@@ -218,7 +217,6 @@ public class RoomController extends Html5Controller {
 			List<FsNode> nodes = stations.getNodesFiltered("room",roomid); // filter out the ones based on room property
 			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
 				FsNode node = iter.next();
-				System.out.println("STNODE="+node.asXML());
 			}
 			
 			return FSList.ArrayToJSONObject(nodes,screen.getLanguageCode(),"app,stationusagecount,labelid,name,x,y,room,url,paired"); // convert it to json format
@@ -303,28 +301,28 @@ public class RoomController extends Html5Controller {
     }
     
     public void onShowStationsButton(Screen s,JSONObject data) {
-    	System.out.println("SHOW STATIONS CALLED");
+    	//System.out.println("SHOW STATIONS CALLED");
     }
     
     
     public void onShowScreensButton(Screen s,JSONObject data) {
-    	System.out.println("SHOW SCREENS CALLED");
+    	//System.out.println("SHOW SCREENS CALLED");
     	screen.get(selector).remove();
 		screen.get("#content").append("div","screens",new ScreensController()); 
     }
     
 
     public void onPasteStationButton(Screen s,JSONObject data) {
-    	System.out.println("PASTE STATION CALLED");
+    	//System.out.println("PASTE STATION CALLED");
     	String pasteurl = model.getProperty("/browser['clipboard']/copystationurl");
-    	System.out.println("input="+pasteurl);	
+    	//System.out.println("input="+pasteurl);	
     	if (pasteurl.endsWith("/properties")) pasteurl=pasteurl.substring(0,pasteurl.length()-11);
-       	System.out.println("input="+pasteurl);
+       	//System.out.println("input="+pasteurl);
        	String tourl = model.getNode("@exhibition").getPath();
     	if (tourl.endsWith("/properties")) tourl=tourl.substring(0,tourl.length()-11);
     	String newid = ""+new Date().getTime();
     	tourl = tourl+"/station/"+newid;
-       	System.out.println("dest="+tourl);
+       	//System.out.println("dest="+tourl);
        	
 		ServiceInterface smithers = ServiceManager.getService("smithers");
 		if (smithers==null) {
@@ -339,7 +337,7 @@ public class RoomController extends Html5Controller {
 		body+="</properties>";
 		body+="</fsxml>";
 		String result = smithers.post(tourl,body,"application/fscommand");
-		System.out.println("R="+result);	
+		//System.out.println("R="+result);	
 		
 		// lets set the station id so we can use it even if we are in a room
 		model.setProperty("@stationid",newid);

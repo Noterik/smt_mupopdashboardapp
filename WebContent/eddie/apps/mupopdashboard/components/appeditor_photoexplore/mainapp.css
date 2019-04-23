@@ -16,10 +16,10 @@
 	height:75%;
 }
 
-#station_mainapp_edititem_audiouploadlabel {
+#station_mainapp_audiouploadlabel {
 	position: absolute;
-	top: 5%;
-	left: 20px;
+	top: 9%;
+	left: 50px;
 }
 
 #station_mainapp_edititem_audioupload {
@@ -64,17 +64,23 @@
 	width:80%;
 }
 
-#station_mainapp_deleteitem {
+#station_mainapp_deleteitemlabel {
 	position: absolute;
 	bottom: 5%;
 	left: 5%;
 }
 
+#station_mainapp_deleteitem {
+	position: absolute;
+	bottom: 4%;
+	left: 19%;
+}
+
 #station_mainapp_deleteitemconfirm {
 	position: absolute;
 	border: solid 1px silver;
-	bottom: 5%;
-	left: 15%;
+	bottom: 4%;
+	left: 25%;
 }
 
 
@@ -88,5 +94,131 @@
 .station_mainapp_itemselected {
 	background-color: #888888;
 }
+
+
+#station_mainapp_image_previewbox {
+	background-color: #aaaaaa;
+	color: #555555;
+	text-align: center;
+	height: 103px;
+	top:0px;
+	vertical-align: middle;
+}
+
+#station_mainapp_image_previewbox:hover {
+	background-color: #666666;
+	color: #555555;
+	text-align: center;
+}
+
+#station_mainapp_image_uploadbutton {
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px;
+}
+
+.station_mainapp_deleteimage {
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px
+}
+
+.mainapp_wantedselect {
+	width:94%;
+}
+
+
+#station_mainapp_images {
+	position: absolute;
+	border: solid 1px silver;
+	top: 30%;
+	left: 10%;
+	width:80%;
+}
+
+
+.station_mainapp_image {
+	position: relative;
+	display:inline-block;
+	border: solid 1px silver;
+	width:100px;
+}
+
+
+.station_mainapp_deleteimage:hover {
+	background-color: #777777;
+	color: #555555;
+	text-align: center;
+	height: 20px
+}
+
+#station_mainapp_image_uploadbutton:hover {
+	background-color: #777777;
+	color: #555555;
+	text-align: center;
+}
+
+#station_mainapp_image_progress {
+	position: absolute;
+	bottom: 22px;
+	height: 20px;
+	text-align: left;
+	text-shadow: 0px 0px #000000;
+	background-color: yellow;
+	color: black;
+	font-size: 15px;
+	left: 0px;
+}
+
+
+#station_mainapp_audio_deletebutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	top: 9%;
+	width: 80px;
+	height: 20px;
+	left: 280px;
+	text-align:center;
+}
+
+#station_mainapp_audio_deletebutton:hover {
+	background-color: #666666;
+	color: #333333;
+}	
+
+#station_mainapp_audiouploadbutton {
+	position: absolute;
+	top: 9%;
+	left: 380px;
+}
+
+#station_mainapp_audiouploadpreview {
+	position: absolute;
+	color: white;
+	top: 8%;
+	height: 30px;
+	width: 200px;
+	left: 380px;
+}
+
+#station_mainapp_audio_control {
+	height: 30px;
+	width: 200px;	
+}
+
+#station_mainapp_audio_uploadbutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	top: 9%;
+	width: 80px;
+	height: 20px;
+	left: 180px;
+	text-align:center;
+}
+
 
 

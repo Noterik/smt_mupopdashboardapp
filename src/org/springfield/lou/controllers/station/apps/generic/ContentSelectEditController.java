@@ -258,7 +258,7 @@ public class ContentSelectEditController extends Html5Controller{
 		if (nmber==3) return "three";
 		if (nmber==4) return "four";
 		if (nmber==5) return "five";
-		if (nmber==6) return "fix";
+		if (nmber==6) return "six";
 		if (nmber==7) return "seven";
 		if (nmber==8) return "eight";
 		if (nmber==9) return "nine";

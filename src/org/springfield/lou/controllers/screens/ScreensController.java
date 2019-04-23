@@ -33,6 +33,9 @@ import org.springfield.lou.screen.Screen;
 
 public class ScreensController extends Html5Controller {
 	
+	
+	String scrolltop;
+	String scrollheight;
 	/**
 	 * Station controller where the station and its app get edited
 	 */
@@ -63,7 +66,23 @@ public class ScreensController extends Html5Controller {
 	private void fillPage() {
 		JSONObject data = getScreensList();
 		screen.get(selector).render(data); 
+		
+		try {
+			screen.get("#screens_listarea").scrollTop(Integer.parseInt(scrolltop));
+		} catch(Exception e) {
+			screen.get("#screens_listarea").scrollTop(0);
+		}
+
+		
  		screen.get("#screens_donebutton").on("mouseup","onDoneButton", this);
+		screen.get("#screens_listarea").track("scrollTop","onscrollTop", this); 
+	}
+	
+	public void onscrollTop(Screen s,JSONObject data) {
+		String st =  (String)data.get("scrollTop");
+		String[] stt = st.split(",");
+		scrolltop = stt[0];
+		scrollheight = stt[1];
 	}
 	
     public void onDoneButton(Screen s,JSONObject data) {

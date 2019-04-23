@@ -66,25 +66,34 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		screen.get(".station_mainapp_item").on("mouseup","onEditItem", this);
 		screen.get("#station_mainapp_newitem").on("mouseup","station_mainapp_newitemname","onNewItem", this);
 
-		setUploadAudioSettings("station_mainapp_edititem_audioupload");
-		screen.get("#station_mainapp_edititem_audiouploadbutton").on("mouseup","station_mainapp_edititem_audioupload","onAudioFileUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_mainapp_edititem_audioupload","onAudioUploadState",this);
+		setUploadAudioSettings("station_mainapp_audio_upload");
+		screen.get("#station_mainapp_audio_submithidden").on("mouseup","station_mainapp_audio_upload","onAudioFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_audio_upload","onAudioUploadState",this);
+
+		screen.get("#station_mainapp_audio_deletebutton").on("mouseup","onDeleteAudio", this);
 		
-		setUploadSettings("station_mainapp_newitem_imageupload");
-		screen.get("#station_mainapp_newitem_imageuploadbutton").on("mouseup","station_mainapp_newitem_imageupload","onFileUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_mainapp_newitem_imageupload","onUploadState",this);
+		
+		setUploadSettings("station_mainapp_image_upload");
+		screen.get("#station_mainapp_image_submithidden").on("mouseup","station_mainapp_image_upload","onFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_image_upload","onUploadState",this);
+
+		
 		screen.get("#station_mainapp_edititem_renderoptions").on("change","onRenderOptionChange", this);
 		
-		//screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
+		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
 	
-		screen.get(".station_mainapp_edititem_deleteimage").on("mouseup","onDeleteImage", this);
+		screen.get(".station_mainapp_deleteimage").on("mouseup","onDeleteImage", this);
 		
 	}
 	
+	public void onDeleteAudio(Screen s,JSONObject data) {
+		model.setProperty("@item/voiceover","");
+		fillPage();
+	}
+
+	
 	public void onDeleteImage(Screen s,JSONObject data) {
-		System.out.println("DATA="+data.toJSONString());
 		String id=((String)data.get("id")).substring(19);
-		System.out.println("SID="+id);
 		Boolean result = model.deleteNode("@item/image/"+id);
 		if (result) {
 			fillPage();
@@ -99,8 +108,10 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	}
 	
 	public void onNewItem(Screen s,JSONObject data) {
-		System.out.println("NEW ITEM="+data.toJSONString());
 		String newid=(String)data.get("station_mainapp_newitemname");
+		if (newid==null || newid.equals("")) {
+			newid = getAutoName();
+		}
 		FsNode newitem = new FsNode("item",newid);
 		model.setProperty("@contentrole","mainapp");
 		Boolean result=model.putNode("@items", newitem);
@@ -117,7 +128,6 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	}
 	
 	public void onDeleteItem(Screen s,JSONObject data) {
-		System.out.println("DELETE");
 		String confirm = (String)data.get("station_mainapp_deleteitemconfirm");
 		if (confirm.equals("yes")) {
 			model.deleteNode("@item");
@@ -213,7 +223,6 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	}
 
 	public void onFileUpload(Screen s,JSONObject data) {
-		System.out.println("FILE UPLOAD !!"+data.toJSONString());
 		uploaddone = false;
 	}
 	
@@ -229,7 +238,6 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	}
 
 	public void onAudioFileUpload(Screen s,JSONObject data) {
-		System.out.println("AUDIO FILE UPLOAD !!"+data.toJSONString());
 	}
 	
 	private void setUploadSettings(String upid) {
@@ -242,7 +250,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
-		model.setProperty("@upload/fileext","png,jpg,jpeg");
+		model.setProperty("@upload/fileext","png,jpg,jpeg,gif,JPG,PNG,GIF,JPEG");
 		model.setProperty("@upload/checkupload","true");
 	}
 	
@@ -259,6 +267,51 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		model.setProperty("@upload/fileext","m4a,mp3");
 		model.setProperty("@upload/checkupload","true");
 	}
+	
+	private String getAutoName() {
+		int curi = 0;
+		FSList list = model.getList("@items");
+		if (list!=null) {
+			List<FsNode> nodes = list.getNodes();
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				String nw = node.getId();
+				if (nw!=null) {
+					int nwi = wordToNumber(nw);
+					if (nwi>curi) curi = nwi;
+				}
+			}
+		}
+		return numberToWord(curi+1);
+	}
+	
+	private String numberToWord(int nmber) {
+		if (nmber==1) return "one";
+		if (nmber==2) return "two";
+		if (nmber==3) return "three";
+		if (nmber==4) return "four";
+		if (nmber==5) return "five";
+		if (nmber==6) return "six";
+		if (nmber==7) return "seven";
+		if (nmber==8) return "eight";
+		if (nmber==9) return "nine";
+		if (nmber==10) return "ten";
+		return "unknown";
+	}
+	
+	private int wordToNumber(String word) {
+		if (word.equals("one")) return 1;
+		if (word.equals("two")) return 2;
+		if (word.equals("three")) return 3;
+		if (word.equals("four")) return 4;
+		if (word.equals("five")) return 5;
+		if (word.equals("six")) return 6;
+		if (word.equals("seven")) return 7;
+		if (word.equals("eight")) return 8;
+		if (word.equals("nine")) return 9;
+		return -1;
+	}
+
 	
 
 	

@@ -13,10 +13,14 @@
 
 #screens_listarea {
 	width: 100%;
+	overflow: scroll;
+	height: 90%;
 }
 
 #screens_screenlist {
 	width: 100%;
+	overflow: scroll;
+	height: 90%;
 }
 
 

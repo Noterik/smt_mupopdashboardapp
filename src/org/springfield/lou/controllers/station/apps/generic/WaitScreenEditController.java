@@ -40,13 +40,11 @@ public class WaitScreenEditController extends Html5Controller{
 	
 	public void attach(String sel) {
 		selector = sel;
-		System.out.println("ATTCH CALLED");
 		fillPage();
 	}
 	
 	
 	private void fillPage() {
-		System.out.println("FILLPAGE CALLED !!! ");
 		String currentapp = model.getProperty("@station/waitscreen");
 		String languagecode = model.getProperty("@languagecode");
 		if (languagecode==null) {
