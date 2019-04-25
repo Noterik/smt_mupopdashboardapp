@@ -40,6 +40,11 @@
 			{{/renderoptions}}
 		</select>
 		
+		<div id="station_mainapp_edititem_transcriptlabel">Transcript 
+			<textarea id="station_mainapp_edititem_transcript">{{transcript}}</textarea>
+			<button id="station_mainapp_edititem_transcript_button">save</button>
+		</div>
+		
 		<div id="station_mainapp_edititem_images">
 		{{#images}}
 			 	{{#nodes}}
@@ -113,7 +118,7 @@ $("#station_mainapp_audio_uploadbutton").click(function () {
     $("#station_mainapp_audio_upload").trigger('click');
 });
 
-$("#station_contentselect_audio_upload").change(function () {
+$("#station_mainapp_audio_upload").change(function () {
     $("#station_mainapp_audio_submithidden").trigger('mouseup');
 });
 

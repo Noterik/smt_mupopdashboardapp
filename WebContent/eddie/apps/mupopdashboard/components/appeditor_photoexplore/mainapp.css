@@ -54,6 +54,27 @@
 	left: 200px;
 }
 
+#station_mainapp_edititem_transcriptlabel {
+	position: absolute;
+	top: 75%;
+	width: 60%;
+	left: 350px;
+}
+
+#station_mainapp_edititem_transcript {
+	position: absolute;
+	top: 20%;
+	left: 80px;
+	width: 80%;
+	height: 85px;
+}
+
+#station_mainapp_edititem_transcript_button {
+	position: absolute;
+	top: 100%;
+	left: 20px;	
+}
+
 
 
 #station_mainapp_edititem_images {

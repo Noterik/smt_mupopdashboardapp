@@ -164,3 +164,24 @@
 	left: 0px;
 }
 
+#station_contentselect_transcriptlabel {
+	position: absolute;
+	top: 75%;
+	width: 60%;
+	left: 350px;
+}
+
+#station_contentselect_transcript {
+	position: absolute;
+	top: 20%;
+	left: 80px;
+	width: 80%;
+	height: 85px;
+}
+
+#station_contentselect_transcript_button {
+	position: absolute;
+	top: 100%;
+	left: 20px;	
+}
+

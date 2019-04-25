@@ -20,7 +20,10 @@
 	</div>
 	{{/voiceover}}
 	
-	
+		<div id="station_contentselect_transcriptlabel">Transcript 
+			<textarea id="station_contentselect_transcript">{{transcript}}</textarea>
+			<button id="station_contentselect_transcript_button">save</button>
+		</div>	
 	
 	<div id="station_contentselect_images">
 	{{#images}}

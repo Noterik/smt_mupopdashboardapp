@@ -51,6 +51,14 @@ public class ContentSelectEditController extends Html5Controller{
 		model.setProperty("@station/contentselect_content","contentselect"); // kinda of hack
 		JSONObject data = getcontentselectAppList(currentapp);  // read the available aps to json
 		addImages(data);
+		
+		String transcript = model.getProperty("@content/transcript");
+		if (transcript!=null) {
+			data.put("transcript",transcript);	
+		} else {
+			data.put("transcript","");		
+		}
+		
 		String voiceover = model.getProperty("@content/voiceover");
 		if (voiceover!=null && !voiceover.equals("")) {
 			data.put("voiceover",voiceover);
@@ -60,7 +68,8 @@ public class ContentSelectEditController extends Html5Controller{
 		screen.get("#station_contentselect_appname").on("change","onAppNameChange", this);
 		screen.get("#station_contentselect_prefix").on("change","onPrefixChange", this);
 		
-		
+		screen.get("#station_contentselect_transcript_button").on("mouseup","station_contentselect_transcript","onTranscriptChange", this);
+
 		
 		
 		setUploadSettings("station_contentselect_image_upload");
@@ -84,8 +93,14 @@ public class ContentSelectEditController extends Html5Controller{
 		
 	}
 	
+	public void onTranscriptChange(Screen s,JSONObject data) {
+		String tr = (String)data.get("station_contentselect_transcript");
+		model.setProperty("@content/transcript",tr);
+		fillPage();
+		model.notify("@station","changed"); 
+	}
+	
 	public void onDeleteAudio(Screen s,JSONObject data) {
-		System.out.println("DELETE VOICE OVER");
 		model.setProperty("@content/voiceover","");
 		fillPage();
 	}
@@ -148,7 +163,6 @@ public class ContentSelectEditController extends Html5Controller{
     }
     
 	public void onAudioUploadState(ModelEvent e) {
-		System.out.println("UPLOAD DONE");
 		//if (1==1) return;
 		
 		FsPropertySet ps = (FsPropertySet)e.target;
@@ -165,8 +179,6 @@ public class ContentSelectEditController extends Html5Controller{
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
-		System.out.println("ACTION="+action);
-		System.out.println("PROGRESS="+progress);
 
 		
 		if (progress!=null) {
@@ -198,12 +210,10 @@ public class ContentSelectEditController extends Html5Controller{
 	}
 
 	public void onFileUpload(Screen s,JSONObject data) {
-		System.out.println("FILE UPLOAD !!"+data.toJSONString());
 		uploaddone = false;
 	}
 	
 	public void onAudioFileUpload(Screen s,JSONObject data) {
-		System.out.println("AUDIO FILE UPLOAD !!"+data.toJSONString());
 	}
 	
 	private void setUploadSettings(String upid) {
@@ -242,7 +252,6 @@ public class ContentSelectEditController extends Html5Controller{
 			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
 				FsNode node = iter.next();
 				String nw = node.getProperty("wantedselect");
-				System.out.println("NODE="+nw);
 				if (nw!=null) {
 					int nwi = wordToNumber(nw);
 					if (nwi>curi) curi = nwi;

@@ -54,6 +54,13 @@ public class PhotoExploreMainAppController extends Html5Controller{
 			model.setProperty("@itemid",selecteditem);
 			FsNode item=model.getNode("@item");
 			data.put("selecteditem", item.getId());
+			
+			String transcript = item.getProperty("transcript");
+			if (transcript!=null) {
+				data.put("transcript",transcript);	
+			} else {
+				data.put("transcript","");		
+			}
 			String voiceover = model.getProperty("@item/voiceover");
 			if (voiceover!=null && !voiceover.equals("")) {
 				data.put("voiceover",voiceover);
@@ -79,7 +86,10 @@ public class PhotoExploreMainAppController extends Html5Controller{
 
 		
 		screen.get("#station_mainapp_edititem_renderoptions").on("change","onRenderOptionChange", this);
+
+		screen.get("#station_mainapp_edititem_transcript_button").on("mouseup","station_mainapp_edititem_transcript","onTranscriptChange", this);
 		
+
 		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
 	
 		screen.get(".station_mainapp_deleteimage").on("mouseup","onDeleteImage", this);
@@ -103,6 +113,14 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	
 	public void onRenderOptionChange(Screen s,JSONObject data) {
 		model.setProperty("@item/renderoption",(String)data.get("value"));
+		fillPage();
+		model.notify("@station","changed"); 
+	}
+	
+
+	public void onTranscriptChange(Screen s,JSONObject data) {
+		String tr = (String)data.get("station_mainapp_edititem_transcript");
+		model.setProperty("@item/transcript",tr);
 		fillPage();
 		model.notify("@station","changed"); 
 	}
