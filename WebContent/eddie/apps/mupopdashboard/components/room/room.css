@@ -60,6 +60,14 @@
 	left: 15%;
 }
 
+#room_counters {
+	position:absolute;
+  	color:#ffffff;
+  	font-size:13pt;
+  	bottom: 15px;
+	left: 15%;
+}
+
 .room_station {
 	position: absolute;
 	top: 85%;

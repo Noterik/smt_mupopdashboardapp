@@ -11,16 +11,17 @@
 			<div id="roomshape_square" />
 		{{/roomshape_square}}
 	</div>
+	<div id="room_counters">login count : {{exhibitionlogincounter}} and total mainapp count : {{exhibitionusagecount}}</div>
 </div>
 <div id="room_bottomarea" />
 <div id="room_rightarea">
 	{{#exhibition_on}}
-		<div id="room_exhibitionstate">state : on (visits {{exhibitionusagecount}})</div>
+		<div id="room_exhibitionstate">state : on</div>
 		<button id="room_exhibitiononbutton" disabled>on</button>
 		<button id="room_exhibitionoffbutton">off</button>
 	{{/exhibition_on}}
 	{{^exhibition_on}}
-		<div id="room_exhibitionstate" disabled>state : off (visits {{exhibitionusagecount}})</div>
+		<div id="room_exhibitionstate" disabled>state : off</div>
 		<button id="room_exhibitiononbutton">on</button>
 	 	<button id="room_exhibitionoffbutton" disabled>off</button>
 	{{/exhibition_on}}
@@ -44,7 +45,7 @@
 		<div id="room_station{{id}}" class="room_station" style="top:{{y}}%;left:{{x}}%;">
 			<div id="room_stationdot{{id}}" class="room_stationdot" />
 			<div id="room_station{{id}}" class="room_stationid">{{labelid}}</div>
-			<div id="room_station{{id}}" class="room_stationname">{{name}} (visits {{stationusagecount}})</div>
+			<div id="room_station{{id}}" class="room_stationname">{{name}} (used {{stationusagecount}})</div>
 			<div id="room_station{{id}}" class="room_stationpairing">{{paired}}</div>
 		</div>
 	{{/nodes}}

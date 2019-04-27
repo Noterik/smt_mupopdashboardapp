@@ -176,6 +176,14 @@ public class RoomController extends Html5Controller {
 			} else {
 				data.put("exhibitionusagecount","0");
 			}
+			
+			ec  = model.getProperty("@exhibitionlogincounter");
+			if (ec!=null) {
+				data.put("exhibitionlogincounter",ec);
+			} else {
+				data.put("exhibitionlogincounter","0");
+			}
+			
 			data.put("exhibition",exhibitionnode.getProperty("name")); // ifso set name in json
 			data.put("location",exhibitionnode.getProperty("location")); // ifso set location in json
 			data.put("timeframe",exhibitionnode.getProperty("timeframe")); // ifso set timeframe in json

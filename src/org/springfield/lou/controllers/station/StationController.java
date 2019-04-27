@@ -205,20 +205,17 @@ public class StationController extends Html5Controller {
 		Long nowdate = new Date().getTime();
 		for(Iterator<FsNode> iter = list.getNodes().iterator() ; iter.hasNext(); ) {
 			FsNode node = iter.next();
-			FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getId()); // auto create if not there !
-			try {
-				long lastseen = Long.parseLong(hidalive.getProperty("lastseen"));
-				if ((nowdate-lastseen)<20*1000) {
-					resultlist.addNode(node);
-				} else {
-				//	newnode.setProperty("state", "down");
-				//	newnode.setProperty("state-color", "red");	
+			String locked = node.getProperty("locked");
+			if (locked==null || locked.equals("")) {
+				FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getId()); // auto create if not there !
+				try {
+					long lastseen = Long.parseLong(hidalive.getProperty("lastseen"));
+					if ((nowdate-lastseen)<20*1000) {
+						resultlist.addNode(node);
+					}
+				} catch(Exception e) {	
 				}
-		} catch(Exception e) {
-			//e.printStackTrace();
-			//newnode.setProperty("state", "down");
-			//newnode.setProperty("state-color", "red");	
-		}
+			}
 		}
 		return resultlist;
 	}

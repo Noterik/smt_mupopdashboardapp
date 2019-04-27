@@ -57,6 +57,7 @@ public class RoomInfoController extends Html5Controller {
 		String exhibitionid = model.getProperty("@exhibitionid");
 		if (exhibitionid.equals("newexhibition")) {
 			data.put("newexhibition","true");	
+			data.put("room","main");
 		} else {
 			data.put("exhibitionid",exhibitionid);
 			FsNode exhibitionnode = model.getNode("@exhibition"); // get the exhibition node
@@ -103,6 +104,7 @@ public class RoomInfoController extends Html5Controller {
     public void onCreateButton(Screen s,JSONObject data) {
 		if (model.getProperty("@exhibitionid").equals("newexhibition")) {
 			// check if the exhibition & room are valid if not report back
+			System.out.println("DATA="+data.toJSONString());
     		screen.get("#roominfo_feedback").html("");
 			boolean result = checkExhibition(data);
 			if (result==true) result = checkRoom(data);
@@ -201,23 +203,15 @@ public class RoomInfoController extends Html5Controller {
     	String exhibition = (String)data.get("roominfo_exhibition");
     	String location = (String)data.get("roominfo_location");
     	String timeframe = (String)data.get("roominfo_timeframe");
-    	String jumper = (String)data.get("roominfo_jumper");
+    	//String jumper = (String)data.get("roominfo_jumper");
     	if (exhibition.equals("")) {
     		screen.get("#roominfo_feedback").html("** exhibition name needed **");
     		return false;
     	} else if (location.equals("")) {
-    		screen.get("#roominfo_feedback").html("** location name needed **");
+    		screen.get("#roominfo_feedback").html("** location name needed (city) **");
     		return false;
     	} else if (timeframe.equals("")) {
-    		screen.get("#roominfo_feedback").html("** timeframe name needed **");
-    		return false;
-    	} else if (jumper.equals("")) {
-    		screen.get("#roominfo_feedback").html("** short url needed **");
-    		
-    		return false;
-    	} else if (jumperInUse(jumper)) {
-    		screen.get("#roominfo_feedback").html("** url in use already **");	
-    		return false;
+    		screen.get("#roominfo_feedback").html("** timeframe name needed (winter 2019) **");
     	}
     	return true;
     }

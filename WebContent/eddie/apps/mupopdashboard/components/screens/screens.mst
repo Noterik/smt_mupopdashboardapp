@@ -2,12 +2,28 @@
 </div>
 <div id="screens_listarea">
 	<table id="screens_screenlist">
+		<tr>
+			<td>name</td>
+			<td>user</td>
+			<td>exhibition</td>
+			<td>station</td>
+			<td>app</td>
+			<td>code</td>
+			{{#lockedenabler}}
+				<td id="screens_lockenabler">lock (a)</td>
+			{{/lockedenabler}}	
+			{{^lockedenabler}}
+				<td id="screens_lockenabler">lock</td>
+			{{/lockedenabler}}
+			<td>state</td>
 		</tr>
 			{{#nodes}}
 			<tr id="s0_{{id}}" class="selectablerow">
 				<td id="s1_{{id}}">{{id}}</td><td id="s2_{{id}}">{{username}}</td>
 				<td id="s3_{{id}}">{{exhibitionname}}</td><td id="s4_{{id}}">{{stationname}}</td>
-				<td id="s5_{{id}}">{{appname}}</td><td id="s6_{{id}}">{{codeselect}}</td><td width="5%" class="state-{{state}}">{{state}}</td>	
+				<td id="s5_{{id}}">{{appname}}</td><td id="s6_{{id}}">{{codeselect}}</td>
+				<td id="s7_{{id}}"class="screens_locked">{{locked}}</td>
+				<td width="5%" class="state-{{state}}">{{state}}</td>	
 			</tr>
 			{{/nodes}}
 	</table>

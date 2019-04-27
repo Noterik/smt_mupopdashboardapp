@@ -36,6 +36,10 @@ public class ScreensController extends Html5Controller {
 	
 	String scrolltop;
 	String scrollheight;
+	boolean lockedenabler = false;
+	int firstlockcounter = 0;
+	long firstlocktime = 0;
+	
 	/**
 	 * Station controller where the station and its app get edited
 	 */
@@ -65,6 +69,7 @@ public class ScreensController extends Html5Controller {
 	 */
 	private void fillPage() {
 		JSONObject data = getScreensList();
+		if (lockedenabler) data.put("lockedenabler","true");
 		screen.get(selector).render(data); 
 		
 		try {
@@ -76,6 +81,44 @@ public class ScreensController extends Html5Controller {
 		
  		screen.get("#screens_donebutton").on("mouseup","onDoneButton", this);
 		screen.get("#screens_listarea").track("scrollTop","onscrollTop", this); 
+		
+ 		screen.get("#screens_lockenabler").on("mouseup","onLockEnabler", this);
+ 		screen.get(".screens_locked").on("mouseup","onLocked", this);
+	}
+
+	public void onLocked(Screen s,JSONObject data) {
+		if (lockedenabler) {
+
+			String id = (String)data.get("id");
+			String cur = model.getProperty("/domain/mupop/config/hids/hid/"+id.substring(3)+"/locked");		
+			if (cur==null || cur.equals("")) {
+				model.setProperty("/domain/mupop/config/hids/hid/"+id.substring(3)+"/locked","true");
+			} else {
+				model.setProperty("/domain/mupop/config/hids/hid/"+id.substring(3)+"/locked","");
+			}
+			fillPage();
+		}
+	}
+	
+	public void onLockEnabler(Screen s,JSONObject data) {
+		if (firstlockcounter>0) {
+			long newlocktime = new Date().getTime();
+			if ((newlocktime-firstlocktime)>5000) {
+				firstlocktime = new Date().getTime();	
+				firstlockcounter = 1;
+			} else {
+				firstlockcounter++;
+				if (firstlockcounter>9) {
+					lockedenabler= !lockedenabler;
+					firstlocktime = new Date().getTime();	
+					firstlockcounter = 1;
+					fillPage();
+				}
+			}
+		} else {
+			firstlocktime = new Date().getTime();	
+			firstlockcounter = 1;
+		}
 	}
 	
 	public void onscrollTop(Screen s,JSONObject data) {
@@ -112,6 +155,10 @@ public class ScreensController extends Html5Controller {
 					username = "noterik";
 					newnode.setProperty("username","noterik"); // this doesn't make me happy
 				}
+			}
+			String locked  = node.getProperty("locked");
+			if (locked!=null && locked.equals("true")) {
+				newnode.setProperty("locked","locked");
 			}
 			
 	    	FsNode hidalive = model.getNode("@hidsalive/hid/"+node.getId()); // auto create if not there !
@@ -152,7 +199,7 @@ public class ScreensController extends Html5Controller {
 			results.addNode(newnode);
 			
 		}
-		return results.toJSONObject("en","stationid,exhibitionid,username,exhibitionname,stationname,appname,codeselect,state,state-color");
+		return results.toJSONObject("en","stationid,exhibitionid,locked,username,exhibitionname,stationname,appname,codeselect,state,state-color");
     }
     
 	

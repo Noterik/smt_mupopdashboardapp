@@ -8,7 +8,7 @@
 	{{#newexhibition}}
 		<div id="roominfo_exhibitiontitle">Create exhibition</div>
 		<div id="roominfo_exhibitionlabel">exhibition</div><input id="roominfo_exhibition" size="25" />
-		<div id="roominfo_timeframelabel">timeframe</div><input id="roominfo_timeframe" size="25" />
+		<div id="roominfo_timeframelabel">timeframe</div><input id="roominfo_timeframe" size="25" value="summer 2019"/>
 		<div id="roominfo_locationlabel">location</div><input id="roominfo_location" size="25" />
 	{{/newexhibition}}
 	
@@ -17,10 +17,13 @@
 	<div id="roominfo_buildinglabel">building**</div><input id="roominfo_building" size="25" />
 	
 	<div id="roominfo_descriptionlabel">description</div><textarea id="roominfo_description" cols="24" rows="2" />
+	<!--
 	<div id="roominfo_jumperlabel">http://{{domain}}/</div><input id="roominfo_jumper" size="10" />
 	
 	<div id="roominfo_gpslabel">gps location</div><input id="roominfo_gpslon" size="9" /><input id="roominfo_gpslat" size="9" />
+	-->
 	<div id="roominfo_feedback"></div>
+
 	
 	{{#newexhibition}}
 	<button id="roominfo_cancelbutton">cancel</button>
