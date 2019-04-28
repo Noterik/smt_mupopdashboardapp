@@ -35,6 +35,7 @@
 		 			</div>
 			{{/nodes}}
 
+
 		 	<div class="station_contentselect_image">
 			<div id="station_contentselect_image_previewbox">
 				<br />drag & drop area
@@ -46,6 +47,7 @@
 				<div id="station_contentselect_image_uploadbutton">upload</div>
 		 	</div>
 		 	</div>
+		 	
 	{{/images}}
 	</div>
 	

@@ -86,10 +86,6 @@ public class ContentSelectEditController extends Html5Controller{
 
 		screen.get("#station_contentselect_audio_deletebutton").on("mouseup","onDeleteAudio", this);
 		
-		//setUploadAudioSettings("station_contentselect_edititem_audioupload");
-		//screen.get("#station_contentselect_edititem_audiouploadbutton").on("mouseup","station_contentselect_edititem_audioupload","onAudioFileUpload", this);
-		//model.onPropertiesUpdate("/screen/upload/station_contentselect_edititem_audioupload","onAudioUploadState",this);
-
 		
 	}
 	

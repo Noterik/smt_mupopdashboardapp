@@ -85,23 +85,36 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		screen.get(".station_mainapp_itemselected").on("mouseup","onEditItem", this);
 		screen.get("#station_mainapp_newitem").on("mouseup","station_mainapp_newitemname","onNewItem", this);
 
+		
+		/*
 		setUploadAudioSettings("station_mainapp_item_editmaskaudioupload");
 		screen.get("#station_mainapp_item_editmaskaudiouploadbutton").on("mouseup","station_mainapp_item_editmaskaudioupload","onAudioFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editmaskaudioupload","onAudioUploadState",this);
-		
-		
-		setUploadMaskSettings("station_mainapp_item_editmaskurlupload");
-		screen.get("#station_mainapp_item_editmaskurluploadbutton").on("mouseup","station_mainapp_item_editmaskurlupload","onFileMaskUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editmaskurlupload","onUploadMaskState",this);
-		
+		*/
+		setUploadAudioSettings("station_mainapp_item_audio_upload");
+		screen.get("#station_mainapp_item_audio_submithidden").on("mouseup","station_mainapp_item_audio_upload","onAudioFileUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_audio_upload","onAudioUploadState",this);
+		screen.get("#station_mainapp_item_audio_deletebutton").on("mouseup","onDeleteMaskAudio", this);
 
-		setUploadMainSettings("station_mainapp_item_editurlupload");
-		screen.get("#station_mainapp_item_editurluploadbutton").on("mouseup","station_mainapp_item_editurlupload","onFileMainImageUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editurlupload","onUploadMainImageState",this);
 
-		setUploadMainAudioSettings("station_mainapp_item_editaudiourlupload");
-		screen.get("#station_mainapp_item_editaudiourluploadbutton").on("mouseup","station_mainapp_item_editaudiourlupload","onFileMainAudioUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editaudiourlupload","onUploadMainAudioState",this);
+
+		setUploadMaskSettings("station_mainapp_item_image_upload");
+		screen.get("#station_mainapp_item_image_submithidden").on("mouseup","station_mainapp_item_image_upload","onFileMaskUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_image_upload","onUploadMaskState",this);
+
+
+		setUploadMainSettings("station_mainapp_image_upload");
+		screen.get("#station_mainapp_image_submithidden").on("mouseup","station_mainapp_image_upload","onFileMainImageUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_image_upload","onUploadMainImageState",this);
+		
+		
+		screen.get("#station_mainapp_image_deletebutton").on("mouseup","onDeleteMainImage",this);
+		screen.get("#station_mainapp_item_image_deletebutton").on("mouseup","onDeleteMaskImage",this);
+		
+		setUploadMainAudioSettings("station_mainapp_audio_upload");
+		screen.get("#station_mainapp_audio_submithidden").on("mouseup","station_mainapp_audio_upload","onFileMainAudioUpload", this);
+		model.onPropertiesUpdate("/screen/upload/station_mainapp_audio_upload","onUploadMainAudioState",this);
+		screen.get("#station_mainapp_audio_deletebutton").on("mouseup","onDeleteMainAudio", this);
 
 		
 		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
@@ -159,6 +172,16 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 			selecteditem = null;
 			fillPage();
 		}
+	}
+	
+	public void onDeleteMainAudio(Screen s,JSONObject data) {
+		model.setProperty("@item/en_voiceover","");
+		fillPage();
+	}
+	
+	public void onDeleteMaskAudio(Screen s,JSONObject data) {
+		model.setProperty("@itemmask/en_audiourl","");
+		fillPage();
 	}
 		
 	
@@ -281,8 +304,24 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	
 	}
 	
+	public void onDeleteMainImage(Screen s,JSONObject data) {
+		System.out.println("delete wanted");
+		model.setProperty("@item/url","");
+		model.notify("@station","changed"); 
+		fillPage();
+	}
+	
+	
+	
+	public void onDeleteMaskImage(Screen s,JSONObject data) {
+		System.out.println("delete wanted");
+		model.setProperty("@itemmask/maskurl","");
+		model.notify("@station","changed"); 
+		fillPage();
+	}
+	
+	
 	public void onUploadMainImageState(ModelEvent e) {
-		System.out.println("MAIN IMAGE UPLOADED!!");
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
@@ -334,7 +373,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
-		model.setProperty("@upload/fileext","png,jpeg,jpg");
+		model.setProperty("@upload/fileext","png,jpg,jpeg,gif,JPG,PNG,GIF,JPEG");
 		model.setProperty("@upload/checkupload","true");
 	}
 	

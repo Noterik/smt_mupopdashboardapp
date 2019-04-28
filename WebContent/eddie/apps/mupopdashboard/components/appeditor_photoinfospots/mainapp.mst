@@ -17,19 +17,46 @@
 	{{#selecteditem}}
 	<div id="station_mainapp_edititem">
 
-	<div id="station_mainapp_item_editurllabel">main image</div>
-	<input type="file" id="station_mainapp_item_editurlupload" size="20" />
-	<button id="station_mainapp_item_editurluploadbutton">upload</button>
-	{{#url}}
-		<img id="station_mainapp_item_editurluploadpreview" src="{{url}}">
-	{{/url}}
+
+			<div id="station_mainapp_item_editurllabel">main<br/>image</div>
+		 	<div class="station_mainapp_image">
+		 		{{#url}}
+					<img id="station_mainapp_editurluploadpreview" src="{{url}}">
+					<div id="station_mainapp_image_deletebutton">delete</div>
+				{{/url}}
+
+
+				{{^url}}
+					<div id="station_mainapp_image_previewbox">
+					<br />drag & drop </br>area
+					<div id="station_mainapp_image_progress"></div>
+					</div>
+
+					<div id="station_mainapp_imagenew" class="station_mainapp_image">
+					<input type="file" id="station_mainapp_image_upload" style="display:none" />
+					<button id="station_mainapp_image_submithidden" style="display:none" />
+					<div id="station_mainapp_image_uploadbutton">upload</div>
+		 			</div>
+		 		{{/url}}
+		 	</div>
 	
-	<div id="station_mainapp_item_editaudiourllabel">voice over</div>
-	<input type="file" id="station_mainapp_item_editaudiourlupload" size="20" />
-	<button id="station_mainapp_item_editaudiourluploadbutton">upload</button>
-	{{#voiceover}}
-		<a href="{{voiceover}}" id="station_mainapp_item_editaudiourluploadpreview" target="_new">play</a>
+	<div id="station_mainapp_item_editaudiourllabel">voice<br/> over</div>
+	
+	{{^voiceover}}
+		<input type="file" id="station_mainapp_audio_upload" style="display:none" />
+		<button id="station_mainapp_audio_submithidden" style="display:none" />
+		<div id="station_mainapp_audio_uploadbutton">upload</div>
 	{{/voiceover}}
+		
+	{{#voiceover}}
+	<div id="station_mainapp_audio_deletebutton">delete</div>
+	<div id="station_mainapp_audiouploadpreview">
+		<audio id="station_mainapp_audio_control" controls>
+  			<source src="{{voiceover}}" type="audio/mpeg">
+ 		</audio> 
+	</div>
+	{{/voiceover}}
+
 
 	<div id="station_mainapp_item_editscalelabel">scale</div>
 	<input id="station_mainapp_item_editscale" size="10" value="{{scale}}" />
@@ -56,19 +83,66 @@
 	{{#selecteditemmask}}
 			<div id="station_mainapp_item_editmask">
 			
-				<div id="station_mainapp_item_editmaskurllabel">mask image</div>
+				<div id="station_mainapp_item_editmaskurllabel">mask<br /> image</div>
+				
+				<div class="station_mainapp_item_image">
+		 		{{#maskurl}}
+					<img id="station_mainapp_item_editurluploadpreview" src="{{maskurl}}">
+					<div id="station_mainapp_item_image_deletebutton">delete</div>
+				{{/maskurl}}
+
+
+				{{^maskurl}}
+					<div id="station_mainapp_item_image_previewbox">
+					<br />drag & drop </br>area
+					<div id="station_mainapp_item_image_progress"></div>
+					</div>
+
+					<div id="station_mainapp_item_imagenew" class="station_mainapp_item_image">
+					<input type="file" id="station_mainapp_item_image_upload" style="display:none" />
+					<button id="station_mainapp_item_image_submithidden" style="display:none" />
+					<div id="station_mainapp_item_image_uploadbutton">upload</div>
+		 			</div>
+		 		{{/maskurl}}
+		 	</div>
+				
+				
+				
+				
+				<!--
 				<input type="file" id="station_mainapp_item_editmaskurlupload" size="20" />
 				<button id="station_mainapp_item_editmaskurluploadbutton">upload</button>
 				{{#maskurl}}
 					<img id="station_mainapp_item_editmaskurluploadpreview" src="{{maskurl}}">
 				{{/maskurl}}
+				-->
 				
-				<div id="station_mainapp_item_editmaskaudiolabel">audio file</div>
+				<div id="station_mainapp_item_editmaskaudiolabel">audio<br /> file</div>
+				
+				
+				{{^audiourl}}
+					<input type="file" id="station_mainapp_item_audio_upload" style="display:none" />
+					<button id="station_mainapp_item_audio_submithidden" style="display:none" />
+					<div id="station_mainapp_item_audio_uploadbutton">upload</div>
+				{{/audiourl}}
+		
+				{{#audiourl}}
+					<div id="station_mainapp_item_audio_deletebutton">delete</div>
+					<div id="station_mainapp_item_audiouploadpreview">
+					<audio id="station_mainapp_item_audio_control" controls>
+  					<source src="{{audiourl}}" type="audio/mpeg">
+ 					</audio> 
+					</div>
+				{{/audiourl}}
+				
+				
+				<!--
 				<input type="file" id="station_mainapp_item_editmaskaudioupload" size="20" />
 				<button id="station_mainapp_item_editmaskaudiouploadbutton">upload</button>
 				{{#audiourl}}
 					<a href="{{audiourl}}" id="station_mainapp_item_editmaskaudiouploadpreview" target="_new">play</a>
 				{{/audiourl}}
+				-->
 				
 			</div>
 	{{/selecteditemmask}}
@@ -84,3 +158,116 @@
 	
 	</div>
 	{{/selecteditem}}
+	
+	
+<script type="text/javascript">
+$("#station_mainapp_image_uploadbutton").click(function () {
+    $("#station_mainapp_image_upload").trigger('click');
+});
+
+$("#station_mainapp_image_upload").change(function () {
+    $("#station_mainapp_image_submithidden").trigger('mouseup');
+});
+
+$('#station_mainapp_image_previewbox').on({
+    'dragover dragenter': function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    },
+    'drop': function(e) {
+		 var dataTransfer =  e.originalEvent.dataTransfer;
+    	if( dataTransfer && dataTransfer.files.length) {
+        	e.preventDefault();
+        	e.stopPropagation();
+       		window.dropfile = dataTransfer.files[0];
+       		$("#station_mainapp_image_submithidden").trigger('mouseup');
+    	}
+    }
+});
+
+
+$("#station_mainapp_audio_uploadbutton").click(function () {
+    $("#station_mainapp_audio_upload").trigger('click');
+});
+
+$("#station_mainapp_audio_upload").change(function () {
+    $("#station_mainapp_audio_submithidden").trigger('mouseup');
+});
+
+
+
+$('#station_mainapp_audio_uploadbutton').on({
+    'dragover dragenter': function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    },
+    'drop': function(e) {
+		 var dataTransfer =  e.originalEvent.dataTransfer;
+    	if( dataTransfer && dataTransfer.files.length) {
+        	e.preventDefault();
+        	e.stopPropagation();
+       		window.dropfile = dataTransfer.files[0];
+       		$("#station_mainapp_audio_submithidden").trigger('mouseup');
+    	}
+    }
+});
+
+
+
+
+
+
+
+$("#station_mainapp_item_image_uploadbutton").click(function () {
+    $("#station_mainapp_item_image_upload").trigger('click');
+});
+
+$("#station_mainapp_item_image_upload").change(function () {
+    $("#station_mainapp_item_image_submithidden").trigger('mouseup');
+});
+
+$('#station_mainapp_item_image_previewbox').on({
+    'dragover dragenter': function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    },
+    'drop': function(e) {
+		 var dataTransfer =  e.originalEvent.dataTransfer;
+    	if( dataTransfer && dataTransfer.files.length) {
+        	e.preventDefault();
+        	e.stopPropagation();
+       		window.dropfile = dataTransfer.files[0];
+       		$("#station_mainapp_item_image_submithidden").trigger('mouseup');
+    	}
+    }
+});
+
+
+$("#station_mainapp_item_audio_uploadbutton").click(function () {
+    $("#station_mainapp_item_audio_upload").trigger('click');
+});
+
+$("#station_mainapp_item_audio_upload").change(function () {
+    $("#station_mainapp_item_audio_submithidden").trigger('mouseup');
+});
+
+
+
+$('#station_mainapp_item_audio_uploadbutton').on({
+    'dragover dragenter': function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    },
+    'drop': function(e) {
+		 var dataTransfer =  e.originalEvent.dataTransfer;
+    	if( dataTransfer && dataTransfer.files.length) {
+        	e.preventDefault();
+        	e.stopPropagation();
+       		window.dropfile = dataTransfer.files[0];
+       		$("#station_mainapp_item_audio_submithidden").trigger('mouseup');
+    	}
+    }
+});
+
+
+</script>

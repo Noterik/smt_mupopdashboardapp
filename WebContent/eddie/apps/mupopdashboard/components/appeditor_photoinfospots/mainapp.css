@@ -18,7 +18,7 @@
 
 #station_mainapp_item_masks {
 	position: absolute;
-	top: 30%;
+	top: 150px;
 	height: 5%;
 	left: 3%;
 	width:94%;
@@ -31,34 +31,34 @@
 #station_mainapp_item_editmask {
 	position: absolute;
 	border: solid 1px silver;
-	top: 40%;
+	top: 184px;
 	left: 3%;
-	width:94%;
+	width:90%;
 	height:45%;
 }
 
 #station_mainapp_item_editscalelabel {
 	position: absolute;
-	top: 5%;
-	left: 80%;
+	top: 20px;
+	left: 240px;
 }
 
 #station_mainapp_item_editscale {
 	position: absolute;
-	top: 5%;
-	left: 85%;
+	top: 20px;
+	left: 290px;
 }
 
 #station_mainapp_item_editoriginlabel {
 	position: absolute;
-	top: 15%;
-	left: 80%;
+	top: 60px;
+	left: 240px;
 }
 
 #station_mainapp_item_editorigin {
 	position: absolute;
-	top: 15%;
-	left: 85%;
+	top: 60px;
+	left: 290px;
 }
 
 #station_mainapp_item_editurllabel {
@@ -79,20 +79,32 @@
 	left: 45%;
 }
 
+#station_mainapp_editurluploadpreview {
+	position: absolute;
+	border: solid 1px silver;
+	height: 127px;
+	top:20px;
+	width:120px;
+	height:80px;
+	left: 100px;
+}
+
 
 #station_mainapp_item_editurluploadpreview {
 	position: absolute;
 	border: solid 1px silver;
-	top: 5%;
-	left: 60%;
-	height: 20%;
+	height: 127px;
+	top:35px;
+	width:120px;
+	height:80px;
+	left: 100px;
 }
 
 
 #station_mainapp_item_editaudiourllabel {
 	position: absolute;
-	top: 15%;
-	left: 5%;
+	top: 22px;
+	left: 450px;
 }
 
 #station_mainapp_item_editaudiourlupload {
@@ -119,8 +131,8 @@
 
 #station_mainapp_item_editmaskurllabel {
 	position: absolute;
-	top: 10%;
-	left: 5%;
+	top: 35px;
+	left: 50px;
 }
 
 #station_mainapp_item_editmaskurlupload {
@@ -146,8 +158,8 @@
 
 #station_mainapp_item_editmaskaudiolabel {
 	position: absolute;
-	top: 50%;
-	left: 5%;
+	top: 35px;
+	left: 320px;
 }
 
 #station_mainapp_item_editmaskaudioupload {
@@ -190,4 +202,185 @@
 .station_mainapp_itemselected {
 	background-color: #888888;
 }
+
+
+
+#station_mainapp_image_previewbox {
+	position: absolute;
+	background-color: #aaaaaa;
+	color: #555555;
+	text-align: center;
+	height: 127px;
+	top:20px;
+	width:120px;
+	height:80px;
+	left: 100px;
+	vertical-align: middle;
+}
+
+#station_mainapp_item_image_previewbox {
+	position: absolute;
+	background-color: #aaaaaa;
+	color: #555555;
+	text-align: center;
+	height: 127px;
+	top:35px;
+	width:120px;
+	height:80px;
+	left: 100px;
+	vertical-align: middle;
+}
+
+#station_mainapp_image_previewbox:hover {
+	background-color: #666666;
+	color: #555555;
+	text-align: center;
+}
+
+#station_mainapp_image_uploadbutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px;
+	top:100px;
+	width:120px;
+	left: 100px;
+}
+
+#station_mainapp_item_image_uploadbutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px;
+	top:115px;
+	width:120px;
+	left: 100px;
+}
+
+
+#station_mainapp_image_uploadbutton:hover {
+	background-color: #777777;
+	color: #555555;
+}
+
+#station_mainapp_image_deletebutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px;
+	top:102px;
+	width:122px;
+	left: 100px;
+}
+
+#station_mainapp_item_image_deletebutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	text-align: center;
+	height: 20px;
+	top:117px;
+	width:122px;
+	left: 100px;
+}
+
+#station_mainapp_item_image_deletebutton:hover {
+	background-color: #777777;
+	color: #555555;
+}
+
+#station_mainapp_image_deletebutton:hover {
+	background-color: #777777;
+	color: #555555;
+}
+
+#station_mainapp_audio_uploadbutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	top: 35px;
+	width: 80px;
+	height: 20px;
+	left: 510px;
+	text-align:center;
+}
+
+#station_mainapp_audio_uploadbutton:hover {
+	background-color: #666666;
+	color: #333333;
+}
+
+#station_mainapp_item_audio_uploadbutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	top: 35px;
+	width: 80px;
+	height: 20px;
+	left: 375px;
+	text-align:center;
+}
+
+#station_mainapp_item_audio_uploadbutton:hover {
+	background-color: #666666;
+	color: #333333;
+}
+
+#station_mainapp_audio_deletebutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	top: 35px;
+	width: 80px;
+	height: 20px;
+	left: 510px;
+	text-align:center;
+}
+
+
+#station_mainapp_audio_deletebutton:hover {
+	background-color: #666666;
+	color: #333333;
+}	
+
+#station_mainapp_item_audio_deletebutton {
+	position: absolute;
+	background-color: #eeeeee;
+	color: #555555;
+	top: 35px;
+	width: 80px;
+	height: 20px;
+	left: 385px;
+	text-align:center;
+}
+
+
+#station_mainapp_item_audio_deletebutton:hover {
+	background-color: #666666;
+	color: #333333;
+}
+
+#station_mainapp_audiouploadpreview {
+	position: absolute;
+	color: white;
+	top: 75px;
+	height: 30px;
+	width: 200px;
+	left: 445px;
+}
+
+#station_mainapp_item_audiouploadpreview {
+	position: absolute;
+	color: white;
+	top: 30px;
+	height: 30px;
+	width: 200px;
+	left: 485px;
+}
+
+
+
 
