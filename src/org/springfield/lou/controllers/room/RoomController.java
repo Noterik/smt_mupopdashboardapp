@@ -314,7 +314,6 @@ public class RoomController extends Html5Controller {
     
     
     public void onShowScreensButton(Screen s,JSONObject data) {
-    	//System.out.println("SHOW SCREENS CALLED");
     	screen.get(selector).remove();
 		screen.get("#content").append("div","screens",new ScreensController()); 
     }

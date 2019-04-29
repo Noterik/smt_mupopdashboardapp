@@ -102,7 +102,7 @@
 #station_setting_deletelabel {
 	position: absolute;
 	top:90%;
-	left:5%;
+	left: 20px;
 }
 
 
@@ -110,13 +110,13 @@
 #station_setting_delete {
 	position: absolute;
 	top:90%;
-	left:18%;
+	left: 165px;
 }
 
 #station_setting_deleteconfirm {
 	position: absolute;
 	top:90%;
-	left:25%;
+	left: 220px;
 }
 
 #station_setting_copy {

@@ -135,14 +135,11 @@
 					</div>
 				{{/audiourl}}
 				
-				
-				<!--
-				<input type="file" id="station_mainapp_item_editmaskaudioupload" size="20" />
-				<button id="station_mainapp_item_editmaskaudiouploadbutton">upload</button>
-				{{#audiourl}}
-					<a href="{{audiourl}}" id="station_mainapp_item_editmaskaudiouploadpreview" target="_new">play</a>
-				{{/audiourl}}
-				-->
+				<button id="station_mainapp_deletemask">delete mask</button>
+					<select id="station_mainapp_deletemaskconfirm">
+					<option value="no">no
+					<option value="yes">yes
+				</select>
 				
 			</div>
 	{{/selecteditemmask}}

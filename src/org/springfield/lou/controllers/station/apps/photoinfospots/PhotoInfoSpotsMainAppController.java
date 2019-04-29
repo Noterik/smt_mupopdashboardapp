@@ -50,7 +50,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 
 		JSONObject data = new JSONObject();
 		addItems(data);
-		System.out.println("SELECTEDITEM="+selecteditem);
 		if (selecteditem!=null) {
 			model.setProperty("@contentrole","mainapp");
 			model.setProperty("@itemid",selecteditem);
@@ -65,17 +64,18 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 			data.put("origin",model.getProperty("@item/origin"));
 			data.put("voiceover",model.getProperty("@item/en_voiceover"));
 		}
-		//addImageRenderOptions(data,model.getProperty("@item/renderoption"));
-		//addImages(data);
 		addItemMasks(data);
 		
 		if (selectedmask!=null) {
 			model.setProperty("@itemid",selecteditem);
 			model.setProperty("@itemmaskid",selectedmask);
-			System.out.println("SELECTEDITEM="+selecteditem+" "+selectedmask);
 			FsNode itemmask=model.getNode("@itemmask");
-			System.out.println("MASKNODE="+itemmask.asXML());
-			data.put("maskurl", itemmask.getProperty("maskurl"));
+			String maskurl = itemmask.getProperty("maskurl");
+			if (maskurl==null) {
+				data.put("maskurl", maskurl);
+			} else {
+				data.put("maskurl","");
+			}
 			data.put("audiourl", itemmask.getProperty("en_audiourl"));
 			data.put("selecteditemmask", itemmask.getId());
 		}
@@ -85,12 +85,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		screen.get(".station_mainapp_itemselected").on("mouseup","onEditItem", this);
 		screen.get("#station_mainapp_newitem").on("mouseup","station_mainapp_newitemname","onNewItem", this);
 
-		
-		/*
-		setUploadAudioSettings("station_mainapp_item_editmaskaudioupload");
-		screen.get("#station_mainapp_item_editmaskaudiouploadbutton").on("mouseup","station_mainapp_item_editmaskaudioupload","onAudioFileUpload", this);
-		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_editmaskaudioupload","onAudioUploadState",this);
-		*/
 		setUploadAudioSettings("station_mainapp_item_audio_upload");
 		screen.get("#station_mainapp_item_audio_submithidden").on("mouseup","station_mainapp_item_audio_upload","onAudioFileUpload", this);
 		model.onPropertiesUpdate("/screen/upload/station_mainapp_item_audio_upload","onAudioUploadState",this);
@@ -118,6 +112,7 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 
 		
 		screen.get("#station_mainapp_deleteitem").on("mouseup","station_mainapp_deleteitemconfirm","onDeleteItem", this);
+		screen.get("#station_mainapp_deletemask").on("mouseup","station_mainapp_deletemaskconfirm","onDeleteMask", this);
 
 		screen.get("#station_mainapp_item_editscale").on("change","onScaleChange", this);
 		screen.get("#station_mainapp_item_editorigin").on("change","onOriginChange", this);
@@ -149,10 +144,16 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	
 	public void onNewItem(Screen s,JSONObject data) {
 		String newid=(String)data.get("station_mainapp_newitemname");
+		
+		if (newid==null || newid.equals("")) {
+			newid = getAutoName();
+		}
+		
 		FsNode newitem = new FsNode("item",newid);
 		model.setProperty("@contentrole","mainapp");
 		Boolean result=model.putNode("@items", newitem);
 		if (result) {
+			selecteditem = newid;
 			fillPage();
 		}
 	}
@@ -160,7 +161,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	public void onEditItemMask(Screen s,JSONObject data) {
 		String itemmaskid = (String)data.get("id");
 		itemmaskid = itemmaskid.substring(25);
-		System.out.println("WHOOOO="+itemmaskid);
 		selectedmask = itemmaskid;
 		fillPage();
 	}
@@ -170,6 +170,15 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		if (confirm.equals("yes")) {
 			model.deleteNode("@item");
 			selecteditem = null;
+			fillPage();
+		}
+	}
+	
+	public void onDeleteMask(Screen s,JSONObject data) {
+		String confirm = (String)data.get("station_mainapp_deletemaskconfirm");
+		if (confirm.equals("yes")) {
+			model.deleteNode("@itemmask");
+			selectedmask = null;
 			fillPage();
 		}
 	}
@@ -187,16 +196,23 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	
 	public void onNewItemMask(Screen s,JSONObject data) {
 		String newid=(String)data.get("station_mainapp_item_newmaskname");
+		
+		if (newid==null || newid.equals("")) {
+			newid = getAutoMaskName();
+		}
+		if (newid.equals("")) return;
+		
+		
 		FsNode newitemmask = new FsNode("mask",newid);
 		model.setProperty("@contentrole","mainapp");
 		Boolean result=model.putNode("@item", newitemmask);
 		if (result) {
+			selectedmask = newid;
 			fillPage();
 		}
 	}
 	
 	public void onEditItem(Screen s,JSONObject data) {
-		System.out.println("ITEM SELECT="+data.toJSONString());
 		String itemid = (String)data.get("id");
 		itemid = itemid.substring(20);
 		selecteditem = itemid;
@@ -279,16 +295,13 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	}
 	
 	public void onFileMainImageUpload(Screen s,JSONObject data) {
-		System.out.println("upload of main image wanted");
 	}
 	
 	public void onFileMainAudioUpload(Screen s,JSONObject data) {
-		System.out.println("upload of main audio wanted");
 	}
 	
 	
 	public void onFileMaskUpload(Screen s,JSONObject data) {
-		System.out.println("upload of mask wanted");
 	}
 	
 	public void onUploadMaskState(ModelEvent e) {
@@ -305,7 +318,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	}
 	
 	public void onDeleteMainImage(Screen s,JSONObject data) {
-		System.out.println("delete wanted");
 		model.setProperty("@item/url","");
 		model.notify("@station","changed"); 
 		fillPage();
@@ -314,7 +326,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	
 	
 	public void onDeleteMaskImage(Screen s,JSONObject data) {
-		System.out.println("delete wanted");
 		model.setProperty("@itemmask/maskurl","");
 		model.notify("@station","changed"); 
 		fillPage();
@@ -333,7 +344,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	}
 	
 	public void onUploadMainAudioState(ModelEvent e) {
-		System.out.println("MAIN AUDIO UPLOADED!!");
 		FsPropertySet ps = (FsPropertySet)e.target;
 		String action = ps.getProperty("action");
 		String progress = ps.getProperty("progress");
@@ -345,7 +355,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	}
 
 	public void onFileUpload(Screen s,JSONObject data) {
-		System.out.println("FILE UPLOAD !!"+data.toJSONString());
 	}
 	
 	public void onAudioUploadState(ModelEvent e) {
@@ -360,7 +369,6 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 	}
 
 	public void onAudioFileUpload(Screen s,JSONObject data) {
-		System.out.println("AUDIO FILE UPLOAD !!"+data.toJSONString());
 	}
 	
 	private void setUploadMainSettings(String upid) {
@@ -419,6 +427,69 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 		model.setProperty("@upload/filetype","audio");
 		model.setProperty("@upload/fileext","mp3,m4a");
 		model.setProperty("@upload/checkupload","true");
+	}
+	
+	private String getAutoMaskName() {
+		int curi = 0;
+		FSList list = model.getList("@item/mask");
+		if (list!=null) {
+			List<FsNode> nodes = list.getNodes();
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				String nw = node.getId();
+				try {
+					int nwi = Integer.parseInt(nw);
+					if (nwi>curi) curi = nwi;
+				} catch(Exception e) {
+					return "";
+				}
+			}
+		}
+		return ""+(curi+1);
+	}
+	
+	private String getAutoName() {
+		int curi = 0;
+		FSList list = model.getList("@items");
+		if (list!=null) {
+			List<FsNode> nodes = list.getNodes();
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = iter.next();
+				String nw = node.getId();
+				if (nw!=null) {
+					int nwi = wordToNumber(nw);
+					if (nwi>curi) curi = nwi;
+				}
+			}
+		}
+		return numberToWord(curi+1);
+	}
+	
+	private String numberToWord(int nmber) {
+		if (nmber==1) return "one";
+		if (nmber==2) return "two";
+		if (nmber==3) return "three";
+		if (nmber==4) return "four";
+		if (nmber==5) return "five";
+		if (nmber==6) return "six";
+		if (nmber==7) return "seven";
+		if (nmber==8) return "eight";
+		if (nmber==9) return "nine";
+		if (nmber==10) return "ten";
+		return "unknown";
+	}
+	
+	private int wordToNumber(String word) {
+		if (word.equals("one")) return 1;
+		if (word.equals("two")) return 2;
+		if (word.equals("three")) return 3;
+		if (word.equals("four")) return 4;
+		if (word.equals("five")) return 5;
+		if (word.equals("six")) return 6;
+		if (word.equals("seven")) return 7;
+		if (word.equals("eight")) return 8;
+		if (word.equals("nine")) return 9;
+		return -1;
 	}
 	
 
