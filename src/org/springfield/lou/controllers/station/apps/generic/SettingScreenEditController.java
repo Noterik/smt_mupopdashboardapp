@@ -61,11 +61,18 @@ public class SettingScreenEditController extends Html5Controller{
 			data.put("applogoright",applogoright);
 		}
 		
+		String themecolor1 = model.getProperty("@station/content['contentselect']/themecolor1");
+		if (themecolor1!=null && !themecolor1.equals("")) {
+			data.put("themecolor1",themecolor1);
+		}
+		
+		
 		screen.get(selector).render(data);
 		//screen.get("#station_waitscreen_appname").on("change","onAppNameChange", this);
 		screen.get("#station_setting_style").on("change","onStyleChange", this);
 		screen.get("#station_setting_delete").on("mouseup","station_setting_deleteconfirm","onDeleteStation", this);
 		screen.get("#station_setting_copy").on("mouseup","onCopyStation", this);
+		screen.get("#station_setting_themecolor1").on("change","onThemeColor1", this);
 
 		setUploadSettings("station_setting_waitscreenlogoupload");
 		screen.get("#station_setting_waitscreenlogouploadbutton").on("mouseup","station_setting_waitscreenlogoupload","onFile1Upload", this);
@@ -81,6 +88,13 @@ public class SettingScreenEditController extends Html5Controller{
 
 		
 		
+	}
+	
+	public void onThemeColor1(Screen s,JSONObject data) {
+		String themecolor1 = (String)data.get("value");
+		model.setProperty("@station/content['contentselect']/themecolor1",themecolor1);
+		fillPage();
+
 	}
 	
 	public void onCopyStation(Screen s,JSONObject data) {

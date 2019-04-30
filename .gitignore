@@ -117,3 +117,5 @@ src/org/springfield/lou/controllers/station/apps/photoinfospots/PhotoInfoSpotsMa
 *.war
 *.jar
 *.war
+*.jar
+*.war

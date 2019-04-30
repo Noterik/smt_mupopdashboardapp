@@ -71,6 +71,10 @@ public class StationController extends Html5Controller {
 	private void fillPage() {
 		if (model.getProperty("/screen['vars']/newstation").equals("true")) { // is it a new or old station
 			createNewStation();
+			// lets close it for now should be fixed in future
+	    	screen.get(selector).remove(); // remove us from the screen
+			model.notify("@room","changed");
+			return;
 		} 
 			FsNode stationnode = model.getNode("@station");
 			//System.out.println("STATIONNODE="+stationnode.asXML());

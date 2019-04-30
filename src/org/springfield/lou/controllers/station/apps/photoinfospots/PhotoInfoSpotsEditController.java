@@ -34,7 +34,7 @@ import org.springfield.lou.screen.Screen;
 
 public class PhotoInfoSpotsEditController extends Html5Controller{
 	
-	private String tab="setting";
+	private String tab="waitscreen";
 	private String valuelist="appeditor_content_url";
 	
 	public PhotoInfoSpotsEditController() {

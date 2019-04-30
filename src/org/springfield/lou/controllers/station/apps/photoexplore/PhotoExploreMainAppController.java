@@ -134,6 +134,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		model.setProperty("@contentrole","mainapp");
 		Boolean result=model.putNode("@items", newitem);
 		if (result) {
+			selecteditem = newid;
 			fillPage();
 		}
 	}

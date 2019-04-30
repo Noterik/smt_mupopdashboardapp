@@ -70,14 +70,15 @@ public class PhotoInfoSpotsMainAppController extends Html5Controller{
 			model.setProperty("@itemid",selecteditem);
 			model.setProperty("@itemmaskid",selectedmask);
 			FsNode itemmask=model.getNode("@itemmask");
-			String maskurl = itemmask.getProperty("maskurl");
-			if (maskurl==null) {
-				data.put("maskurl", maskurl);
+			if (itemmask!=null) {
+				data.put("maskurl",itemmask.getProperty("maskurl"));
+				data.put("audiourl", itemmask.getProperty("en_audiourl"));
+				data.put("selecteditemmask", itemmask.getId());
 			} else {
 				data.put("maskurl","");
+				data.put("audiourl","");
 			}
-			data.put("audiourl", itemmask.getProperty("en_audiourl"));
-			data.put("selecteditemmask", itemmask.getId());
+
 		}
 		
 		screen.get(selector).render(data);

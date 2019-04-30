@@ -86,6 +86,19 @@
 	left: 520px;
 }
 
+
+#station_setting_themecolor1label {
+	position: absolute;
+	top: 350px;
+	left: 20px;
+}
+
+#station_setting_themecolor1 {
+	position: absolute;
+	top: 350px;
+	left: 150px;
+}
+
 #station_setting_stylelabel {
 	position:absolute;
 	left: 20px;
