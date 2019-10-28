@@ -165,6 +165,9 @@ public class WaitScreenEditController extends Html5Controller{
 		node = new FsNode("apps","4");
 		node.setProperty("name","kenburn");
 		node.setProperty("labelname","kenburn");
+		node = new FsNode("apps","5");
+		node.setProperty("name","hue");
+		node.setProperty("labelname","hue");
 		list.addNode(node);
 		return list.toJSONObject("en","name,labelname");
     }

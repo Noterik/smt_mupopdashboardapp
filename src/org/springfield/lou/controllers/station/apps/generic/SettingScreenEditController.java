@@ -66,6 +66,11 @@ public class SettingScreenEditController extends Html5Controller{
 			data.put("themecolor1",themecolor1);
 		}
 		
+		String themebackground = model.getProperty("@station/content['contentselect']/themecolorbackground");
+		if (themebackground!=null && !themebackground.equals("")) {
+			data.put("themecolorbackground",themebackground);
+		}
+		
 		
 		screen.get(selector).render(data);
 		//screen.get("#station_waitscreen_appname").on("change","onAppNameChange", this);
@@ -73,6 +78,7 @@ public class SettingScreenEditController extends Html5Controller{
 		screen.get("#station_setting_delete").on("mouseup","station_setting_deleteconfirm","onDeleteStation", this);
 		screen.get("#station_setting_copy").on("mouseup","onCopyStation", this);
 		screen.get("#station_setting_themecolor1").on("change","onThemeColor1", this);
+		screen.get("#station_setting_themecolorbackground").on("change","onThemeColorBackground", this);
 
 		setUploadSettings("station_setting_waitscreenlogoupload");
 		screen.get("#station_setting_waitscreenlogouploadbutton").on("mouseup","station_setting_waitscreenlogoupload","onFile1Upload", this);
@@ -94,7 +100,12 @@ public class SettingScreenEditController extends Html5Controller{
 		String themecolor1 = (String)data.get("value");
 		model.setProperty("@station/content['contentselect']/themecolor1",themecolor1);
 		fillPage();
-
+	}
+	
+	public void onThemeColorBackground(Screen s,JSONObject data) {
+		String themecolor = (String)data.get("value");
+		model.setProperty("@station/content['contentselect']/themecolorbackground",themecolor);
+		fillPage();
 	}
 	
 	public void onCopyStation(Screen s,JSONObject data) {

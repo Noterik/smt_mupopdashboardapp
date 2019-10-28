@@ -96,7 +96,19 @@
 #station_setting_themecolor1 {
 	position: absolute;
 	top: 350px;
-	left: 150px;
+	left: 230px;
+}
+
+#station_setting_themecolorbackgroundlabel {
+	position: absolute;
+	top: 380px;
+	left: 20px;
+}
+
+#station_setting_themecolorbackground {
+	position: absolute;
+	top: 380px;
+	left: 230px;
 }
 
 #station_setting_stylelabel {

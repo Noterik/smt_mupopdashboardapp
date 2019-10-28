@@ -34,8 +34,11 @@
 	{{/applogoright}}
 	</div>
 	
-	<div id="station_setting_themecolor1label">Theme color 1</div>
+	<div id="station_setting_themecolor1label">Theme background logo</div>
 	<input type="input" id="station_setting_themecolor1" size="8" value="{{themecolor1}}" />
+	
+	<div id="station_setting_themecolorbackgroundlabel">Theme color background</div>
+	<input type="input" id="station_setting_themecolorbackground" size="8" value="{{themecolorbackground}}" />
 	
 	<div id="station_setting_deletelabel">Delete this station</div>
 	<button id="station_setting_delete">delete</button>
