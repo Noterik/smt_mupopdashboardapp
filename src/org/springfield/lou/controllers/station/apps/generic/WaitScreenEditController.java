@@ -21,6 +21,7 @@ package org.springfield.lou.controllers.station.apps.generic;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.springfield.fs.FSList;
@@ -58,7 +59,11 @@ public class WaitScreenEditController extends Html5Controller{
 		addWaitScreenLanguagesList(data,languagecode);
 		addImages(data);
 		data.put("title", model.getProperty("@station/"+languagecode+"_title"));
-
+		data.put("currentapp",currentapp);
+		if (currentapp!=null && currentapp.equals("hue")) {
+			data.put("hueapp","true");
+		}
+		System.out.println("CUR="+currentapp);
 		screen.get(selector).render(data);
 		screen.get("#station_waitscreen_appname").on("change","onAppNameChange", this);
 		screen.get("#station_waitscreen_language").on("change","onLanguageChange", this);
@@ -69,8 +74,17 @@ public class WaitScreenEditController extends Html5Controller{
 		model.onPropertiesUpdate("/screen/upload/station_waitscreen_image_upload","onUploadState",this);
 
 		screen.get(".waitscreen_deleteimage").on("mouseup","onDeleteImage", this);
+		screen.get(".station_waitscreen_wantedscene").on("change","onWantedSceneChange", this);
 		}
 	
+	public void onWantedSceneChange(Screen s,JSONObject data) {
+		String id = (String)data.get("id");
+		id = id.substring(id.lastIndexOf("_")+1);
+		String value = (String)data.get("value");
+		System.out.println("EEE="+id+" v="+value);
+		
+		model.setProperty("@content/image/"+id+"/scene",value);
+	}
 
 
 	public void onTitleChange(Screen s,JSONObject data) {
@@ -110,9 +124,31 @@ public class WaitScreenEditController extends Html5Controller{
 	
 	private void addImages(JSONObject data) {
 		FSList imagesList = model.getList("@images");
-		JSONObject images = imagesList.toJSONObject("en","url");
+		JSONObject images = imagesList.toJSONObject("en","url,scene");
 		data.put("images",images);
 	}
+	
+	/*
+	private void addImagesHue(JSONObject data) {
+		FSList imagesList = model.getList("@images");
+		
+		FSList resultlist =new FSList();
+		List<FsNode> nodes = imagesList.getNodes();
+		if (nodes != null) {
+			for (Iterator<FsNode> iter = nodes.iterator(); iter.hasNext();) {
+				FsNode node = (FsNode) iter.next();
+				node.setProperty("wanted, value);
+				resultlist.addNode(node);
+			}
+		}
+		
+		JSONObject images = imagesList.toJSONObject("en","url,wantedscene");
+		data.put("images",images);
+	}
+	*/
+
+	
+
 	
 	   private void addWaitScreenLanguagesList(JSONObject data,String currentcode) {
 		    String current="";
