@@ -42,6 +42,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	
 	public void attach(String sel) {
 		selector = sel;
+		System.out.println("STARTED EDITOR FOR DECK OF CARDS");
 		fillPage();
 	}
 	
@@ -157,7 +158,15 @@ public class PhotoExploreMainAppController extends Html5Controller{
 	
 	private void addImages(JSONObject data) {
 		FSList imagesList = model.getList("@itemimages");
-		JSONObject images = imagesList.toJSONObject("en","url");
+		for (Iterator<FsNode> iter = imagesList.getNodes().iterator(); iter.hasNext();) {
+			FsNode node = (FsNode) iter.next();
+			System.out.println("URL="+node.asXML());
+			String url = node.getProperty("url");
+			if (url!=null && url.toLowerCase().endsWith(".mp4")) {
+				node.setProperty("mp4","true");
+			}
+		}
+		JSONObject images = imagesList.toJSONObject("en","url,mp4");
 		data.put("images",images);
 	}
 	
@@ -208,6 +217,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 				} else {
 					node.setProperty("classname","station_mainapp_item");	
 				}
+				System.out.println("AUDIO="+node.asIndex());
 				resultitems.addNode(node);
 			}
 		}
@@ -223,7 +233,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		if (progress!=null && progress.equals("100") && !uploaddone) {
 			uploaddone=true;
 			//screen.get("#appeditor_content_preview").html("<image width=\"100%\" height=\"100%\" src=\""+ps.getProperty("url")+"\" />");
-			//System.out.println("UPLOAD DONE SHOULD CREATE NODE !");
+			System.out.println("UPLOAD 100% DONE SHOULD CREATE NODE !");
     		FsNode imagenode = new FsNode("image",""+new Date().getTime());
     		imagenode.setProperty("url",ps.getProperty("url"));
     		
@@ -269,7 +279,7 @@ public class PhotoExploreMainAppController extends Html5Controller{
 		model.setProperty("@upload/publicpath","https://s3-eu-west-1.amazonaws.com/");
 		model.setProperty("@upload/destname_type","epoch");
 		model.setProperty("@upload/filetype","image");
-		model.setProperty("@upload/fileext","png,jpg,jpeg,gif,JPG,PNG,GIF,JPEG");
+		model.setProperty("@upload/fileext","png,jpg,jpeg,gif,JPG,PNG,GIF,JPEG,mp4,MP4");
 		model.setProperty("@upload/checkupload","true");
 	}
 	
